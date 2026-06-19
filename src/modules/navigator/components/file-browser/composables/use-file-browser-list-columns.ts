@@ -18,7 +18,8 @@ import { computed, ref } from 'vue';
 import { useUserSettingsStore } from '@/stores/storage/user-settings';
 import type { ListColumnVisibility, ListSortColumn } from '@/types/user-settings';
 
-export type ListColumnKey = ListSortColumn;
+// `sizeBar` is a display-only column (relative-size bar), not a sort column.
+export type ListColumnKey = ListSortColumn | 'sizeBar';
 
 // Minimum width per column (px). Name keeps a larger floor so the icon + label
 // stay legible; metadata columns can shrink further.
@@ -27,6 +28,7 @@ export const LIST_COLUMN_MIN_WIDTHS: Record<ListColumnKey, number> = {
   type: 60,
   items: 60,
   size: 60,
+  sizeBar: 80,
   modified: 90,
   created: 90,
   tags: 80,
@@ -39,6 +41,7 @@ export const LIST_METADATA_COLUMN_ORDER: Exclude<ListColumnKey, 'name'>[] = [
   'type',
   'items',
   'size',
+  'sizeBar',
   'modified',
   'created',
   'tags',

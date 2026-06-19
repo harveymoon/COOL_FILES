@@ -289,6 +289,7 @@ export type ListColumnVisibility = {
   type: boolean;
   items: boolean;
   size: boolean;
+  sizeBar: boolean;
   modified: boolean;
   created: boolean;
   tags: boolean;
@@ -298,7 +299,9 @@ export type ListSortColumn = 'name' | 'type' | 'items' | 'size' | 'modified' | '
 
 // Per-column pixel widths for the list layout, keyed by column. Set when the
 // user drags a column's resize handle in the list header.
-export type ListColumnWidths = Record<ListSortColumn, number>;
+// `sizeBar` is a display-only column (a relative-size bar), not sortable, so it
+// is not part of ListSortColumn but still has a visibility flag and width.
+export type ListColumnWidths = Record<ListSortColumn | 'sizeBar', number>;
 
 export type ListSortDirection = 'asc' | 'desc';
 

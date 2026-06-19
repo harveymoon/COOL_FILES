@@ -848,6 +848,8 @@
     "type": "Type",
     "folder": "Folder",
     "size": "Size",
+    "sizeBar": "Size %",
+    "sizeBarTitle": "{percent} of this folder's total size",
     "modified": "Modified",
     "listModifiedDate": {
       "todayAt": "Today at {time}",

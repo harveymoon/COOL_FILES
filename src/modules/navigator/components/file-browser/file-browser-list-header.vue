@@ -119,6 +119,10 @@ const columnOptions = computed<{
     label: t('fileBrowser.size'),
   },
   {
+    key: 'sizeBar',
+    label: t('fileBrowser.sizeBar'),
+  },
+  {
     key: 'modified',
     label: t('fileBrowser.modified'),
   },
@@ -298,6 +302,23 @@ const columnOptions = computed<{
             />
           </div>
           <div
+            v-if="columnVisibility.sizeBar"
+            class="file-browser-list-view__header-cell"
+          >
+            <span class="file-browser-list-view__header-item file-browser-list-view__header-sizebar">
+              {{ t('fileBrowser.sizeBar') }}
+            </span>
+            <div
+              class="file-browser-list-view__header-resizer"
+              :class="{ 'file-browser-list-view__header-resizer--active': resizingKey === 'sizeBar' }"
+              :title="t('fileBrowser.resizeColumn')"
+              @pointerdown="onResizePointerDown('sizeBar', $event)"
+              @pointermove="onResizePointerMove"
+              @pointerup="onResizePointerUp"
+              @pointercancel="onResizePointerUp"
+            />
+          </div>
+          <div
             v-if="columnVisibility.modified"
             class="file-browser-list-view__header-cell"
           >
@@ -435,6 +456,14 @@ const columnOptions = computed<{
                   @update:model-value="toggleColumnVisibility('size', $event as boolean)"
                 />
                 <Label for="column-size">{{ t('fileBrowser.size') }}</Label>
+              </div>
+              <div class="file-browser-list-view__columns-option">
+                <Checkbox
+                  id="column-size-bar"
+                  :model-value="columnVisibility.sizeBar"
+                  @update:model-value="toggleColumnVisibility('sizeBar', $event as boolean)"
+                />
+                <Label for="column-size-bar">{{ t('fileBrowser.sizeBar') }}</Label>
               </div>
               <div class="file-browser-list-view__columns-option">
                 <Checkbox

@@ -39,6 +39,7 @@ const columnVisibility = computed(() => userSettingsStore.userSettings.navigator
 const showTypeColumn = computed(() => columnVisibility.value.type);
 const showItemsColumn = computed(() => columnVisibility.value.items);
 const showSizeColumn = computed(() => columnVisibility.value.size);
+const showSizeBarColumn = computed(() => columnVisibility.value.sizeBar);
 const showModifiedColumn = computed(() => columnVisibility.value.modified);
 const showCreatedColumn = computed(() => columnVisibility.value.created);
 const showTagsColumn = computed(() => columnVisibility.value.tags);
@@ -93,6 +94,62 @@ function getSizeDisplay(entry: DirEntry): string | null {
   }
 
   return formatBytes(sizeInfo.size);
+}
+
+// Effective size used for the relative-size bar: files use their own size;
+// folders use the lazily-computed directory size if it's available yet.
+function getEffectiveSize(entry: DirEntry): number {
+  if (entry.is_file) {
+    return entry.size;
+  }
+
+  const sizeInfo = dirSizesStore.getSize(entry.path);
+  return sizeInfo && sizeInfo.size > 0 ? sizeInfo.size : 0;
+}
+
+// Total size of the items in the current directory. Reactive to folder sizes as
+// they finish computing, so the bars settle once directory sizes are known.
+const directoryTotalSize = computed(() =>
+  ctx.entries.value.reduce((total, entry) => total + getEffectiveSize(entry), 0),
+);
+
+function getSizePercent(entry: DirEntry): number {
+  const total = directoryTotalSize.value;
+
+  if (total <= 0) {
+    return 0;
+  }
+
+  return (getEffectiveSize(entry) / total) * 100;
+}
+
+function getSizePercentLabel(entry: DirEntry): string {
+  const percent = getSizePercent(entry);
+
+  if (percent <= 0) {
+    return '0%';
+  }
+
+  if (percent < 0.1) {
+    return '<0.1%';
+  }
+
+  if (percent < 10) {
+    return `${percent.toFixed(1)}%`;
+  }
+
+  return `${Math.round(percent)}%`;
+}
+
+function getSizeBarFillStyle(entry: DirEntry): Record<string, string> {
+  const percent = getSizePercent(entry);
+  return {
+    width: percent > 0 ? `max(${Math.min(percent, 100)}%, 3px)` : '0',
+  };
+}
+
+function getSizeBarTitle(entry: DirEntry): string {
+  return t('fileBrowser.sizeBarTitle', { percent: getSizePercentLabel(entry) });
 }
 
 function getTypeDisplay(entry: DirEntry): string {
@@ -235,6 +292,19 @@ const { clockRef: listModifiedClock } = useRelativeDateDisplayClock(shouldTrackL
               class="file-browser-list-view__size-skeleton"
             />
             <template v-else>{{ getSizeDisplay(row.entry) }}</template>
+          </span>
+          <span
+            v-if="showSizeBarColumn"
+            class="file-browser-list-view__entry-size-bar"
+            :title="getSizeBarTitle(row.entry)"
+          >
+            <span class="file-browser-list-view__size-bar-track">
+              <span
+                class="file-browser-list-view__size-bar-fill"
+                :style="getSizeBarFillStyle(row.entry)"
+              />
+            </span>
+            <span class="file-browser-list-view__size-bar-value">{{ getSizePercentLabel(row.entry) }}</span>
           </span>
           <span
             v-if="showModifiedColumn"
@@ -424,6 +494,41 @@ const { clockRef: listModifiedClock } = useRelativeDateDisplayClock(shouldTrackL
 .file-browser-list-view__size-skeleton {
   width: 50px;
   height: 12px;
+}
+
+.file-browser-list-view__entry-size-bar {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 8px;
+}
+
+.file-browser-list-view__size-bar-track {
+  position: relative;
+  overflow: hidden;
+  flex: 1;
+  min-width: 0;
+  height: 6px;
+  border-radius: 3px;
+  background-color: hsl(var(--foreground) / 8%);
+}
+
+.file-browser-list-view__size-bar-fill {
+  display: block;
+  height: 100%;
+  border-radius: 3px;
+  background-color: hsl(var(--primary) / 70%);
+}
+
+.file-browser-list-view__size-bar-value {
+  flex-shrink: 0;
+  min-width: 32px;
+  color: hsl(var(--muted-foreground));
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
 }
 
 .file-browser-list-view__spinner {

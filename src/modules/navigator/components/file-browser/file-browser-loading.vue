@@ -37,6 +37,10 @@ const columnVisibility = computed(() => userSettingsStore.userSettings.navigator
           class="file-browser-loading__size"
         />
         <Skeleton
+          v-if="columnVisibility.sizeBar"
+          class="file-browser-loading__size-bar"
+        />
+        <Skeleton
           v-if="columnVisibility.modified"
           class="file-browser-loading__modified"
         />
@@ -99,6 +103,13 @@ const columnVisibility = computed(() => userSettingsStore.userSettings.navigator
   width: 50px;
   height: 14px;
   border-radius: 4px;
+}
+
+.file-browser-loading__size-bar {
+  width: 100px;
+  height: 6px;
+  align-self: center;
+  border-radius: 3px;
 }
 
 .file-browser-loading__modified,
