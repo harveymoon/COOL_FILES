@@ -17,8 +17,8 @@ use crate::utils::unique_path_with_index;
 
 const RELEASES_ATOM_URL: &str =
     "https://github.com/harveymoon/COOL_FILES/releases.atom";
-const GITHUB_REPO_OWNER: &str = "aleksey-hoffman";
-const GITHUB_REPO_NAME: &str = "cool_files";
+const GITHUB_REPO_OWNER: &str = "harveymoon";
+const GITHUB_REPO_NAME: &str = "COOL_FILES";
 const MAX_INSTALLER_DOWNLOAD_BYTES: u64 = 512 * 1024 * 1024;
 const CONNECT_TIMEOUT_SECS: u64 = 5;
 const UPDATE_CHECK_TIMEOUT_SECS: u64 = 10;
