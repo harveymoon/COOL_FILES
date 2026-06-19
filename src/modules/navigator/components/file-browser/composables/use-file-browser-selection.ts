@@ -54,6 +54,7 @@ export function useFileBrowserSelection(
     wasSelected: false,
     awaitsSecondClick: false,
     lastMouseUpTime: 0,
+    lastMouseUpPath: '',
     ctrlKey: false,
     shiftKey: false,
   });
@@ -259,10 +260,14 @@ export function useFileBrowserSelection(
       return;
     }
 
-    const { wasSelected, awaitsSecondClick, lastMouseUpTime, ctrlKey, shiftKey } = mouseDownState.value;
+    const { wasSelected, awaitsSecondClick, lastMouseUpTime, lastMouseUpPath, ctrlKey, shiftKey } = mouseDownState.value;
     const currentTime = Date.now();
     const timeSinceLastClick = currentTime - lastMouseUpTime;
-    const isDoubleClick = awaitsSecondClick && timeSinceLastClick <= UI_CONSTANTS.DOUBLE_CLICK_DELAY;
+    // Only treat as a double-click when the second click lands on the SAME entry;
+    // otherwise quickly clicking two different files could open the second one.
+    const isDoubleClick = awaitsSecondClick
+      && lastMouseUpPath === entry.path
+      && timeSinceLastClick <= UI_CONSTANTS.DOUBLE_CLICK_DELAY;
 
     if (isDoubleClick && !ctrlKey && !shiftKey) {
       mouseDownState.value.awaitsSecondClick = false;
@@ -273,6 +278,7 @@ export function useFileBrowserSelection(
 
     mouseDownState.value.awaitsSecondClick = true;
     mouseDownState.value.lastMouseUpTime = currentTime;
+    mouseDownState.value.lastMouseUpPath = entry.path;
 
     if (shiftKey) {
       // Already handled in mousedown
