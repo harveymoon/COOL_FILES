@@ -13,11 +13,12 @@ import { ScrollBar } from '@/components/ui/scroll-area';
 import FileBrowserListHeader from './file-browser-list-header.vue';
 import FileBrowserContentBody from './file-browser-content-body.vue';
 import FileBrowserColumnsView from './file-browser-columns-view.vue';
+import FileBrowserTreeView from './file-browser-tree-view.vue';
 import { useFileBrowserContext } from './composables/use-file-browser-context';
 import { useFileBrowserListColumns } from './composables/use-file-browser-list-columns';
 
 const props = withDefaults(defineProps<{
-  layout?: 'list' | 'grid' | 'columns';
+  layout?: 'list' | 'grid' | 'columns' | 'tree';
   trackRelativeTime?: boolean;
 }>(), {
   layout: undefined,
@@ -34,6 +35,8 @@ const { columnsTemplate } = useFileBrowserListColumns();
     :style="{ '--file-browser-list-columns': columnsTemplate }"
   >
     <FileBrowserColumnsView v-if="props.layout === 'columns'" />
+
+    <FileBrowserTreeView v-else-if="props.layout === 'tree'" />
 
     <ScrollAreaRoot
       v-else

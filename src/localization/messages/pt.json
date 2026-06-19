@@ -897,7 +897,9 @@
     },
     "type": "Type",
     "folder": "Folder",
-    "resizeColumn": "Drag to resize column"
+    "resizeColumn": "Drag to resize column",
+    "sizeBar": "Size %",
+    "sizeBarTitle": "{percent} of this folder's total size"
   },
   "openWith": {
     "loadingPrograms": "Carregando programas...",

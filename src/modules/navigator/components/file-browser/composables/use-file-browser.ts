@@ -46,7 +46,7 @@ import { getFileBrowserGridEntryOrder } from '../file-browser-entry-groups';
 
 export interface UseFileBrowserOptions {
   tab: () => Tab | undefined;
-  layout: () => 'list' | 'grid' | 'columns' | undefined;
+  layout: () => 'list' | 'grid' | 'columns' | 'tree' | undefined;
   externalEntries?: () => DirEntry[];
   basePath?: () => string;
   onSelectedEntriesChange: (entries: DirEntry[]) => void;

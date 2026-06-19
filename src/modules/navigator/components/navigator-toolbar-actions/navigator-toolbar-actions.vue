@@ -25,7 +25,7 @@ import {
 } from './toolbar-actions';
 import { getToolbarWidgetDefinition } from './toolbar-widgets';
 
-type LayoutType = 'list' | 'grid' | 'columns';
+type LayoutType = 'list' | 'grid' | 'columns' | 'tree';
 
 const props = defineProps<{
   isSplitView: boolean;
@@ -95,6 +95,7 @@ const LAYOUT_BY_ACTION: Partial<Record<ToolbarActionId, LayoutType>> = {
   layoutList: 'list',
   layoutGrid: 'grid',
   layoutColumns: 'columns',
+  layoutTree: 'tree',
 };
 
 async function setLayout(layoutName: LayoutType) {
@@ -102,6 +103,7 @@ async function setLayout(layoutName: LayoutType) {
     list: 'listLayout',
     grid: 'gridLayout',
     columns: 'columnsLayout',
+    tree: 'treeLayout',
   } as const;
   await userSettingsStore.set('navigator.layout.type', {
     title: layoutTitleByName[layoutName],

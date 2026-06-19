@@ -311,7 +311,7 @@ function createGridRows(entries: readonly DirEntry[], columnCount: number): File
 
 export function createFileBrowserVirtualRows(options: {
   entries: readonly DirEntry[];
-  layout: 'list' | 'grid' | 'columns' | undefined;
+  layout: 'list' | 'grid' | 'columns' | 'tree' | undefined;
   viewportWidth: number;
   entryDescription?: (entry: DirEntry) => string | undefined;
 }): FileBrowserVirtualRow[] {
@@ -350,7 +350,7 @@ export function getFileBrowserGridNavigationEntry(
 
 export function useFileBrowserVirtualLayout(options: {
   entries: ComputedRef<DirEntry[]>;
-  layout: () => 'list' | 'grid' | 'columns' | undefined;
+  layout: () => 'list' | 'grid' | 'columns' | 'tree' | undefined;
   entryDescription?: (entry: DirEntry) => string | undefined;
 }) {
   const scrollViewportRef = ref<HTMLElement | null>(null);

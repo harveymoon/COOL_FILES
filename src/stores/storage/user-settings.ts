@@ -156,6 +156,10 @@ export const useUserSettingsStore = defineStore('userSettings', () => {
             kind: 'action',
             id: 'layoutColumns',
           },
+          {
+            kind: 'action',
+            id: 'layoutTree',
+          },
           { kind: 'separator' },
           {
             kind: 'action',

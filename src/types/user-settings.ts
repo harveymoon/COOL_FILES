@@ -334,6 +334,7 @@ export type ToolbarActionId
   = 'layoutList'
     | 'layoutGrid'
     | 'layoutColumns'
+    | 'layoutTree'
     | 'splitView'
     | 'infoPanel'
     | 'newFolder'
@@ -396,8 +397,8 @@ export type NavigatorSidebarSettings = {
 
 export type NavigatorLayout = {
   type: {
-    title: 'compactListLayout' | 'listLayout' | 'gridLayout' | 'columnsLayout';
-    name: 'compact-list' | 'list' | 'grid' | 'columns';
+    title: 'compactListLayout' | 'listLayout' | 'gridLayout' | 'columnsLayout' | 'treeLayout';
+    name: 'compact-list' | 'list' | 'grid' | 'columns' | 'tree';
   };
   dirItemOptions: {
     title: {

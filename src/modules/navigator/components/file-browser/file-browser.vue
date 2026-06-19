@@ -25,7 +25,7 @@ import type { AddressBarEditorMode } from './address-bar-editor-utils';
 const props = withDefaults(defineProps<{
   tab?: Tab;
   paneIndex?: number;
-  layout?: 'list' | 'grid' | 'columns';
+  layout?: 'list' | 'grid' | 'columns' | 'tree';
   externalEntries?: DirEntry[];
   basePath?: string;
   hideToolbar?: boolean;
