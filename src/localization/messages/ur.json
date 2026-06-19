@@ -184,7 +184,17 @@
     "setPreviousBackground": "پچھلا پس منظر",
     "dropZoneClickToBrowse": "تصاویر یا ویڈیوز چننے کے لیے کلک کریں",
     "dropZoneOrDropFiles": "یا فائلیں یہاں گھسیٹ کر چھوڑیں",
-    "addMediaUrlPlaceholder": "تصویر یا ویڈیو URL چسپاں کریں"
+    "addMediaUrlPlaceholder": "تصویر یا ویڈیو URL چسپاں کریں",
+    "editLayout": "Edit layout",
+    "doneEditing": "Done",
+    "editLayoutHint": "Drag tiles to rearrange. Drag directory tiles between sections, or remove them. Add groups to organize your folders.",
+    "addGroup": "Add group",
+    "newGroupTitle": "New group",
+    "deleteGroup": "Delete group",
+    "renameGroup": "Group name",
+    "addDirectory": "Add directory",
+    "emptyGroup": "Drag directories here or click \"Add directory\"",
+    "reorderGroup": "Drag to reorder"
   },
   "navigator": {
     "newDirectoryFile": "نیا فولڈر / فائل",
@@ -367,7 +377,26 @@
       "navigatorOptions": "نیویگیٹر اختیارات",
       "systemIcons": "آئیکن تھیم",
       "systemIconsDirectories": "فولڈر",
-      "systemIconsFiles": "فائلیں"
+      "systemIconsFiles": "فائلیں",
+      "toolbarCustomization": "Toolbar buttons",
+      "toolbarCustomizationDescription": "Reorder, show, hide, and group the buttons in the navigator toolbar. Drag to reorder.",
+      "sidebarCustomization": "Sidebar buttons",
+      "sidebarCustomizationDescription": "Reorder and show or hide the page buttons in the left sidebar. Drag to reorder.",
+      "toolbarSeparator": "Separator",
+      "toolbarEmpty": "No buttons. Add some below.",
+      "toolbarAddAction": "Add button",
+      "toolbarAddSeparator": "Add separator",
+      "toolbarReset": "Reset to default",
+      "toolbarPreview": "Toolbar",
+      "toolbarUnused": "Unused items",
+      "toolbarDragHint": "Drag icons to reorder. Drag into Unused to remove, or back onto the toolbar to add.",
+      "customizeTitle": "Toolbar & sidebar buttons",
+      "customizeDescription": "Customize which buttons appear in the navigator toolbar and the left sidebar, and their order. Editing happens in place on the navigator.",
+      "customizeButton": "Customize toolbar & sidebar",
+      "editSheetTitle": "Customizing toolbar & sidebar",
+      "editSheetHint": "Drag items onto the toolbar or sidebar to add them, or drag them off into here to remove. Drag a separator onto the toolbar to group buttons.",
+      "editDone": "Done",
+      "autoShowDrives": "Auto-show drives in sidebar"
     },
     "tabs": {
       "lastTabCloseBehavior": {
@@ -417,8 +446,18 @@
     },
     "experimental": {
       "defaultFileManager": {
-        "title": "Sigma File Manager کو ڈیفالٹ فائل مینیجر بنائیں",
+        "title": "Cool Files کو ڈیفالٹ فائل مینیجر بنائیں",
         "description": "یہ اختیار سسٹم رجسٹری بدلتا ہے اور غیر متوقع اثر کر سکتا ہے۔ اپنے خطرے پر آگے بڑھیں۔"
+      }
+    },
+    "appearance": {
+      "loadAnimations": {
+        "title": "Load-in animations",
+        "description": "Animate panels and items as they appear on the Home, Settings, Dashboard, and Extensions pages.",
+        "enable": "Enable load-in animations",
+        "speed": "Speed (duration)",
+        "cascade": "Cascade (stagger)",
+        "milliseconds": "{value} ms"
       }
     }
   },
@@ -436,7 +475,8 @@
     "dataStorage": "ڈیٹا اور اسٹوریج",
     "extensions": "ایکسٹینشن",
     "stats": "اعداد و شمار",
-    "experimental": "تجرباتی"
+    "experimental": "تجرباتی",
+    "navigator": "Navigator"
   },
   "settingsTags": {
     "language": "زبان, language",
@@ -463,7 +503,8 @@
     "experimental": "تجرباتی, ٹرمینل, رجسٹری, ڈیفالٹ فائل مینیجر",
     "whatsNew": "نیا کیا ہے, changelog, ریلیز",
     "autostart": "سٹارٹ اپ, بوٹ, لاگ ان",
-    "extensions": "ایکسٹینشن, plugins, addons"
+    "extensions": "ایکسٹینشن, plugins, addons",
+    "loadAnimations": "animation, animations, fade, slide, cascade, stagger, motion, transition, effects"
   },
   "drag": {
     "holdShiftToChangeMode": "موڈ بدلنے کے لیے [Shift] دبائے رکھیں",
@@ -550,7 +591,10 @@
     "moveSelectedItemsToTrash": "ری سائیکل بن میں بھیجیں",
     "deleteSelectedItemsFromDrive": "ڈرائیو سے حذف کریں",
     "moveCurrentDirectoryToTrash": "موجودہ ڈائریکٹری کو ری سائیکل بن میں بھیجیں",
-    "deleteCurrentDirectoryFromDrive": "موجودہ ڈائریکٹری کو ڈرائیو سے حذف کریں"
+    "deleteCurrentDirectoryFromDrive": "موجودہ ڈائریکٹری کو ڈرائیو سے حذف کریں",
+    "setLayoutList": "Switch to list layout",
+    "setLayoutGrid": "Switch to grid layout",
+    "setLayoutColumns": "Switch to columns layout"
   },
   "dialogs": {
     "homeBannerPickerDialog": {
@@ -861,7 +905,8 @@
       "share": "LAN شیئر",
       "openInNewTab": "نئے ٹیب میں",
       "addToFavorites": "پسندیدہ میں",
-      "removeFromFavorites": "پسندیدہ سے"
+      "removeFromFavorites": "پسندیدہ سے",
+      "cut": "Cut"
     },
     "archive": {
       "extract": "نکالیں",
@@ -880,7 +925,10 @@
       "errors": {
         "destinationInsideSelectedFolder": "منزل آرکائیو منتخب فولڈرز میں سے ایک کے اندر ہے"
       }
-    }
+    },
+    "type": "Type",
+    "folder": "Folder",
+    "resizeColumn": "Drag to resize column"
   },
   "openWith": {
     "loadingPrograms": "پروگرامز لوڈ ہو رہے ہیں…",
@@ -1001,7 +1049,7 @@
     },
     "badges": {
       "official": "سرکاری",
-      "officialTooltip": "Sigma File Manager ٹیم بناتی اور رکھتی ہے",
+      "officialTooltip": "Cool Files ٹیم بناتی اور رکھتی ہے",
       "community": "کمیونٹی",
       "communityTooltip": "کمیونٹی ایکسٹینشن؛ انسٹال سے پہلے سورس دیکھیں۔",
       "local": "مقامی",
@@ -1063,5 +1111,15 @@
     "replaceShareDialogTitle": "موجودہ شیئر بدلیں؟",
     "replaceShareDialogDescription": "فائلیں پہلے سے نیٹ ورک پر ہیں۔ موجودہ شیئر بند ہو کر نئے سے بدل جائے گا۔",
     "replaceShareDialogConfirm": "بدل دیں"
-  }
+  },
+  "columns": "Columns",
+  "columnsLayout": "Columns layout",
+  "nav": {
+    "pinDrive": "Pin drive to sidebar",
+    "unpinDrive": "Unpin drive from sidebar",
+    "pinShortcut": "Pin shortcut to sidebar",
+    "removeShortcut": "Remove shortcut",
+    "dropToPin": "Drop a folder to pin it"
+  },
+  "remove": "Remove"
 }

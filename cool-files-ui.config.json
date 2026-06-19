@@ -1,5 +1,5 @@
 {
-  "$schema": "https://sigma-ui.dev/schema.json",
+  "$schema": "https://cool-files-ui.dev/schema.json",
   "styleSystem": "css",
   "tsConfigPath": "tsconfig.json",
   "setupTailwind": false,

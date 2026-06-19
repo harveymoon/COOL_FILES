@@ -57,7 +57,7 @@ function handleClick() {
 </template>
 
 <style scoped>
-.global-search-toolbar-button :deep(.sigma-ui-button) {
+.global-search-toolbar-button :deep(.cool-files-ui-button) {
   width: 28px;
   height: 28px;
 }

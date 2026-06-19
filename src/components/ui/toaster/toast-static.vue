@@ -32,10 +32,10 @@ const { t } = useI18n();
 </script>
 
 <template>
-  <ToastCard class="sigma-ui-toast-static">
-    <div class="sigma-ui-toast-static__head">
+  <ToastCard class="cool-files-ui-toast-static">
+    <div class="cool-files-ui-toast-static__head">
       <ToastHeader
-        class="sigma-ui-toast-static__header"
+        class="cool-files-ui-toast-static__header"
         :title="props.data.title"
         :subtitle="props.data.subtitle"
         :item-count="props.data.itemCount"
@@ -46,7 +46,7 @@ const { t } = useI18n();
         v-if="props.data.onDismiss"
         variant="ghost"
         size="xs"
-        class="sigma-ui-toast-static__close"
+        class="cool-files-ui-toast-static__close"
         type="button"
         :aria-label="t('notifications.hideNotification')"
         @click="props.data.onDismiss()"
@@ -56,17 +56,17 @@ const { t } = useI18n();
     </div>
     <ScrollArea
       v-if="props.data.description"
-      class="sigma-ui-toast-static__description-scroll"
+      class="cool-files-ui-toast-static__description-scroll"
     >
-      <div class="sigma-ui-toast-static__description">
+      <div class="cool-files-ui-toast-static__description">
         {{ props.data.description }}
       </div>
     </ScrollArea>
     <div
       v-if="props.data.actionText || props.data.secondaryActionText"
-      class="sigma-ui-toast-static__toolbar"
+      class="cool-files-ui-toast-static__toolbar"
     >
-      <div class="sigma-ui-toast-static__toolbar-buttons">
+      <div class="cool-files-ui-toast-static__toolbar-buttons">
         <Button
           v-if="props.data.secondaryActionText"
           size="xs"
@@ -88,7 +88,7 @@ const { t } = useI18n();
 </template>
 
 <style>
-.sigma-ui-toast-static__head {
+.cool-files-ui-toast-static__head {
   display: flex;
   width: 100%;
   min-width: 0;
@@ -96,21 +96,21 @@ const { t } = useI18n();
   gap: 0.25rem;
 }
 
-.sigma-ui-toast-static__header {
+.cool-files-ui-toast-static__header {
   min-width: 0;
   flex: 1;
 }
 
-.sigma-ui-toast-static__close {
+.cool-files-ui-toast-static__close {
   flex-shrink: 0;
 }
 
-.sigma-ui-toast-static__description-scroll {
+.cool-files-ui-toast-static__description-scroll {
   width: 100%;
   max-height: 200px;
 }
 
-.sigma-ui-toast-static__description {
+.cool-files-ui-toast-static__description {
   width: 100%;
   color: hsl(var(--muted-foreground));
   font-size: 0.875rem;
@@ -119,14 +119,14 @@ const { t } = useI18n();
   white-space: pre-wrap;
 }
 
-.sigma-ui-toast-static__toolbar {
+.cool-files-ui-toast-static__toolbar {
   display: flex;
   width: 100%;
   align-items: center;
   padding-top: 0.25rem;
 }
 
-.sigma-ui-toast-static__toolbar-buttons {
+.cool-files-ui-toast-static__toolbar-buttons {
   display: flex;
   flex-wrap: wrap;
   align-items: center;

@@ -105,7 +105,7 @@ async function handleExtensionAction(registration: ContextMenuItemRegistration) 
 </template>
 
 <style>
-.dir-entry-context-menu.sigma-ui-context-menu-content {
+.dir-entry-context-menu.cool-files-ui-context-menu-content {
   min-width: 250px;
   max-width: 300px;
   padding: 8px;

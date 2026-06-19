@@ -567,7 +567,7 @@ async function handleExtensionAction(registration: ContextMenuItemRegistration) 
   height: 200px;
 }
 
-.file-browser-status-bar__scroll-area :deep(.sigma-ui-scroll-area-scrollbar) {
+.file-browser-status-bar__scroll-area :deep(.cool-files-ui-scroll-area-scrollbar) {
   right: -6px;
 }
 
@@ -636,7 +636,7 @@ async function handleExtensionAction(registration: ContextMenuItemRegistration) 
 </style>
 
 <style>
-.file-browser-status-bar__item .file-browser-status-bar__item-remove.sigma-ui-button.sigma-ui-button--size-icon {
+.file-browser-status-bar__item .file-browser-status-bar__item-remove.cool-files-ui-button.cool-files-ui-button--size-icon {
   width: 36px;
   height: auto;
   min-height: 100%;

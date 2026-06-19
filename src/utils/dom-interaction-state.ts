@@ -18,7 +18,7 @@ export function isDialogOpened(): boolean {
   const dialogs = document.querySelectorAll('[role="dialog"]');
 
   for (const dialog of dialogs) {
-    if (!dialog.classList.contains('sigma-ui-popover-content')) {
+    if (!dialog.classList.contains('cool-files-ui-popover-content')) {
       return true;
     }
   }

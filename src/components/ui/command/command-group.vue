@@ -15,11 +15,11 @@ const props = defineProps<ComboboxGroupProps & {
 <template>
   <ComboboxGroup
     v-bind="props"
-    class="sigma-ui-command-group text-xs"
+    class="cool-files-ui-command-group text-xs"
   >
     <ComboboxLabel
       v-if="heading"
-      class="sigma-ui-command-group__heading"
+      class="cool-files-ui-command-group__heading"
     >
       {{ heading }}
     </ComboboxLabel>
@@ -28,13 +28,13 @@ const props = defineProps<ComboboxGroupProps & {
 </template>
 
 <style>
-.sigma-ui-command-group {
+.cool-files-ui-command-group {
   overflow: hidden;
   padding: 0.25rem;
   color: hsl(var(--foreground));
 }
 
-.sigma-ui-command-group [cmdk-group-heading] {
+.cool-files-ui-command-group [cmdk-group-heading] {
   padding: 0.375rem 0.5rem;
   color: hsl(var(--muted-foreground));
   font-size: 0.75rem;
@@ -42,7 +42,7 @@ const props = defineProps<ComboboxGroupProps & {
   line-height: 1rem;
 }
 
-.sigma-ui-command-group__heading {
+.cool-files-ui-command-group__heading {
   padding: 0.375rem 0.5rem;
   color: hsl(var(--muted-foreground));
   font-size: 0.75rem;

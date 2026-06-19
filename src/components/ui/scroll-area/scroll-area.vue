@@ -25,9 +25,9 @@ const props = withDefaults(defineProps<Props>(), {
 <template>
   <ScrollAreaRoot
     v-bind="props"
-    class="sigma-ui-scroll-area"
+    class="cool-files-ui-scroll-area"
   >
-    <ScrollAreaViewport class="sigma-ui-scroll-area__viewport">
+    <ScrollAreaViewport class="cool-files-ui-scroll-area__viewport">
       <slot />
     </ScrollAreaViewport>
     <ScrollBar
@@ -43,12 +43,12 @@ const props = withDefaults(defineProps<Props>(), {
 </template>
 
 <style>
-.sigma-ui-scroll-area {
+.cool-files-ui-scroll-area {
   position: relative;
   overflow: hidden;
 }
 
-.sigma-ui-scroll-area__viewport {
+.cool-files-ui-scroll-area__viewport {
   width: 100%;
   height: 100%;
   border: none;
@@ -56,7 +56,7 @@ const props = withDefaults(defineProps<Props>(), {
   outline: none;
 }
 
-.sigma-ui-scroll-area__viewport > div {
+.cool-files-ui-scroll-area__viewport > div {
   width: 100%;
   max-width: 100%;
 }

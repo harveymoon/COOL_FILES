@@ -6,20 +6,79 @@ Copyright © 2021 - present Aleksey Hoffman. All rights reserved.
 <script setup lang="ts">
 import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
-import { InfoIcon, Columns3Icon, ArrowUpIcon, ArrowDownIcon } from '@lucide/vue';
+import {
+  InfoIcon, Columns3Icon, ArrowUpIcon, ArrowDownIcon, CheckIcon,
+} from '@lucide/vue';
 import type { ListColumnVisibility, ListSortColumn } from '@/types/user-settings';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { Popover, PopoverTrigger, PopoverContent } from '@/components/ui/popover';
+import {
+  ContextMenu,
+  ContextMenuTrigger,
+  ContextMenuContent,
+  ContextMenuItem,
+  ContextMenuLabel,
+  ContextMenuSeparator,
+} from '@/components/ui/context-menu';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
 import { useUserSettingsStore } from '@/stores/storage/user-settings';
+import { useFileBrowserListColumns, type ListColumnKey } from './composables/use-file-browser-list-columns';
 
 const { t } = useI18n();
 const legendSizeText = '1.5 GB';
 const userSettingsStore = useUserSettingsStore();
 const isColumnsPopoverOpen = ref(false);
+
+const {
+  beginResize,
+  updateResize,
+  endResize,
+  widthOf,
+} = useFileBrowserListColumns();
+
+// Drives the column resize handles. While dragging, the live width is held by
+// the shared composable (applied to the grid every frame) and persisted on
+// release.
+const resizingKey = ref<ListColumnKey | null>(null);
+let resizeStartX = 0;
+let resizeStartWidth = 0;
+
+function onResizePointerDown(key: ListColumnKey, event: PointerEvent) {
+  // Don't let the pointerdown reach the column's sort button.
+  event.preventDefault();
+  event.stopPropagation();
+  resizingKey.value = key;
+  resizeStartX = event.clientX;
+  resizeStartWidth = widthOf(key);
+  beginResize(key);
+  (event.currentTarget as HTMLElement).setPointerCapture(event.pointerId);
+}
+
+function onResizePointerMove(event: PointerEvent) {
+  if (!resizingKey.value) {
+    return;
+  }
+
+  updateResize(resizingKey.value, resizeStartWidth + (event.clientX - resizeStartX));
+}
+
+function onResizePointerUp(event: PointerEvent) {
+  if (!resizingKey.value) {
+    return;
+  }
+
+  const target = event.currentTarget as HTMLElement;
+
+  if (target.hasPointerCapture?.(event.pointerId)) {
+    target.releasePointerCapture(event.pointerId);
+  }
+
+  resizingKey.value = null;
+  void endResize();
+}
 
 const columnVisibility = computed(() => userSettingsStore.userSettings.navigator.listColumnVisibility);
 const showItemsColumn = computed(() => columnVisibility.value.items);
@@ -40,226 +99,395 @@ function handleColumnHeaderClick(column: ListSortColumn) {
 function toggleColumnVisibility(column: keyof ListColumnVisibility, checked: boolean) {
   userSettingsStore.set(`navigator.listColumnVisibility.${column}`, checked);
 }
+
+// The toggleable columns (Name is always shown), shared by the columns popover
+// and the header right-click menu.
+const columnOptions = computed<{
+  key: keyof ListColumnVisibility;
+  label: string;
+}[]>(() => [
+  {
+    key: 'type',
+    label: t('fileBrowser.type'),
+  },
+  {
+    key: 'items',
+    label: t('items'),
+  },
+  {
+    key: 'size',
+    label: t('fileBrowser.size'),
+  },
+  {
+    key: 'modified',
+    label: t('fileBrowser.modified'),
+  },
+  {
+    key: 'created',
+    label: t('created'),
+  },
+  {
+    key: 'tags',
+    label: t('fileBrowser.tags'),
+  },
+]);
 </script>
 
 <template>
-  <div class="file-browser-list-view__header-container">
-    <div class="file-browser-list-view__header">
-      <button
-        type="button"
-        class="file-browser-list-view__header-item file-browser-list-view__header-item--sortable file-browser-list-view__header-name"
-        @click="handleColumnHeaderClick('name')"
-      >
-        {{ t('fileBrowser.name') }}
-        <ArrowUpIcon
-          v-if="listSortColumn === 'name' && listSortDirection === 'asc'"
-          :size="12"
-          class="file-browser-list-view__header-sort-icon"
-        />
-        <ArrowDownIcon
-          v-else-if="listSortColumn === 'name' && listSortDirection === 'desc'"
-          :size="12"
-          class="file-browser-list-view__header-sort-icon"
-        />
-      </button>
-      <button
-        v-if="showItemsColumn"
-        type="button"
-        class="file-browser-list-view__header-item file-browser-list-view__header-item--sortable file-browser-list-view__header-items"
-        @click="handleColumnHeaderClick('items')"
-      >
-        {{ t('items') }}
-        <ArrowUpIcon
-          v-if="listSortColumn === 'items' && listSortDirection === 'asc'"
-          :size="12"
-          class="file-browser-list-view__header-sort-icon"
-        />
-        <ArrowDownIcon
-          v-else-if="listSortColumn === 'items' && listSortDirection === 'desc'"
-          :size="12"
-          class="file-browser-list-view__header-sort-icon"
-        />
-      </button>
-      <Tooltip
-        v-if="columnVisibility.size"
-      >
-        <TooltipTrigger as-child>
-          <button
-            type="button"
-            class="file-browser-list-view__header-item file-browser-list-view__header-item--sortable file-browser-list-view__header-size file-browser-list-view__header-size--with-info"
-            @click="handleColumnHeaderClick('size')"
-          >
-            {{ t('fileBrowser.size') }}
-            <InfoIcon
-              :size="12"
-              class="file-browser-list-view__header-info-icon"
-            />
-            <ArrowUpIcon
-              v-if="listSortColumn === 'size' && listSortDirection === 'asc'"
-              :size="12"
-              class="file-browser-list-view__header-sort-icon"
-            />
-            <ArrowDownIcon
-              v-else-if="listSortColumn === 'size' && listSortDirection === 'desc'"
-              :size="12"
-              class="file-browser-list-view__header-sort-icon"
-            />
-          </button>
-        </TooltipTrigger>
-        <TooltipContent
-          side="bottom"
-          :side-offset="8"
-          class="file-browser-list-view__size-tooltip"
-        >
-          <div class="file-browser-list-view__size-tooltip-content">
-            <div class="file-browser-list-view__size-tooltip-title">
-              {{ t('fileBrowser.sizeTooltip.title') }}
-            </div>
-            <div class="file-browser-list-view__size-tooltip-body">
-              <div class="file-browser-list-view__size-tooltip-item">
-                <span class="file-browser-list-view__size-tooltip-label">{{ legendSizeText }}</span>
-                <span class="file-browser-list-view__size-tooltip-desc">{{ t('fileBrowser.sizeTooltip.exact') }}</span>
-              </div>
-              <div class="file-browser-list-view__size-tooltip-item">
-                <span class="file-browser-list-view__size-tooltip-label file-browser-list-view__size-tooltip-label--loading">
-                  <Skeleton class="file-browser-list-view__size-tooltip-skeleton" />
-                </span>
-                <span class="file-browser-list-view__size-tooltip-desc">{{ t('fileBrowser.sizeTooltip.loading') }}</span>
-              </div>
-              <div class="file-browser-list-view__size-tooltip-item">
-                <span class="file-browser-list-view__size-tooltip-label file-browser-list-view__size-tooltip-label--empty">—</span>
-                <span class="file-browser-list-view__size-tooltip-desc">{{ t('fileBrowser.sizeTooltip.notCalculated') }}</span>
-              </div>
-            </div>
-            <div class="file-browser-list-view__size-tooltip-note">
-              {{ t('fileBrowser.sizeTooltip.note') }}
-            </div>
-          </div>
-        </TooltipContent>
-      </Tooltip>
-      <button
-        v-if="columnVisibility.modified"
-        type="button"
-        class="file-browser-list-view__header-item file-browser-list-view__header-item--sortable file-browser-list-view__header-modified"
-        @click="handleColumnHeaderClick('modified')"
-      >
-        {{ t('fileBrowser.modified') }}
-        <ArrowUpIcon
-          v-if="listSortColumn === 'modified' && listSortDirection === 'asc'"
-          :size="12"
-          class="file-browser-list-view__header-sort-icon"
-        />
-        <ArrowDownIcon
-          v-else-if="listSortColumn === 'modified' && listSortDirection === 'desc'"
-          :size="12"
-          class="file-browser-list-view__header-sort-icon"
-        />
-      </button>
-      <button
-        v-if="columnVisibility.created"
-        type="button"
-        class="file-browser-list-view__header-item file-browser-list-view__header-item--sortable file-browser-list-view__header-created"
-        @click="handleColumnHeaderClick('created')"
-      >
-        {{ t('created') }}
-        <ArrowUpIcon
-          v-if="listSortColumn === 'created' && listSortDirection === 'asc'"
-          :size="12"
-          class="file-browser-list-view__header-sort-icon"
-        />
-        <ArrowDownIcon
-          v-else-if="listSortColumn === 'created' && listSortDirection === 'desc'"
-          :size="12"
-          class="file-browser-list-view__header-sort-icon"
-        />
-      </button>
-      <button
-        v-if="columnVisibility.tags"
-        type="button"
-        class="file-browser-list-view__header-item file-browser-list-view__header-item--sortable file-browser-list-view__header-tags"
-        @click="handleColumnHeaderClick('tags')"
-      >
-        {{ t('fileBrowser.tags') }}
-        <ArrowUpIcon
-          v-if="listSortColumn === 'tags' && listSortDirection === 'asc'"
-          :size="12"
-          class="file-browser-list-view__header-sort-icon"
-        />
-        <ArrowDownIcon
-          v-else-if="listSortColumn === 'tags' && listSortDirection === 'desc'"
-          :size="12"
-          class="file-browser-list-view__header-sort-icon"
-        />
-      </button>
-    </div>
-    <Popover
-      :open="isColumnsPopoverOpen"
-      @update:open="isColumnsPopoverOpen = $event"
-    >
-      <Tooltip>
-        <TooltipTrigger as-child>
-          <PopoverTrigger as-child>
-            <Button
-              variant="ghost"
-              size="icon"
-              class="file-browser-list-view__columns-button"
+  <ContextMenu>
+    <ContextMenuTrigger as-child>
+      <div class="file-browser-list-view__header-container">
+        <div class="file-browser-list-view__header">
+          <div class="file-browser-list-view__header-cell">
+            <button
+              type="button"
+              class="file-browser-list-view__header-item file-browser-list-view__header-item--sortable file-browser-list-view__header-name"
+              @click="handleColumnHeaderClick('name')"
             >
-              <Columns3Icon :size="14" />
-            </Button>
-          </PopoverTrigger>
-        </TooltipTrigger>
-        <PopoverContent
-          :side="'bottom'"
-          :align="'end'"
-          class="file-browser-list-view__columns-popover"
+              {{ t('fileBrowser.name') }}
+              <ArrowUpIcon
+                v-if="listSortColumn === 'name' && listSortDirection === 'asc'"
+                :size="12"
+                class="file-browser-list-view__header-sort-icon"
+              />
+              <ArrowDownIcon
+                v-else-if="listSortColumn === 'name' && listSortDirection === 'desc'"
+                :size="12"
+                class="file-browser-list-view__header-sort-icon"
+              />
+            </button>
+            <div
+              class="file-browser-list-view__header-resizer"
+              :class="{ 'file-browser-list-view__header-resizer--active': resizingKey === 'name' }"
+              :title="t('fileBrowser.resizeColumn')"
+              @pointerdown="onResizePointerDown('name', $event)"
+              @pointermove="onResizePointerMove"
+              @pointerup="onResizePointerUp"
+              @pointercancel="onResizePointerUp"
+            />
+          </div>
+          <div
+            v-if="columnVisibility.type"
+            class="file-browser-list-view__header-cell"
+          >
+            <button
+              type="button"
+              class="file-browser-list-view__header-item file-browser-list-view__header-item--sortable file-browser-list-view__header-type"
+              @click="handleColumnHeaderClick('type')"
+            >
+              {{ t('fileBrowser.type') }}
+              <ArrowUpIcon
+                v-if="listSortColumn === 'type' && listSortDirection === 'asc'"
+                :size="12"
+                class="file-browser-list-view__header-sort-icon"
+              />
+              <ArrowDownIcon
+                v-else-if="listSortColumn === 'type' && listSortDirection === 'desc'"
+                :size="12"
+                class="file-browser-list-view__header-sort-icon"
+              />
+            </button>
+            <div
+              class="file-browser-list-view__header-resizer"
+              :class="{ 'file-browser-list-view__header-resizer--active': resizingKey === 'type' }"
+              :title="t('fileBrowser.resizeColumn')"
+              @pointerdown="onResizePointerDown('type', $event)"
+              @pointermove="onResizePointerMove"
+              @pointerup="onResizePointerUp"
+              @pointercancel="onResizePointerUp"
+            />
+          </div>
+          <div
+            v-if="showItemsColumn"
+            class="file-browser-list-view__header-cell"
+          >
+            <button
+              type="button"
+              class="file-browser-list-view__header-item file-browser-list-view__header-item--sortable file-browser-list-view__header-items"
+              @click="handleColumnHeaderClick('items')"
+            >
+              {{ t('items') }}
+              <ArrowUpIcon
+                v-if="listSortColumn === 'items' && listSortDirection === 'asc'"
+                :size="12"
+                class="file-browser-list-view__header-sort-icon"
+              />
+              <ArrowDownIcon
+                v-else-if="listSortColumn === 'items' && listSortDirection === 'desc'"
+                :size="12"
+                class="file-browser-list-view__header-sort-icon"
+              />
+            </button>
+            <div
+              class="file-browser-list-view__header-resizer"
+              :class="{ 'file-browser-list-view__header-resizer--active': resizingKey === 'items' }"
+              :title="t('fileBrowser.resizeColumn')"
+              @pointerdown="onResizePointerDown('items', $event)"
+              @pointermove="onResizePointerMove"
+              @pointerup="onResizePointerUp"
+              @pointercancel="onResizePointerUp"
+            />
+          </div>
+          <div
+            v-if="columnVisibility.size"
+            class="file-browser-list-view__header-cell"
+          >
+            <Tooltip>
+              <TooltipTrigger as-child>
+                <button
+                  type="button"
+                  class="file-browser-list-view__header-item file-browser-list-view__header-item--sortable file-browser-list-view__header-size file-browser-list-view__header-size--with-info"
+                  @click="handleColumnHeaderClick('size')"
+                >
+                  {{ t('fileBrowser.size') }}
+                  <InfoIcon
+                    :size="12"
+                    class="file-browser-list-view__header-info-icon"
+                  />
+                  <ArrowUpIcon
+                    v-if="listSortColumn === 'size' && listSortDirection === 'asc'"
+                    :size="12"
+                    class="file-browser-list-view__header-sort-icon"
+                  />
+                  <ArrowDownIcon
+                    v-else-if="listSortColumn === 'size' && listSortDirection === 'desc'"
+                    :size="12"
+                    class="file-browser-list-view__header-sort-icon"
+                  />
+                </button>
+              </TooltipTrigger>
+              <TooltipContent
+                side="bottom"
+                :side-offset="8"
+                class="file-browser-list-view__size-tooltip"
+              >
+                <div class="file-browser-list-view__size-tooltip-content">
+                  <div class="file-browser-list-view__size-tooltip-title">
+                    {{ t('fileBrowser.sizeTooltip.title') }}
+                  </div>
+                  <div class="file-browser-list-view__size-tooltip-body">
+                    <div class="file-browser-list-view__size-tooltip-item">
+                      <span class="file-browser-list-view__size-tooltip-label">{{ legendSizeText }}</span>
+                      <span class="file-browser-list-view__size-tooltip-desc">{{ t('fileBrowser.sizeTooltip.exact') }}</span>
+                    </div>
+                    <div class="file-browser-list-view__size-tooltip-item">
+                      <span class="file-browser-list-view__size-tooltip-label file-browser-list-view__size-tooltip-label--loading">
+                        <Skeleton class="file-browser-list-view__size-tooltip-skeleton" />
+                      </span>
+                      <span class="file-browser-list-view__size-tooltip-desc">{{ t('fileBrowser.sizeTooltip.loading') }}</span>
+                    </div>
+                    <div class="file-browser-list-view__size-tooltip-item">
+                      <span class="file-browser-list-view__size-tooltip-label file-browser-list-view__size-tooltip-label--empty">—</span>
+                      <span class="file-browser-list-view__size-tooltip-desc">{{ t('fileBrowser.sizeTooltip.notCalculated') }}</span>
+                    </div>
+                  </div>
+                  <div class="file-browser-list-view__size-tooltip-note">
+                    {{ t('fileBrowser.sizeTooltip.note') }}
+                  </div>
+                </div>
+              </TooltipContent>
+            </Tooltip>
+            <div
+              class="file-browser-list-view__header-resizer"
+              :class="{ 'file-browser-list-view__header-resizer--active': resizingKey === 'size' }"
+              :title="t('fileBrowser.resizeColumn')"
+              @pointerdown="onResizePointerDown('size', $event)"
+              @pointermove="onResizePointerMove"
+              @pointerup="onResizePointerUp"
+              @pointercancel="onResizePointerUp"
+            />
+          </div>
+          <div
+            v-if="columnVisibility.modified"
+            class="file-browser-list-view__header-cell"
+          >
+            <button
+              type="button"
+              class="file-browser-list-view__header-item file-browser-list-view__header-item--sortable file-browser-list-view__header-modified"
+              @click="handleColumnHeaderClick('modified')"
+            >
+              {{ t('fileBrowser.modified') }}
+              <ArrowUpIcon
+                v-if="listSortColumn === 'modified' && listSortDirection === 'asc'"
+                :size="12"
+                class="file-browser-list-view__header-sort-icon"
+              />
+              <ArrowDownIcon
+                v-else-if="listSortColumn === 'modified' && listSortDirection === 'desc'"
+                :size="12"
+                class="file-browser-list-view__header-sort-icon"
+              />
+            </button>
+            <div
+              class="file-browser-list-view__header-resizer"
+              :class="{ 'file-browser-list-view__header-resizer--active': resizingKey === 'modified' }"
+              :title="t('fileBrowser.resizeColumn')"
+              @pointerdown="onResizePointerDown('modified', $event)"
+              @pointermove="onResizePointerMove"
+              @pointerup="onResizePointerUp"
+              @pointercancel="onResizePointerUp"
+            />
+          </div>
+          <div
+            v-if="columnVisibility.created"
+            class="file-browser-list-view__header-cell"
+          >
+            <button
+              type="button"
+              class="file-browser-list-view__header-item file-browser-list-view__header-item--sortable file-browser-list-view__header-created"
+              @click="handleColumnHeaderClick('created')"
+            >
+              {{ t('created') }}
+              <ArrowUpIcon
+                v-if="listSortColumn === 'created' && listSortDirection === 'asc'"
+                :size="12"
+                class="file-browser-list-view__header-sort-icon"
+              />
+              <ArrowDownIcon
+                v-else-if="listSortColumn === 'created' && listSortDirection === 'desc'"
+                :size="12"
+                class="file-browser-list-view__header-sort-icon"
+              />
+            </button>
+            <div
+              class="file-browser-list-view__header-resizer"
+              :class="{ 'file-browser-list-view__header-resizer--active': resizingKey === 'created' }"
+              :title="t('fileBrowser.resizeColumn')"
+              @pointerdown="onResizePointerDown('created', $event)"
+              @pointermove="onResizePointerMove"
+              @pointerup="onResizePointerUp"
+              @pointercancel="onResizePointerUp"
+            />
+          </div>
+          <div
+            v-if="columnVisibility.tags"
+            class="file-browser-list-view__header-cell"
+          >
+            <button
+              type="button"
+              class="file-browser-list-view__header-item file-browser-list-view__header-item--sortable file-browser-list-view__header-tags"
+              @click="handleColumnHeaderClick('tags')"
+            >
+              {{ t('fileBrowser.tags') }}
+              <ArrowUpIcon
+                v-if="listSortColumn === 'tags' && listSortDirection === 'asc'"
+                :size="12"
+                class="file-browser-list-view__header-sort-icon"
+              />
+              <ArrowDownIcon
+                v-else-if="listSortColumn === 'tags' && listSortDirection === 'desc'"
+                :size="12"
+                class="file-browser-list-view__header-sort-icon"
+              />
+            </button>
+            <div
+              class="file-browser-list-view__header-resizer"
+              :class="{ 'file-browser-list-view__header-resizer--active': resizingKey === 'tags' }"
+              :title="t('fileBrowser.resizeColumn')"
+              @pointerdown="onResizePointerDown('tags', $event)"
+              @pointermove="onResizePointerMove"
+              @pointerup="onResizePointerUp"
+              @pointercancel="onResizePointerUp"
+            />
+          </div>
+        </div>
+        <Popover
+          :open="isColumnsPopoverOpen"
+          @update:open="isColumnsPopoverOpen = $event"
         >
-          <div class="file-browser-list-view__columns-option">
-            <Checkbox
-              id="column-items"
-              :model-value="columnVisibility.items"
-              @update:model-value="toggleColumnVisibility('items', $event as boolean)"
-            />
-            <Label for="column-items">{{ t('items') }}</Label>
-          </div>
-          <div class="file-browser-list-view__columns-option">
-            <Checkbox
-              id="column-size"
-              :model-value="columnVisibility.size"
-              @update:model-value="toggleColumnVisibility('size', $event as boolean)"
-            />
-            <Label for="column-size">{{ t('fileBrowser.size') }}</Label>
-          </div>
-          <div class="file-browser-list-view__columns-option">
-            <Checkbox
-              id="column-modified"
-              :model-value="columnVisibility.modified"
-              @update:model-value="toggleColumnVisibility('modified', $event as boolean)"
-            />
-            <Label for="column-modified">{{ t('fileBrowser.modified') }}</Label>
-          </div>
-          <div class="file-browser-list-view__columns-option">
-            <Checkbox
-              id="column-created"
-              :model-value="columnVisibility.created"
-              @update:model-value="toggleColumnVisibility('created', $event as boolean)"
-            />
-            <Label for="column-created">{{ t('created') }}</Label>
-          </div>
-          <div class="file-browser-list-view__columns-option">
-            <Checkbox
-              id="column-tags"
-              :model-value="columnVisibility.tags"
-              @update:model-value="toggleColumnVisibility('tags', $event as boolean)"
-            />
-            <Label for="column-tags">{{ t('fileBrowser.tags') }}</Label>
-          </div>
-        </PopoverContent>
-        <TooltipContent>
-          {{ t('fileBrowser.columns') }}
-        </TooltipContent>
-      </Tooltip>
-    </Popover>
-  </div>
+          <Tooltip>
+            <TooltipTrigger as-child>
+              <PopoverTrigger as-child>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  class="file-browser-list-view__columns-button"
+                >
+                  <Columns3Icon :size="14" />
+                </Button>
+              </PopoverTrigger>
+            </TooltipTrigger>
+            <PopoverContent
+              :side="'bottom'"
+              :align="'end'"
+              class="file-browser-list-view__columns-popover"
+            >
+              <div class="file-browser-list-view__columns-option">
+                <Checkbox
+                  id="column-type"
+                  :model-value="columnVisibility.type"
+                  @update:model-value="toggleColumnVisibility('type', $event as boolean)"
+                />
+                <Label for="column-type">{{ t('fileBrowser.type') }}</Label>
+              </div>
+              <div class="file-browser-list-view__columns-option">
+                <Checkbox
+                  id="column-items"
+                  :model-value="columnVisibility.items"
+                  @update:model-value="toggleColumnVisibility('items', $event as boolean)"
+                />
+                <Label for="column-items">{{ t('items') }}</Label>
+              </div>
+              <div class="file-browser-list-view__columns-option">
+                <Checkbox
+                  id="column-size"
+                  :model-value="columnVisibility.size"
+                  @update:model-value="toggleColumnVisibility('size', $event as boolean)"
+                />
+                <Label for="column-size">{{ t('fileBrowser.size') }}</Label>
+              </div>
+              <div class="file-browser-list-view__columns-option">
+                <Checkbox
+                  id="column-modified"
+                  :model-value="columnVisibility.modified"
+                  @update:model-value="toggleColumnVisibility('modified', $event as boolean)"
+                />
+                <Label for="column-modified">{{ t('fileBrowser.modified') }}</Label>
+              </div>
+              <div class="file-browser-list-view__columns-option">
+                <Checkbox
+                  id="column-created"
+                  :model-value="columnVisibility.created"
+                  @update:model-value="toggleColumnVisibility('created', $event as boolean)"
+                />
+                <Label for="column-created">{{ t('created') }}</Label>
+              </div>
+              <div class="file-browser-list-view__columns-option">
+                <Checkbox
+                  id="column-tags"
+                  :model-value="columnVisibility.tags"
+                  @update:model-value="toggleColumnVisibility('tags', $event as boolean)"
+                />
+                <Label for="column-tags">{{ t('fileBrowser.tags') }}</Label>
+              </div>
+            </PopoverContent>
+            <TooltipContent>
+              {{ t('fileBrowser.columns') }}
+            </TooltipContent>
+          </Tooltip>
+        </Popover>
+      </div>
+    </ContextMenuTrigger>
+    <ContextMenuContent
+      align="start"
+      class="file-browser-list-view__columns-menu"
+    >
+      <ContextMenuLabel>{{ t('fileBrowser.columns') }}</ContextMenuLabel>
+      <ContextMenuSeparator />
+      <ContextMenuItem
+        v-for="option in columnOptions"
+        :key="option.key"
+        @select.prevent="toggleColumnVisibility(option.key, !columnVisibility[option.key])"
+      >
+        <CheckIcon
+          :size="14"
+          class="file-browser-list-view__columns-menu-check"
+          :class="{ 'file-browser-list-view__columns-menu-check--hidden': !columnVisibility[option.key] }"
+        />
+        {{ option.label }}
+      </ContextMenuItem>
+    </ContextMenuContent>
+  </ContextMenu>
 </template>
 
 <style scoped>
@@ -283,6 +511,46 @@ function toggleColumnVisibility(column: keyof ListColumnVisibility, checked: boo
   flex-shrink: 0;
   border-bottom: 1px solid hsl(var(--border));
   background-color: hsl(var(--background-3));
+}
+
+/* Each column occupies its grid track via this wrapper; the label button keeps
+   its fit-content size and left alignment, and the resize handle sits at the
+   track's right edge (centered over the column gap). */
+.file-browser-list-view__header-cell {
+  position: relative;
+  display: flex;
+  min-width: 0;
+  align-items: center;
+}
+
+.file-browser-list-view__header-resizer {
+  position: absolute;
+  top: 0;
+  right: calc(var(--file-browser-list-column-gap) / -2 - 4px);
+  bottom: 0;
+  z-index: 4;
+  width: 9px;
+  cursor: col-resize;
+  touch-action: none;
+  user-select: none;
+}
+
+.file-browser-list-view__header-resizer::before {
+  position: absolute;
+  top: 4px;
+  bottom: 4px;
+  left: 50%;
+  width: 2px;
+  border-radius: 1px;
+  background-color: transparent;
+  content: '';
+  transform: translateX(-50%);
+  transition: background-color 0.15s ease;
+}
+
+.file-browser-list-view__header-resizer:hover::before,
+.file-browser-list-view__header-resizer--active::before {
+  background-color: hsl(var(--primary) / 60%);
 }
 
 .file-browser-list-view__header-item {
@@ -415,7 +683,7 @@ function toggleColumnVisibility(column: keyof ListColumnVisibility, checked: boo
 </style>
 
 <style>
-.file-browser-list-view__columns-popover.sigma-ui-popover-content {
+.file-browser-list-view__columns-popover.cool-files-ui-popover-content {
   display: flex;
   width: auto;
   flex-direction: column;
@@ -430,9 +698,19 @@ function toggleColumnVisibility(column: keyof ListColumnVisibility, checked: boo
   text-transform: capitalize;
 }
 
-.file-browser-list-view__columns-option .sigma-ui-label {
+.file-browser-list-view__columns-option .cool-files-ui-label {
   cursor: pointer;
   font-size: 13px;
   user-select: none;
+}
+
+.file-browser-list-view__columns-menu-check {
+  flex-shrink: 0;
+  color: hsl(var(--primary));
+}
+
+/* Keep the row width stable when a column is hidden (no check shown). */
+.file-browser-list-view__columns-menu-check--hidden {
+  visibility: hidden;
 }
 </style>

@@ -15,9 +15,9 @@ import type {
   ExtensionScopedDirectory,
   ExtensionSidebarItem,
   ExtensionToolbarDropdown,
-} from '@sigma-file-manager/api';
+} from '@cool_files/api';
 
-export type * from '@sigma-file-manager/api';
+export type * from '@cool_files/api';
 
 export type ExtensionRegistryEntry = {
   id: string;

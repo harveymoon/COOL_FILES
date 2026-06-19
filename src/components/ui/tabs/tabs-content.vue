@@ -12,19 +12,19 @@ const props = defineProps<TabsContentProps>();
 <template>
   <TabsContent
     v-bind="props"
-    class="sigma-ui-tabs-content"
+    class="cool-files-ui-tabs-content"
   >
     <slot />
   </TabsContent>
 </template>
 
 <style>
-.sigma-ui-tabs-content {
+.cool-files-ui-tabs-content {
   min-width: 0;
   margin-top: 0.75rem;
 }
 
-.sigma-ui-tabs-content:focus-visible {
+.cool-files-ui-tabs-content:focus-visible {
   outline: 2px solid hsl(var(--ring) / 50%);
   outline-offset: var(--ring-outline-offset);
 }

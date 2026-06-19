@@ -52,6 +52,13 @@ export function sortFileBrowserEntries(
     if (column === 'name') {
       comparison = nameCollator.compare(entryA.name, entryB.name);
     }
+    else if (column === 'type') {
+      comparison = nameCollator.compare(entryA.ext ?? '', entryB.ext ?? '');
+
+      if (comparison === 0) {
+        comparison = nameCollator.compare(entryA.name, entryB.name);
+      }
+    }
     else if (column === 'items') {
       const itemsA = Number(entryA.item_count ?? -1);
       const itemsB = Number(entryB.item_count ?? -1);

@@ -115,7 +115,7 @@ Elemente auf der Startseite und dem Dashboard haben jetzt vollständige Kontextm
 - **Medienhelligkeit der Überlagerung**: Helligkeit der visuellen Effekte-Überlagerungsmedien anpassen (`Einstellungen > Erscheinungsbild > Visuelle Effekte`);
 - **Mischmodus für visuelle Effekte**: Mischmodus für visuelle Effekte anpassen, mit dem Sie wählen können, wie Hintergrundmedien mit der App-Oberfläche verschmelzen (`Einstellungen > Erscheinungsbild > Visuelle Effekte`);
 - **Hintergrundvideo pausieren**: Startseiten-Banner und Hintergrundvideo pausieren, wenn die App inaktiv oder minimiert ist (`Einstellungen > Erscheinungsbild > Visuelle Effekte`);
-- **Standard-Dateimanager**: Sigma File Manager als Standard-Dateiexplorer unter Windows festlegen (`Einstellungen > Experimentell`);
+- **Standard-Dateimanager**: Cool Files als Standard-Dateiexplorer unter Windows festlegen (`Einstellungen > Experimentell`);
 - **Beim Systemstart starten**: die App automatisch beim Anmelden am System starten (`Einstellungen > Allgemein > Startverhalten`);
 
 ### Neue Tastenkürzel
@@ -517,7 +517,7 @@ Die App wurde von Vuetify zu Sigma-UI migriert für ein großzügigeres, moderne
 
 ### Tauri-Migration
 
-Sigma File Manager v2 wurde von Grund auf mit Vue 3 Composition API, TypeScript und Tauri v2 neu aufgebaut. Die Installationsgröße der App wurde von 153 MB auf nur 4 MB unter Windows reduziert. Die installierte App-Größe wurde von 419 MB auf 12 MB reduziert.
+Cool Files v2 wurde von Grund auf mit Vue 3 Composition API, TypeScript und Tauri v2 neu aufgebaut. Die Installationsgröße der App wurde von 153 MB auf nur 4 MB unter Windows reduziert. Die installierte App-Größe wurde von 419 MB auf 12 MB reduziert.
 
 ### Anpassbare Bereiche
 

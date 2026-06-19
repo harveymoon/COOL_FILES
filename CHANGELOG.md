@@ -342,7 +342,7 @@ Items on the home page and dashboard now have full context menus, matching the f
 - **Overlay media brightness**: adjust brightness of the visual effects overlay media (`Settings > UI appearance > Visual effects`);
 - **Visual Effects Mix Blend Mode**: adjust mix blend mode for visual effects, letting you choose how background media blends with the app UI (`Settings > UI appearance > Visual effects`);
 - **Pause background video**: pause the home banner and background video when the app is idle or minimized (`Settings > UI appearance > Visual effects`);
-- **Default file manager**: set Sigma File Manager as the default file explorer on Windows (`Settings > Experimental`);
+- **Default file manager**: set Cool Files as the default file explorer on Windows (`Settings > Experimental`);
 - **Launch on system login**: automatically launch the app when you log into your system (`Settings > General > Startup behavior`);
 
 ### New Shortcuts
@@ -748,7 +748,7 @@ Migrated the app from Vuetify to Sigma-UI for a more spacious, modern design wit
 
 ### Tauri Migration
 
-Sigma File Manager v2 has been rebuilt from the ground up using Vue 3 Composition API, TypeScript, and Tauri v2. App installation size reduced from 153 MB to just 4 MB on Windows. Installed app size reduced from 419 MB to 12 MB.
+Cool Files v2 has been rebuilt from the ground up using Vue 3 Composition API, TypeScript, and Tauri v2. App installation size reduced from 153 MB to just 4 MB on Windows. Installed app size reduced from 419 MB to 12 MB.
 
 ### Resizable Panes
 

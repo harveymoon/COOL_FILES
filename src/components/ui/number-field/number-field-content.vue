@@ -9,7 +9,7 @@ Copyright © 2021 - present Aleksey Hoffman. All rights reserved.
 
 <template>
   <div
-    class="sigma-ui-number-field-content"
+    class="cool-files-ui-number-field-content"
     :class="$attrs.class"
   >
     <slot />
@@ -17,15 +17,15 @@ Copyright © 2021 - present Aleksey Hoffman. All rights reserved.
 </template>
 
 <style>
-.sigma-ui-number-field-content {
+.cool-files-ui-number-field-content {
   position: relative;
 }
 
-.sigma-ui-number-field-content > [data-slot="input"]:has([data-slot="increment"]) {
+.cool-files-ui-number-field-content > [data-slot="input"]:has([data-slot="increment"]) {
   padding-right: 1.25rem;
 }
 
-.sigma-ui-number-field-content > [data-slot="input"]:has([data-slot="decrement"]) {
+.cool-files-ui-number-field-content > [data-slot="input"]:has([data-slot="decrement"]) {
   padding-left: 1.25rem;
 }
 </style>

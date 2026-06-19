@@ -288,7 +288,7 @@ const isHubSession = computed(() => (activeSession.value?.hubPaths?.length ?? 0)
 </template>
 
 <style scoped>
-.lan-share-toolbar-button :deep(.sigma-ui-button) {
+.lan-share-toolbar-button :deep(.cool-files-ui-button) {
   position: relative;
   width: 28px;
   height: 28px;
@@ -346,7 +346,7 @@ const isHubSession = computed(() => (activeSession.value?.hubPaths?.length ?? 0)
   text-decoration-color: hsl(var(--primary) / 55%);
 }
 
-.sigma-ui-tooltip-content.lan-share-toolbar__not-working-tooltip {
+.cool-files-ui-tooltip-content.lan-share-toolbar__not-working-tooltip {
   overflow: visible;
   max-width: 16.5rem;
 }

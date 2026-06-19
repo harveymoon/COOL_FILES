@@ -671,16 +671,16 @@ mod tests {
     #[test]
     fn thumbnail_cache_descendant_paths_are_detected() {
         assert!(path_is_same_or_descendant(
-            Path::new("/tmp/sigma/image-thumbnails/thumb.png"),
-            Path::new("/tmp/sigma/image-thumbnails")
+            Path::new("/tmp/cool_files/image-thumbnails/thumb.png"),
+            Path::new("/tmp/cool_files/image-thumbnails")
         ));
         assert!(path_is_same_or_descendant(
-            Path::new("/tmp/sigma/image-thumbnails"),
-            Path::new("/tmp/sigma/image-thumbnails")
+            Path::new("/tmp/cool_files/image-thumbnails"),
+            Path::new("/tmp/cool_files/image-thumbnails")
         ));
         assert!(!path_is_same_or_descendant(
-            Path::new("/tmp/sigma/photo.png"),
-            Path::new("/tmp/sigma/image-thumbnails")
+            Path::new("/tmp/cool_files/photo.png"),
+            Path::new("/tmp/cool_files/image-thumbnails")
         ));
     }
 

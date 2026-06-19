@@ -29,7 +29,7 @@ const forwarded = useForwardPropsEmits(props, emits);
 <template>
   <DropdownMenuSubContent
     v-bind="{ ...forwarded, ...$attrs }"
-    class="sigma-ui-dropdown-menu-sub-content"
+    class="cool-files-ui-dropdown-menu-sub-content"
     :class="$attrs.class"
   >
     <slot />
@@ -37,7 +37,7 @@ const forwarded = useForwardPropsEmits(props, emits);
 </template>
 
 <style>
-.sigma-ui-dropdown-menu-sub-content {
+.cool-files-ui-dropdown-menu-sub-content {
   z-index: 50;
   overflow: hidden;
   min-width: 8rem;
@@ -51,15 +51,15 @@ const forwarded = useForwardPropsEmits(props, emits);
   transform-origin: var(--reka-dropdown-menu-content-transform-origin);
 }
 
-.sigma-ui-dropdown-menu-sub-content[data-state="open"] {
-  animation: sigma-ui-dropdown-menu-sub-fade-in 200ms ease-out;
+.cool-files-ui-dropdown-menu-sub-content[data-state="open"] {
+  animation: cool-files-ui-dropdown-menu-sub-fade-in 200ms ease-out;
 }
 
-.sigma-ui-dropdown-menu-sub-content[data-state="closed"] {
-  animation: sigma-ui-dropdown-menu-sub-fade-out 100ms ease-in forwards;
+.cool-files-ui-dropdown-menu-sub-content[data-state="closed"] {
+  animation: cool-files-ui-dropdown-menu-sub-fade-out 100ms ease-in forwards;
 }
 
-@keyframes sigma-ui-dropdown-menu-sub-fade-in {
+@keyframes cool-files-ui-dropdown-menu-sub-fade-in {
   from {
     opacity: 0;
     transform: scale(0.95);
@@ -71,7 +71,7 @@ const forwarded = useForwardPropsEmits(props, emits);
   }
 }
 
-@keyframes sigma-ui-dropdown-menu-sub-fade-out {
+@keyframes cool-files-ui-dropdown-menu-sub-fade-out {
   from {
     opacity: 1;
     transform: scale(1);

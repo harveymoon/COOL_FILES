@@ -38,6 +38,10 @@ const settingsTabs: SettingsTab[] = [
     labelKey: 'settingsTabs.uiAppearance',
   },
   {
+    name: 'navigator',
+    labelKey: 'settingsTabs.navigator',
+  },
+  {
     name: 'shortcuts',
     labelKey: 'settingsTabs.shortcuts',
   },
@@ -160,6 +164,8 @@ export const useSettingsStore = defineStore('settings', () => {
       { default: TabAppearanceSection },
       { default: ExtensionsListSection },
       { default: DefaultFileManagerSection },
+      { default: NavigatorCustomizeLauncherSection },
+      { default: LoadAnimationsSection },
     ] = await Promise.all([
       import('@/modules/settings/ui/categories/general/language.vue'),
       import('@/modules/settings/ui/categories/general/date-time.vue'),
@@ -187,6 +193,8 @@ export const useSettingsStore = defineStore('settings', () => {
       import('@/modules/settings/ui/categories/tabs/tab-appearance.vue'),
       import('@/modules/settings/ui/categories/extensions/extensions-list.vue'),
       import('@/modules/settings/ui/categories/experimental/default-file-manager.vue'),
+      import('@/modules/settings/ui/categories/navigator/navigator-customize-launcher.vue'),
+      import('@/modules/settings/ui/categories/appearance/load-animations.vue'),
     ]);
 
     sections.value = [
@@ -314,6 +322,13 @@ export const useSettingsStore = defineStore('settings', () => {
         category: 'appearance',
       },
       {
+        key: 'loadAnimations',
+        titleKey: 'settings.appearance.loadAnimations.title',
+        tags: 'settingsTags.loadAnimations',
+        component: markRaw(LoadAnimationsSection),
+        category: 'appearance',
+      },
+      {
         key: 'globalSearch',
         titleKey: 'settings.globalSearch.title',
         tags: 'settingsTags.globalSearch',
@@ -368,6 +383,13 @@ export const useSettingsStore = defineStore('settings', () => {
         tags: 'settingsTags.extensions',
         component: markRaw(ExtensionsListSection),
         category: 'extensions',
+      },
+      {
+        key: 'navigatorCustomize',
+        titleKey: 'settings.navigator.customizeTitle',
+        tags: 'settingsTags.navigator',
+        component: markRaw(NavigatorCustomizeLauncherSection),
+        category: 'navigator',
       },
       ...(platformStore.isWindows
         ? [{

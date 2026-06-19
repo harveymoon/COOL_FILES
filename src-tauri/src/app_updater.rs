@@ -16,9 +16,9 @@ use urlencoding::encode;
 use crate::utils::unique_path_with_index;
 
 const RELEASES_ATOM_URL: &str =
-    "https://github.com/aleksey-hoffman/sigma-file-manager/releases.atom";
+    "https://github.com/harveymoon/COOL_FILES/releases.atom";
 const GITHUB_REPO_OWNER: &str = "aleksey-hoffman";
-const GITHUB_REPO_NAME: &str = "sigma-file-manager";
+const GITHUB_REPO_NAME: &str = "cool_files";
 const MAX_INSTALLER_DOWNLOAD_BYTES: u64 = 512 * 1024 * 1024;
 const CONNECT_TIMEOUT_SECS: u64 = 5;
 const UPDATE_CHECK_TIMEOUT_SECS: u64 = 10;
@@ -284,7 +284,7 @@ async fn fetch_release_installer_asset(tag: &str) -> Option<(String, String)> {
     let response = client
         .get(&api_url)
         .header("Accept", "application/vnd.github+json")
-        .header("User-Agent", "sigma-file-manager")
+        .header("User-Agent", "cool_files")
         .send()
         .await
         .ok()?;
@@ -344,7 +344,7 @@ pub async fn check_for_updates(current_version: String) -> Result<UpdateCheckRes
 
     let response = client
         .get(RELEASES_ATOM_URL)
-        .header("User-Agent", "sigma-file-manager")
+        .header("User-Agent", "cool_files")
         .send()
         .await
         .map_err(|error| format!("Failed to fetch releases feed: {}", error))?;
@@ -417,7 +417,7 @@ pub async fn download_release_installer(
 
     let response = client
         .get(validated_url)
-        .header("User-Agent", "sigma-file-manager")
+        .header("User-Agent", "cool_files")
         .send()
         .await
         .map_err(|error| format!("Failed to download installer: {}", error))?;
@@ -548,7 +548,7 @@ mod tests {
 
     #[test]
     fn validate_github_release_download_url_accepts_github_and_usercontent_https() {
-        let github_release = "https://github.com/aleksey-hoffman/sigma-file-manager/releases/download/v2.0.0/setup.exe";
+        let github_release = "https://github.com/harveymoon/COOL_FILES/releases/download/v2.0.0/setup.exe";
         assert!(validate_github_release_download_url(github_release).is_ok());
 
         let usercontent = "https://objects.githubusercontent.com/github-production-release-asset/123/asset?name=setup.exe";
@@ -576,8 +576,8 @@ mod tests {
     #[test]
     fn sanitize_download_file_name_accepts_simple_names() {
         assert_eq!(
-            sanitize_download_file_name("Sigma-Setup.exe").unwrap(),
-            "Sigma-Setup.exe"
+            sanitize_download_file_name("Cool-Files-Setup.exe").unwrap(),
+            "Cool-Files-Setup.exe"
         );
     }
 

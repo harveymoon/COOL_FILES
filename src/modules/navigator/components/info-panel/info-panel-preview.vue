@@ -409,7 +409,7 @@ onBeforeUnmount(() => {
   flex: 1 1 0;
 }
 
-.info-panel-preview__text-scroll :deep(.sigma-ui-scroll-area__viewport) {
+.info-panel-preview__text-scroll :deep(.cool-files-ui-scroll-area__viewport) {
   max-height: 100%;
   overflow-anchor: none;
 }

@@ -22,7 +22,7 @@ import type {
   ResolveMediaSelectionOptions,
 } from './background-media-selection';
 
-const BACKGROUND_REPO_BASE = 'https://raw.githubusercontent.com/aleksey-hoffman/sigma-file-manager/main/src/assets/media/source-backgrounds';
+const BACKGROUND_REPO_BASE = 'https://raw.githubusercontent.com/harveymoon/COOL_FILES/main/src/assets/media/source-backgrounds';
 const defaultBuiltinMedia = backgroundMedia.find(item => item.fileName === DEFAULT_BACKGROUND_FILE_NAME)
   ?? backgroundMedia[0];
 const sourceBackgroundPreviewMedia = backgroundMedia.filter(item => item.fileName !== DEFAULT_BACKGROUND_FILE_NAME);

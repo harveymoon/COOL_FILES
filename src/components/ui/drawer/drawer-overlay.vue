@@ -13,12 +13,12 @@ const props = defineProps<DialogOverlayProps>();
 <template>
   <DrawerOverlay
     v-bind="props"
-    class="sigma-ui-drawer-overlay"
+    class="cool-files-ui-drawer-overlay"
   />
 </template>
 
 <style>
-.sigma-ui-drawer-overlay {
+.cool-files-ui-drawer-overlay {
   position: fixed;
   z-index: 50;
   background-color: rgb(0 0 0 / 40%);

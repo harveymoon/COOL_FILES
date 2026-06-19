@@ -20,17 +20,17 @@ const forwarded = useForwardPropsEmits(props, emits);
     <DrawerOverlay />
     <DrawerContent
       v-bind="forwarded"
-      class="sigma-ui-drawer-content"
+      class="cool-files-ui-drawer-content"
       :class="[$attrs.class]"
     >
-      <div class="sigma-ui-drawer-content__handle" />
+      <div class="cool-files-ui-drawer-content__handle" />
       <slot />
     </DrawerContent>
   </DrawerPortal>
 </template>
 
 <style>
-.sigma-ui-drawer-content {
+.cool-files-ui-drawer-content {
   position: fixed;
   z-index: 50;
   bottom: 0;
@@ -45,7 +45,7 @@ const forwarded = useForwardPropsEmits(props, emits);
   inset-inline: 0;
 }
 
-.sigma-ui-drawer-content__handle {
+.cool-files-ui-drawer-content__handle {
   width: 100px;
   height: 0.5rem;
   border-radius: var(--radius-full);

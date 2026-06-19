@@ -64,58 +64,58 @@ const showHoverSwap = computed(() => {
 <template>
   <span
     v-if="showHoverSwap"
-    class="sigma-date-hover sigma-date-hover--relative"
+    class="cool-files-date-hover cool-files-date-hover--relative"
   >
-    <span class="sigma-date-hover__primary">{{ primary }}</span>
-    <span class="sigma-date-hover__absolute">{{ absolute }}</span>
+    <span class="cool-files-date-hover__primary">{{ primary }}</span>
+    <span class="cool-files-date-hover__absolute">{{ absolute }}</span>
   </span>
   <span
     v-else
-    class="sigma-date-hover"
+    class="cool-files-date-hover"
   >{{ primary }}</span>
 </template>
 
 <style scoped>
-.sigma-date-hover {
+.cool-files-date-hover {
   display: inline-block;
   max-width: 100%;
   vertical-align: bottom;
 }
 
-.sigma-date-hover--relative {
+.cool-files-date-hover--relative {
   display: inline-grid;
   cursor: default;
   grid-template-columns: max-content;
   grid-template-rows: max-content;
 }
 
-.sigma-date-hover__primary,
-.sigma-date-hover__absolute {
+.cool-files-date-hover__primary,
+.cool-files-date-hover__absolute {
   grid-area: 1 / 1;
   place-self: start;
   pointer-events: none;
   transition: opacity 0.22s ease-out;
 }
 
-.sigma-date-hover__primary {
+.cool-files-date-hover__primary {
   opacity: 1;
 }
 
-.sigma-date-hover__absolute {
+.cool-files-date-hover__absolute {
   opacity: 0;
 }
 
-.sigma-date-hover--relative:hover .sigma-date-hover__primary {
+.cool-files-date-hover--relative:hover .cool-files-date-hover__primary {
   opacity: 0;
 }
 
-.sigma-date-hover--relative:hover .sigma-date-hover__absolute {
+.cool-files-date-hover--relative:hover .cool-files-date-hover__absolute {
   opacity: 1;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .sigma-date-hover__primary,
-  .sigma-date-hover__absolute {
+  .cool-files-date-hover__primary,
+  .cool-files-date-hover__absolute {
     transition-duration: 0.01ms;
   }
 }

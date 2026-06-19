@@ -14,14 +14,14 @@ const forwardedProps = useForwardProps(props);
 <template>
   <DialogDescription
     v-bind="forwardedProps"
-    class="sigma-ui-dialog-description"
+    class="cool-files-ui-dialog-description"
   >
     <slot />
   </DialogDescription>
 </template>
 
 <style>
-.sigma-ui-dialog-description {
+.cool-files-ui-dialog-description {
   color: hsl(var(--muted-foreground));
   font-size: 0.875rem;
 }

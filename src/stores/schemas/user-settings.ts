@@ -16,7 +16,7 @@ import {
 import { BUILTIN_NAVIGATOR_ICON_THEME_IDS } from '@/types/icon-theme';
 
 export const USER_SETTINGS_SCHEMA_VERSION_KEY = '__schemaVersion';
-export const USER_SETTINGS_SCHEMA_VERSION = 13;
+export const USER_SETTINGS_SCHEMA_VERSION = 16;
 
 export const DEFAULT_GLOBAL_SEARCH_IGNORED_PATHS = [
   '/node_modules',
@@ -355,6 +355,79 @@ async function migrateUserSettingsStep(storage: StorageAdapter, fromVersion: num
 
   if (fromVersion === 12 && toVersion === 13) {
     await addDefaultGlobalSearchIgnoredPaths(storage, [WINDOWS_WINSXS_IGNORED_PATH]);
+  }
+
+  if (fromVersion === 13 && toVersion === 14) {
+    const existingToolbar = await storage.get<unknown>('navigator.toolbar');
+
+    if (!existingToolbar) {
+      await storage.set('navigator.toolbar', {
+        items: [
+          {
+            kind: 'action',
+            id: 'layoutList',
+          },
+          {
+            kind: 'action',
+            id: 'layoutGrid',
+          },
+          {
+            kind: 'action',
+            id: 'layoutColumns',
+          },
+          { kind: 'separator' },
+          {
+            kind: 'action',
+            id: 'splitView',
+          },
+          {
+            kind: 'action',
+            id: 'infoPanel',
+          },
+        ],
+      });
+    }
+
+    const existingSidebar = await storage.get<unknown>('navigator.sidebar');
+
+    if (!existingSidebar) {
+      await storage.set('navigator.sidebar', {
+        items: [
+          {
+            id: 'home',
+            visible: true,
+          },
+          {
+            id: 'navigator',
+            visible: true,
+          },
+          {
+            id: 'dashboard',
+            visible: true,
+          },
+          {
+            id: 'settings',
+            visible: true,
+          },
+          {
+            id: 'extensions',
+            visible: true,
+          },
+        ],
+      });
+    }
+  }
+
+  if (fromVersion === 14 && toVersion === 15) {
+    const existingLoadAnimations = await storage.get<unknown>('loadAnimations');
+
+    if (!existingLoadAnimations) {
+      await storage.set('loadAnimations', {
+        enabled: true,
+        durationMs: 440,
+        staggerStepMs: 48,
+      });
+    }
   }
 
   if (fromVersion === 6 && toVersion === 7) {

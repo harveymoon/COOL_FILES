@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component type="desktop-application">
-  <id>com.sigmafilemanager.app</id>
-  <name>Sigma File Manager</name>
+  <id>com.coolfiles.app</id>
+  <name>Cool Files</name>
   <summary>Modern, free, open-source file manager</summary>
   <developer id="io.github.alekseyhoffman">
     <name>Aleksey Hoffman</name>
   </developer>
   <description>
     <p>
-      Sigma File Manager is a modern, feature-rich file manager for Linux and Windows.
+      Cool Files is a modern, feature-rich file manager for Linux and Windows.
       It includes a fast global search with typo correction, tabs and split view,
       an extension marketplace, LAN file sharing with browser access and QR codes,
       network locations (SSHFS / NFS / SMB / CIFS), an address bar with autocomplete,
@@ -16,7 +16,7 @@
       tags, and customizable visuals.
     </p>
   </description>
-  <launchable type="desktop-id">com.sigmafilemanager.app.desktop</launchable>
+  <launchable type="desktop-id">com.coolfiles.app.desktop</launchable>
   <categories>
     <category>Utility</category>
     <category>FileManager</category>
@@ -28,8 +28,8 @@
       </description>
     </release>
   </releases>
-  <url type="homepage">https://github.com/aleksey-hoffman/sigma-file-manager</url>
-  <url type="bugtracker">https://github.com/aleksey-hoffman/sigma-file-manager/issues</url>
+  <url type="homepage">https://github.com/harveymoon/COOL_FILES</url>
+  <url type="bugtracker">https://github.com/harveymoon/COOL_FILES/issues</url>
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>GPL-3.0-or-later</project_license>
   <content_rating type="oars-1.1"/>

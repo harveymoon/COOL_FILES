@@ -22,14 +22,14 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
 <template>
   <ComboboxInput
     v-bind="forwarded"
-    :class="['sigma-ui-combobox-input', props.class]"
+    :class="['cool-files-ui-combobox-input', props.class]"
   >
     <slot />
   </ComboboxInput>
 </template>
 
 <style>
-.sigma-ui-combobox-input {
+.cool-files-ui-combobox-input {
   display: flex;
   width: 100%;
   height: 2.25rem;
@@ -44,24 +44,24 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.sigma-ui-combobox-input:focus-visible {
+.cool-files-ui-combobox-input:focus-visible {
   outline: 2px solid hsl(var(--ring) / 50%);
   outline-offset: var(--ring-outline-offset);
 }
 
-.sigma-ui-combobox-input:disabled {
+.cool-files-ui-combobox-input:disabled {
   cursor: not-allowed;
   opacity: 0.5;
 }
 
-.sigma-ui-combobox-input::file-selector-button {
+.cool-files-ui-combobox-input::file-selector-button {
   border: 0;
   background-color: transparent;
   font-size: 0.875rem;
   font-weight: 500;
 }
 
-.sigma-ui-combobox-input::placeholder {
+.cool-files-ui-combobox-input::placeholder {
   color: hsl(var(--muted-foreground));
 }
 </style>

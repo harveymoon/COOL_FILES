@@ -7,7 +7,7 @@
     "paths": {
       "@shared/*": ["./src-shared/*"],
       "@/*": ["./src/*"],
-      "@sigma-file-manager/api": ["./packages/api/index.d.ts"]
+      "@cool_files/api": ["./packages/api/index.d.ts"]
     }
   }
 }

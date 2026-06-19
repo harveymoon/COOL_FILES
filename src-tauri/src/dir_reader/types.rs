@@ -39,6 +39,12 @@ pub struct DirContents {
 }
 
 #[derive(Debug, Serialize, Deserialize)]
+pub struct DirItemCount {
+    pub path: String,
+    pub item_count: Option<u32>,
+}
+
+#[derive(Debug, Serialize, Deserialize)]
 pub struct DriveInfo {
     pub name: String,
     pub path: String,

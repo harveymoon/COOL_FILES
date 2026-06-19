@@ -10,9 +10,25 @@ use super::path_helpers;
 use super::read;
 use super::types::{DirContents, DriveInfo, MountableDevice, NetworkShareParams};
 
+// Runs off the UI thread via `spawn_blocking`. As a synchronous command this ran
+// on the main thread, so reading a slow path (e.g. an SMB NAS) froze the entire
+// app until the read finished. Mirrors the `get_system_drives` pattern below.
 #[tauri::command]
-pub fn read_dir(path: String) -> Result<DirContents, String> {
-    read::read_dir(path)
+pub async fn read_dir(path: String) -> Result<DirContents, String> {
+    // `read_dir_names_only` skips per-subfolder item counting so the listing
+    // returns fast; counts are backfilled via `get_dir_item_counts`.
+    tauri::async_runtime::spawn_blocking(move || read::read_dir_names_only(path))
+        .await
+        .map_err(|join_error| format!("Failed to read directory: {join_error}"))?
+}
+
+// Computes folder item counts off the UI thread. The frontend calls this after a
+// listing renders so counts appear progressively without blocking navigation.
+#[tauri::command]
+pub async fn get_dir_item_counts(paths: Vec<String>) -> Vec<super::types::DirItemCount> {
+    tauri::async_runtime::spawn_blocking(move || read::get_dir_item_counts(paths))
+        .await
+        .unwrap_or_default()
 }
 
 #[tauri::command]
@@ -59,7 +75,9 @@ pub fn unmount_drive(device_path: String, mount_point: String) -> Result<(), Str
 }
 
 #[tauri::command]
-pub fn mount_network_share(params: NetworkShareParams) -> Result<String, String> {
+pub async fn mount_network_share(params: NetworkShareParams) -> Result<String, String> {
+    // Runs `net use` (Windows) / `mount` (unix), which blocks until the host
+    // responds. Async so an unreachable/slow host cannot freeze the UI thread.
     network_shares::mount_network_share(params)
 }
 

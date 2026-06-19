@@ -1,8 +1,8 @@
 {
   "$schema": "../node_modules/@tauri-apps/cli/config.schema.json",
-  "productName": "Sigma File Manager",
+  "productName": "Cool Files",
   "version": "../package.json",
-  "identifier": "com.sigma-file-manager.app",
+  "identifier": "com.cool-files.app",
   "build": {
     "frontendDist": "../dist",
     "devUrl": "http://localhost:1420",
@@ -13,7 +13,7 @@
     "windows": [
       {
         "label": "main",
-        "title": "Sigma File Manager",
+        "title": "Cool Files",
         "width": 1280,
         "height": 720,
         "minWidth": 500,
@@ -27,7 +27,7 @@
       },
       {
         "label": "quick-view",
-        "title": "Sigma File Manager | Quick View",
+        "title": "Cool Files | Quick View",
         "width": 1280,
         "height": 720,
         "minWidth": 300,
@@ -41,7 +41,7 @@
       },
       {
         "label": "print-view",
-        "title": "Sigma File Manager | Print",
+        "title": "Cool Files | Print",
         "width": 1280,
         "height": 720,
         "minWidth": 300,

@@ -1,6 +1,6 @@
 {
   "app": {
-    "name": "Sigma File Manager",
+    "name": "Cool Files",
     "description": "یک برنامه مدیریت فایل رایگان، منبع باز، پیشرفته و مدرن است که تحت مجوز GNU GPLv3 یا جدیدتر است.",
     "copyright": "حق چاپ © 2021 - زمان حال، الکسی هافمن. تمامی حقوق محفوظ است."
   },
@@ -154,7 +154,17 @@
     "setPreviousBackground": "تنظیم زمینه قبلی",
     "dropZoneClickToBrowse": "برای انتخاب تصاویر یا ویدیو کلیک کنید",
     "dropZoneOrDropFiles": "یا فایل‌ها را اینجا رها کنید",
-    "addMediaUrlPlaceholder": "آدرس تصویر یا ویدیو را بچسبانید"
+    "addMediaUrlPlaceholder": "آدرس تصویر یا ویدیو را بچسبانید",
+    "editLayout": "Edit layout",
+    "doneEditing": "Done",
+    "editLayoutHint": "Drag tiles to rearrange. Drag directory tiles between sections, or remove them. Add groups to organize your folders.",
+    "addGroup": "Add group",
+    "newGroupTitle": "New group",
+    "deleteGroup": "Delete group",
+    "renameGroup": "Group name",
+    "addDirectory": "Add directory",
+    "emptyGroup": "Drag directories here or click \"Add directory\"",
+    "reorderGroup": "Drag to reorder"
   },
   "navigator": {
     "newDirectoryFile": "دایرکتوری / فایل جدید",
@@ -337,7 +347,26 @@
       "navigatorOptions": "گزینه‌های ناوبر",
       "systemIcons": "تم آیکون",
       "systemIconsDirectories": "پوشه‌ها",
-      "systemIconsFiles": "فایل‌ها"
+      "systemIconsFiles": "فایل‌ها",
+      "toolbarCustomization": "Toolbar buttons",
+      "toolbarCustomizationDescription": "Reorder, show, hide, and group the buttons in the navigator toolbar. Drag to reorder.",
+      "sidebarCustomization": "Sidebar buttons",
+      "sidebarCustomizationDescription": "Reorder and show or hide the page buttons in the left sidebar. Drag to reorder.",
+      "toolbarSeparator": "Separator",
+      "toolbarEmpty": "No buttons. Add some below.",
+      "toolbarAddAction": "Add button",
+      "toolbarAddSeparator": "Add separator",
+      "toolbarReset": "Reset to default",
+      "toolbarPreview": "Toolbar",
+      "toolbarUnused": "Unused items",
+      "toolbarDragHint": "Drag icons to reorder. Drag into Unused to remove, or back onto the toolbar to add.",
+      "customizeTitle": "Toolbar & sidebar buttons",
+      "customizeDescription": "Customize which buttons appear in the navigator toolbar and the left sidebar, and their order. Editing happens in place on the navigator.",
+      "customizeButton": "Customize toolbar & sidebar",
+      "editSheetTitle": "Customizing toolbar & sidebar",
+      "editSheetHint": "Drag items onto the toolbar or sidebar to add them, or drag them off into here to remove. Drag a separator onto the toolbar to group buttons.",
+      "editDone": "Done",
+      "autoShowDrives": "Auto-show drives in sidebar"
     },
     "tabs": {
       "lastTabCloseBehavior": {
@@ -387,8 +416,18 @@
     },
     "experimental": {
       "defaultFileManager": {
-        "title": "Sigma File Manager را به عنوان مدیر فایل پیش فرض تنظیم کنید",
+        "title": "Cool Files را به عنوان مدیر فایل پیش فرض تنظیم کنید",
         "description": "این گزینه رجیستری سیستم را تغییر می دهد و ممکن است عوارض جانبی غیرمنتظره ای روی دستگاه شما داشته باشد. با مسئولیت خود ادامه دهید."
+      }
+    },
+    "appearance": {
+      "loadAnimations": {
+        "title": "Load-in animations",
+        "description": "Animate panels and items as they appear on the Home, Settings, Dashboard, and Extensions pages.",
+        "enable": "Enable load-in animations",
+        "speed": "Speed (duration)",
+        "cascade": "Cascade (stagger)",
+        "milliseconds": "{value} ms"
       }
     }
   },
@@ -406,7 +445,8 @@
     "dataStorage": "داده ها و ذخیره سازی",
     "stats": "آمار",
     "experimental": "آزمایشی",
-    "extensions": "برنامه های افزودنی"
+    "extensions": "برنامه های افزودنی",
+    "navigator": "Navigator"
   },
   "settingsTags": {
     "language": "زبان",
@@ -433,7 +473,8 @@
     "experimental": "پیشرفته، آزمایشی، مدیر فایل پیش فرض، فایل اکسپلورر، رجیستری، ترمینال، شل",
     "whatsNew": "تازه‌ها، تغییرات، یادداشت‌های نسخه، نسخه، به‌روزرسانی، اخبار",
     "autostart": "اجرای خودکار، راه‌اندازی، ورود، سیستم، بوت",
-    "extensions": "extensions, plugins, addons, configuration, settings"
+    "extensions": "extensions, plugins, addons, configuration, settings",
+    "loadAnimations": "animation, animations, fade, slide, cascade, stagger, motion, transition, effects"
   },
   "drag": {
     "holdShiftToChangeMode": "برای تغییر حالت، [Shift] را نگه دارید",
@@ -520,7 +561,10 @@
     "deleteSelectedItemsFromDrive": "حذف از درایو",
     "moveCurrentDirectoryToTrash": "انتقال فهرست فعلی به سطل زباله",
     "deleteCurrentDirectoryFromDrive": "حذف فهرست فعلی از درایو",
-    "toggleCommandPalette": "Open / close command palette"
+    "toggleCommandPalette": "Open / close command palette",
+    "setLayoutList": "Switch to list layout",
+    "setLayoutGrid": "Switch to grid layout",
+    "setLayoutColumns": "Switch to columns layout"
   },
   "dialogs": {
     "userDirectoryEditorDialog": {
@@ -830,7 +874,8 @@
       "share": "اشتراک‌گذاری در شبکه محلی",
       "openInNewTab": "باز کردن در برگه جدید",
       "addToFavorites": "افزودن به موردعلاقه‌ها",
-      "removeFromFavorites": "حذف از موردعلاقه‌ها"
+      "removeFromFavorites": "حذف از موردعلاقه‌ها",
+      "cut": "Cut"
     },
     "archive": {
       "extract": "استخراج",
@@ -849,7 +894,10 @@
       "errors": {
         "destinationInsideSelectedFolder": "آرشیو مقصد داخل یکی از پوشه‌های انتخاب‌شده است"
       }
-    }
+    },
+    "type": "Type",
+    "folder": "Folder",
+    "resizeColumn": "Drag to resize column"
   },
   "openWith": {
     "loadingPrograms": "در حال بارگذاری برنامه‌ها...",
@@ -948,7 +996,7 @@
     },
     "badges": {
       "official": "رسمی",
-      "officialTooltip": "این افزونه توسط تیم Sigma File Manager ایجاد و نگهداری می‌شود",
+      "officialTooltip": "این افزونه توسط تیم Cool Files ایجاد و نگهداری می‌شود",
       "community": "جامعه",
       "communityTooltip": "این یک افزونه جامعه است. قبل از نصب، کد منبع را بررسی کنید.",
       "local": "محلی",
@@ -1063,5 +1111,15 @@
     "replaceShareDialogTitle": "اشتراک‌گذاری فعلی جایگزین شود؟",
     "replaceShareDialogDescription": "فایل‌ها از قبل از طریق شبکه به اشتراک گذاشته شده‌اند. اشتراک‌گذاری فعلی متوقف و با مورد جدید جایگزین خواهد شد.",
     "replaceShareDialogConfirm": "جایگزینی"
-  }
+  },
+  "columns": "Columns",
+  "columnsLayout": "Columns layout",
+  "nav": {
+    "pinDrive": "Pin drive to sidebar",
+    "unpinDrive": "Unpin drive from sidebar",
+    "pinShortcut": "Pin shortcut to sidebar",
+    "removeShortcut": "Remove shortcut",
+    "dropToPin": "Drop a folder to pin it"
+  },
+  "remove": "Remove"
 }

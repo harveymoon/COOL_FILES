@@ -17,22 +17,22 @@ const forwarded = useForwardPropsEmits(props, emits);
 
 <template>
   <SliderRoot
-    class="sigma-ui-slider"
+    class="cool-files-ui-slider"
     v-bind="forwarded"
   >
-    <SliderTrack class="sigma-ui-slider__track">
-      <SliderRange class="sigma-ui-slider__range" />
+    <SliderTrack class="cool-files-ui-slider__track">
+      <SliderRange class="cool-files-ui-slider__range" />
     </SliderTrack>
     <SliderThumb
       v-for="(_, key) in modelValue"
       :key="key"
-      class="sigma-ui-slider__thumb"
+      class="cool-files-ui-slider__thumb"
     />
   </SliderRoot>
 </template>
 
 <style>
-.sigma-ui-slider {
+.cool-files-ui-slider {
   position: relative;
   display: flex;
   width: 100%;
@@ -42,7 +42,7 @@ const forwarded = useForwardPropsEmits(props, emits);
   user-select: none;
 }
 
-.sigma-ui-slider__track {
+.cool-files-ui-slider__track {
   position: relative;
   overflow: hidden;
   width: 100%;
@@ -52,13 +52,13 @@ const forwarded = useForwardPropsEmits(props, emits);
   background-color: hsl(var(--secondary));
 }
 
-.sigma-ui-slider__range {
+.cool-files-ui-slider__range {
   position: absolute;
   height: 100%;
   background-color: hsl(var(--primary));
 }
 
-.sigma-ui-slider__thumb {
+.cool-files-ui-slider__thumb {
   display: block;
   width: 1.25rem;
   height: 1.25rem;
@@ -70,12 +70,12 @@ const forwarded = useForwardPropsEmits(props, emits);
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.sigma-ui-slider__thumb:focus-visible {
+.cool-files-ui-slider__thumb:focus-visible {
   outline: 2px solid hsl(var(--ring) / 50%);
   outline-offset: var(--ring-outline-offset);
 }
 
-.sigma-ui-slider__thumb:disabled {
+.cool-files-ui-slider__thumb:disabled {
   opacity: 0.5;
   pointer-events: none;
 }

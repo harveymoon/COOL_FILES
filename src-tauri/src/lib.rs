@@ -8,6 +8,7 @@ mod background_sources;
 mod copy_move_job;
 mod default_file_manager;
 mod delete_job;
+mod desk_deck;
 mod dir_reader;
 mod dir_size;
 mod dir_watcher;
@@ -32,7 +33,7 @@ mod windows_print_view_webview;
 use serde::Serialize;
 use tauri::{Emitter, Manager};
 
-const SIGMA_AUTOSTART_CLI_FLAG: &str = "--sigma-autostart";
+const COOL_FILES_AUTOSTART_CLI_FLAG: &str = "--cool-files-autostart";
 
 #[derive(Clone, Serialize)]
 #[serde(rename_all = "camelCase")]
@@ -119,7 +120,7 @@ fn delegate_shell_namespace_paths(paths: &[String]) {
 }
 
 fn launched_from_autostart(args: &[String]) -> bool {
-    args.iter().any(|arg| arg == SIGMA_AUTOSTART_CLI_FLAG)
+    args.iter().any(|arg| arg == COOL_FILES_AUTOSTART_CLI_FLAG)
 }
 
 fn build_launch_context(
@@ -241,7 +242,7 @@ pub fn run() {
         .plugin(tauri_plugin_clipboard_manager::init())
         .plugin(
             tauri_plugin_autostart::Builder::new()
-                .args([SIGMA_AUTOSTART_CLI_FLAG])
+                .args([COOL_FILES_AUTOSTART_CLI_FLAG])
                 .build(),
         )
         .invoke_handler(tauri::generate_handler![
@@ -256,6 +257,7 @@ pub fn run() {
             system_tray::reload_webview,
             system_tray::update_tray_shortcut,
             dir_reader::read_dir,
+            dir_reader::get_dir_item_counts,
             dir_reader::read_dir_with_timeout,
             dir_reader::get_dir_entry_with_timeout,
             dir_reader::resolve_windows_directory_shortcut,
@@ -358,6 +360,7 @@ pub fn run() {
             lan_share::start_lan_share,
             lan_share::stop_lan_share,
             lan_share::get_local_ip,
+            desk_deck::desk_deck_publish_state,
         ])
         .setup(setup_handler)
         .on_window_event(|window, event| {
@@ -385,9 +388,34 @@ fn setup_handler(app: &mut tauri::App) -> Result<(), Box<dyn std::error::Error>>
                 .level(log::LevelFilter::Info)
                 .build(),
         )?;
+
+        // Capture any Rust panic into the log file. Panics normally go to stderr
+        // and are lost once the window closes, so route them through `log::error!`
+        // (with location + backtrace) to diagnose hard crashes.
+        let default_panic_hook = std::panic::take_hook();
+        std::panic::set_hook(Box::new(move |panic_info| {
+            let location = panic_info
+                .location()
+                .map(|loc| format!("{}:{}:{}", loc.file(), loc.line(), loc.column()))
+                .unwrap_or_else(|| "unknown location".to_string());
+            let backtrace = std::backtrace::Backtrace::force_capture();
+            log::error!(
+                "[panic] thread panicked at {}: {}\nbacktrace:\n{}",
+                location,
+                panic_info,
+                backtrace
+            );
+            default_panic_hook(panic_info);
+        }));
+        log::info!("[startup] panic hook installed; debug logging at INFO level");
     }
 
     system_tray::setup_system_tray(app.handle())?;
+
+    // Start the local-only Desk_Deck integration API (127.0.0.1). Non-fatal if
+    // it fails to bind — see `DESK_DECK_INTEGRATION.md`.
+    desk_deck::start(app.handle().clone());
+
     startup_storage_bootstrap::migrate_legacy_user_storage_filenames(app.handle());
     startup_storage_bootstrap::start_preload(
         app.handle().clone(),
@@ -438,7 +466,7 @@ mod tests {
     #[test]
     fn delegated_shell_namespace_paths_are_removed_from_launch_args() {
         let result = filter_shell_namespace_args(vec![
-            "sigma-file-manager.exe".to_string(),
+            "cool_files.exe".to_string(),
             "shell:downloads".to_string(),
             "C:\\Users\\aleks\\Documents".to_string(),
         ]);
@@ -446,7 +474,7 @@ mod tests {
         assert_eq!(
             result.filtered_args,
             vec![
-                "sigma-file-manager.exe".to_string(),
+                "cool_files.exe".to_string(),
                 "C:\\Users\\aleks\\Documents".to_string(),
             ]
         );
@@ -458,13 +486,13 @@ mod tests {
     #[test]
     fn absorbed_shell_namespace_paths_are_tracked_without_delegation() {
         let result = filter_shell_namespace_args(vec![
-            "sigma-file-manager.exe".to_string(),
+            "cool_files.exe".to_string(),
             "shell:MyComputerFolder".to_string(),
         ]);
 
         assert_eq!(
             result.filtered_args,
-            vec!["sigma-file-manager.exe".to_string()]
+            vec!["cool_files.exe".to_string()]
         );
         assert!(result.delegated_paths.is_empty());
         assert!(result.had_absorbed_paths);

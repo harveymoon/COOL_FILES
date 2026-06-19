@@ -10,7 +10,7 @@ Copyright © 2021 - present Aleksey Hoffman. All rights reserved.
 
 <template>
   <div
-    class="sigma-ui-dialog-header"
+    class="cool-files-ui-dialog-header"
     :class="[$attrs.class]"
   >
     <slot />
@@ -18,7 +18,7 @@ Copyright © 2021 - present Aleksey Hoffman. All rights reserved.
 </template>
 
 <style>
-.sigma-ui-dialog-header {
+.cool-files-ui-dialog-header {
   display: flex;
   flex-direction: column;
   gap: 0.375rem;
@@ -26,7 +26,7 @@ Copyright © 2021 - present Aleksey Hoffman. All rights reserved.
 }
 
 @media (width >= 640px) {
-  .sigma-ui-dialog-header {
+  .cool-files-ui-dialog-header {
     text-align: left;
   }
 }

@@ -26,10 +26,10 @@ const { t } = useI18n();
 <template>
   <DialogPortal>
     <DialogOverlay
-      class="sigma-ui-dialog-scroll-overlay"
+      class="cool-files-ui-dialog-scroll-overlay"
     >
       <DialogContent
-        class="sigma-ui-dialog-scroll-content"
+        class="cool-files-ui-dialog-scroll-content"
         :class="[$attrs.class]"
         v-bind="forwarded"
         @pointer-down-outside="(event) => {
@@ -42,9 +42,9 @@ const { t } = useI18n();
       >
         <slot />
 
-        <DialogClose class="sigma-ui-dialog-scroll-close">
-          <XIcon class="sigma-ui-dialog-scroll-close__icon" />
-          <span class="sigma-ui-dialog-scroll-close__label">{{ t('close') }}</span>
+        <DialogClose class="cool-files-ui-dialog-scroll-close">
+          <XIcon class="cool-files-ui-dialog-scroll-close__icon" />
+          <span class="cool-files-ui-dialog-scroll-close__label">{{ t('close') }}</span>
         </DialogClose>
       </DialogContent>
     </DialogOverlay>
@@ -52,26 +52,26 @@ const { t } = useI18n();
 </template>
 
 <style>
-.sigma-ui-dialog-scroll-overlay {
+.cool-files-ui-dialog-scroll-overlay {
   position: fixed;
   z-index: 50;
   display: grid;
-  animation: sigma-ui-fade-in 0.2s ease-out;
+  animation: cool-files-ui-fade-in 0.2s ease-out;
   background-color: rgb(0 0 0 / 80%);
   inset: 0;
   overflow-y: auto;
   place-items: center;
 }
 
-.sigma-ui-dialog-scroll-overlay[data-state="open"] {
-  animation: sigma-ui-fade-in 0.2s ease-out;
+.cool-files-ui-dialog-scroll-overlay[data-state="open"] {
+  animation: cool-files-ui-fade-in 0.2s ease-out;
 }
 
-.sigma-ui-dialog-scroll-overlay[data-state="closed"] {
-  animation: sigma-ui-fade-out 0.2s ease-in;
+.cool-files-ui-dialog-scroll-overlay[data-state="closed"] {
+  animation: cool-files-ui-fade-out 0.2s ease-in;
 }
 
-.sigma-ui-dialog-scroll-content {
+.cool-files-ui-dialog-scroll-content {
   position: relative;
   z-index: 50;
   display: grid;
@@ -86,7 +86,7 @@ const { t } = useI18n();
   transition-duration: 200ms;
 }
 
-.sigma-ui-dialog-scroll-close {
+.cool-files-ui-dialog-scroll-close {
   position: absolute;
   top: 0.75rem;
   right: 0.75rem;
@@ -97,16 +97,16 @@ const { t } = useI18n();
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.sigma-ui-dialog-scroll-close:hover {
+.cool-files-ui-dialog-scroll-close:hover {
   background-color: hsl(var(--secondary));
 }
 
-.sigma-ui-dialog-scroll-close__icon {
+.cool-files-ui-dialog-scroll-close__icon {
   width: 1rem;
   height: 1rem;
 }
 
-.sigma-ui-dialog-scroll-close__label {
+.cool-files-ui-dialog-scroll-close__label {
   position: absolute;
   overflow: hidden;
   width: 1px;
@@ -119,13 +119,13 @@ const { t } = useI18n();
 }
 
 @media (width >= 640px) {
-  .sigma-ui-dialog-scroll-content {
+  .cool-files-ui-dialog-scroll-content {
     border-radius: var(--radius-lg);
   }
 }
 
 @media (width >= 768px) {
-  .sigma-ui-dialog-scroll-content {
+  .cool-files-ui-dialog-scroll-content {
     width: 100%;
   }
 }

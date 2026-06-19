@@ -354,12 +354,12 @@ function selectProperty(property: QuickSearchProperty) {
 </style>
 
 <style>
-.file-browser-toolbar-filter__popover.sigma-ui-popover-content {
+.file-browser-toolbar-filter__popover.cool-files-ui-popover-content {
   width: min(340px, calc(100vw - 32px));
   padding: 4px;
 }
 
-.file-browser-toolbar-filter__property-tooltip.sigma-ui-tooltip-content {
+.file-browser-toolbar-filter__property-tooltip.cool-files-ui-tooltip-content {
   max-width: 18rem;
   line-height: 1.35;
 }

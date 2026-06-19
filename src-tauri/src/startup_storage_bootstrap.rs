@@ -277,10 +277,10 @@ mod tests {
 
     #[test]
     fn builds_expected_app_user_data_dir() {
-        let app_data_dir = PathBuf::from("/tmp/sigma");
+        let app_data_dir = PathBuf::from("/tmp/cool_files");
         assert_eq!(
             build_app_user_data_dir(&app_data_dir),
-            PathBuf::from("/tmp/sigma").join(&user_storage_files_config().user_data_dir_name)
+            PathBuf::from("/tmp/cool_files").join(&user_storage_files_config().user_data_dir_name)
         );
     }
 

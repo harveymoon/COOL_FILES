@@ -8,9 +8,10 @@ export type StaggerAnimationOptions = {
   maxStaggeredItems?: number;
 };
 
+import { getLoadAnimationsStaggerStepMs } from '@/composables/use-load-animations';
+
 export const STAGGER_SLIDE_UP_CLASS = 'animate-stagger-slide-up';
 
-const defaultStepMs = 48;
 const defaultInitialDelayMs = 0;
 const defaultMaxStaggeredItems = 48;
 
@@ -18,7 +19,9 @@ export function getStaggerAnimationDelayMs(
   index: number,
   options?: StaggerAnimationOptions,
 ): number {
-  const stepMs = options?.stepMs ?? defaultStepMs;
+  // Falls back to the user-configured cascade step (Settings → Appearance) when a
+  // caller does not pass an explicit stepMs.
+  const stepMs = options?.stepMs ?? getLoadAnimationsStaggerStepMs();
   const initialDelayMs = options?.initialDelayMs ?? defaultInitialDelayMs;
   const maxStaggeredItems = options?.maxStaggeredItems ?? defaultMaxStaggeredItems;
   const clampedIndex = Math.min(Math.max(0, index), maxStaggeredItems);

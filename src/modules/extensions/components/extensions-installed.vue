@@ -613,7 +613,7 @@ function getLocalReinstallButtonTitle(extensionId: string): string {
     grid-row: 2;
   }
 
-  .extensions-installed__item-actions .sigma-ui-button {
+  .extensions-installed__item-actions .cool-files-ui-button {
     width: 28px;
     height: 28px;
     padding: 0;

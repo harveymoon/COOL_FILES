@@ -46,7 +46,7 @@ async function handleClick() {
 </template>
 
 <style scoped>
-.command-palette-toolbar-button :deep(.sigma-ui-button) {
+.command-palette-toolbar-button :deep(.cool-files-ui-button) {
   width: 28px;
   height: 28px;
 }

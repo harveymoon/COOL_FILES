@@ -4,34 +4,28 @@ Copyright © 2021 - present Aleksey Hoffman. All rights reserved.
 -->
 
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, type Component } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { Button } from '@/components/ui/button';
-import {
-  DropdownMenu,
-  DropdownMenuTrigger,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-} from '@/components/ui/dropdown-menu';
 import {
   Tooltip,
   TooltipTrigger,
   TooltipContent,
 } from '@/components/ui/tooltip';
-import { Switch } from '@/components/ui/switch';
-import { ContextMenuShortcut } from '@/components/ui/context-menu';
-import {
-  FlipHorizontalIcon,
-  PanelRightIcon,
-  LayoutGridIcon,
-  ListIcon,
-  EllipsisVerticalIcon,
-} from '@lucide/vue';
+import { Container, Draggable, type DropResult } from 'vue3-smooth-dnd';
 import { useUserSettingsStore } from '@/stores/storage/user-settings';
 import { useShortcutsStore } from '@/stores/runtime/shortcuts';
+import { useNavCustomizeStore, NAV_CUSTOMIZE_DRAG_GROUP } from '@/stores/runtime/nav-customize';
+import type { ToolbarActionId, ToolbarWidgetId, ToolbarItem } from '@/types/user-settings';
+import ColumnsLayoutIcon from './columns-layout-icon.vue';
+import {
+  getToolbarActionDefinition,
+  TOOLBAR_ACTION_SHORTCUT_MAP,
+  TOOLBAR_HIDDEN_FILES_ACTIVE_ICON,
+} from './toolbar-actions';
+import { getToolbarWidgetDefinition } from './toolbar-widgets';
 
-type LayoutType = 'list' | 'grid';
+type LayoutType = 'list' | 'grid' | 'columns';
 
 const props = defineProps<{
   isSplitView: boolean;
@@ -42,11 +36,53 @@ const props = defineProps<{
 const emit = defineEmits<{
   'toggle-split-view': [];
   'toggle-info-panel': [];
+  'navigate-home': [];
 }>();
 
 const { t } = useI18n();
 const userSettingsStore = useUserSettingsStore();
 const shortcutsStore = useShortcutsStore();
+const navCustomizeStore = useNavCustomizeStore();
+
+const editing = computed(() => navCustomizeStore.isEditMode);
+
+const toolbarItems = computed<ToolbarItem[]>(
+  () => userSettingsStore.userSettings.navigator.toolbar?.items ?? [],
+);
+
+// In edit mode the toolbar becomes a smooth-dnd container. Returns the dragged
+// item so other containers (sidebar pool) know what was picked up.
+function toolbarPayload(index: number): ToolbarItem {
+  return toolbarItems.value[index];
+}
+
+// Canonical smooth-dnd reconciliation (matches tab-draggable / settings editor):
+// remove the item that left, then insert the incoming payload at the drop index.
+function onToolbarDrop(dropResult: DropResult) {
+  const { removedIndex, addedIndex, payload } = dropResult;
+
+  if (removedIndex === null && addedIndex === null) {
+    return;
+  }
+
+  const next = [...toolbarItems.value];
+  let moved = payload as ToolbarItem | undefined;
+
+  if (removedIndex !== null) {
+    moved = next.splice(removedIndex, 1)[0];
+  }
+
+  // Only insert genuine toolbar items. A foreign payload (e.g. a sidebar page
+  // dragged over from the shared drag group) is ignored on add, so it can't
+  // corrupt the toolbar list; the removal branch above still applies.
+  const isToolbarItem = !!moved && (moved.kind === 'action' || moved.kind === 'separator');
+
+  if (addedIndex !== null && moved && isToolbarItem) {
+    next.splice(addedIndex, 0, moved);
+  }
+
+  userSettingsStore.set('navigator.toolbar', { items: next });
+}
 
 const currentLayout = computed(() => {
   const layoutName = userSettingsStore.userSettings.navigator.layout.type.name;
@@ -55,130 +91,213 @@ const currentLayout = computed(() => {
 
 const showHiddenFiles = computed(() => userSettingsStore.userSettings.navigator.showHiddenFiles);
 
+const LAYOUT_BY_ACTION: Partial<Record<ToolbarActionId, LayoutType>> = {
+  layoutList: 'list',
+  layoutGrid: 'grid',
+  layoutColumns: 'columns',
+};
+
 async function setLayout(layoutName: LayoutType) {
-  const layoutTitle = layoutName === 'grid' ? 'gridLayout' : 'listLayout';
+  const layoutTitleByName = {
+    list: 'listLayout',
+    grid: 'gridLayout',
+    columns: 'columnsLayout',
+  } as const;
   await userSettingsStore.set('navigator.layout.type', {
-    title: layoutTitle,
+    title: layoutTitleByName[layoutName],
     name: layoutName,
   });
 }
 
-function handleToggleHiddenFiles(checked: boolean) {
-  userSettingsStore.set('navigator.showHiddenFiles', checked);
+function handleToggleHiddenFiles() {
+  userSettingsStore.set('navigator.showHiddenFiles', !showHiddenFiles.value);
+}
+
+function runAction(id: ToolbarActionId) {
+  if (editing.value || isActionDisabled(id)) {
+    return;
+  }
+
+  const layout = LAYOUT_BY_ACTION[id];
+
+  if (layout) {
+    setLayout(layout);
+    return;
+  }
+
+  if (id === 'splitView') {
+    emit('toggle-split-view');
+    return;
+  }
+
+  if (id === 'infoPanel') {
+    emit('toggle-info-panel');
+    return;
+  }
+
+  if (id === 'toggleHiddenFiles') {
+    handleToggleHiddenFiles();
+    return;
+  }
+
+  if (id === 'home') {
+    emit('navigate-home');
+    return;
+  }
+
+  const shortcutId = TOOLBAR_ACTION_SHORTCUT_MAP[id];
+
+  if (shortcutId) {
+    shortcutsStore.executeShortcut(shortcutId as never);
+  }
+}
+
+function isActionActive(id: ToolbarActionId): boolean {
+  const layout = LAYOUT_BY_ACTION[id];
+
+  if (layout) {
+    return currentLayout.value === layout;
+  }
+
+  if (id === 'splitView') {
+    return props.isSplitView;
+  }
+
+  if (id === 'infoPanel') {
+    return props.showInfoPanel;
+  }
+
+  if (id === 'toggleHiddenFiles') {
+    return showHiddenFiles.value;
+  }
+
+  return false;
+}
+
+function isActionDisabled(id: ToolbarActionId): boolean {
+  if (id === 'splitView') {
+    return props.isGlobalSearchOpen;
+  }
+
+  return false;
+}
+
+function actionIcon(id: ToolbarActionId): Component | undefined {
+  if (id === 'layoutColumns') {
+    return ColumnsLayoutIcon;
+  }
+
+  if (id === 'toggleHiddenFiles' && showHiddenFiles.value) {
+    return TOOLBAR_HIDDEN_FILES_ACTIVE_ICON;
+  }
+
+  return getToolbarActionDefinition(id)?.icon;
+}
+
+function actionLabel(id: ToolbarActionId): string {
+  const definition = getToolbarActionDefinition(id);
+  return definition ? t(definition.labelKey) : id;
+}
+
+function widgetComponent(id: ToolbarWidgetId): Component | undefined {
+  return getToolbarWidgetDefinition(id)?.component;
+}
+
+function widgetIcon(id: ToolbarWidgetId): Component | undefined {
+  return getToolbarWidgetDefinition(id)?.icon;
+}
+
+function widgetLabel(id: ToolbarWidgetId): string {
+  const definition = getToolbarWidgetDefinition(id);
+  return definition ? t(definition.labelKey) : id;
 }
 </script>
 
 <template>
   <Teleport to=".window-toolbar-secondary-teleport-target">
-    <div class="navigator-toolbar-actions animate-fade-in">
-      <DropdownMenu>
-        <Tooltip>
+    <!-- Normal state: plain clickable buttons. -->
+    <div
+      v-if="!editing"
+      class="navigator-toolbar-actions animate-fade-in"
+    >
+      <template
+        v-for="(item, index) in toolbarItems"
+        :key="index"
+      >
+        <div
+          v-if="item.kind === 'separator'"
+          class="navigator-toolbar-actions__divider"
+        />
+        <component
+          :is="widgetComponent(item.id)"
+          v-else-if="item.kind === 'widget' && widgetComponent(item.id)"
+        />
+        <Tooltip v-else-if="item.kind === 'action' && getToolbarActionDefinition(item.id)">
           <TooltipTrigger as-child>
-            <DropdownMenuTrigger as-child>
-              <Button
-                variant="ghost"
-                size="icon"
-              >
-                <EllipsisVerticalIcon
-                  :size="16"
-                  class="navigator-toolbar-actions__icon"
-                />
-              </Button>
-            </DropdownMenuTrigger>
-          </TooltipTrigger>
-          <DropdownMenuContent
-            :side="'bottom'"
-            :align="'end'"
-            class="navigator-settings-menu"
-          >
-            <DropdownMenuItem
-              @select.prevent
-              class="navigator-settings-menu__item navigator-settings-menu__item--layout"
+            <Button
+              variant="ghost"
+              size="icon"
+              :class="{ 'navigator-toolbar-actions__button--active': isActionActive(item.id) }"
+              :disabled="isActionDisabled(item.id)"
+              @click="runAction(item.id)"
             >
-              <div class="navigator-settings-menu__layout-label">
-                {{ t('settings.navigator.navigatorViewLayout') }}
-              </div>
-              <div class="navigator-settings-menu__layout-row">
-                <button
-                  type="button"
-                  class="navigator-settings-menu__layout-option"
-                  :class="{ 'navigator-settings-menu__layout-option--active': currentLayout === 'list' }"
-                  @click="setLayout('list')"
-                >
-                  <ListIcon :size="20" />
-                  <span>{{ t('list') }}</span>
-                </button>
-                <button
-                  type="button"
-                  class="navigator-settings-menu__layout-option"
-                  :class="{ 'navigator-settings-menu__layout-option--active': currentLayout === 'grid' }"
-                  @click="setLayout('grid')"
-                >
-                  <LayoutGridIcon :size="20" />
-                  <span>{{ t('grid') }}</span>
-                </button>
-              </div>
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem
-              class="navigator-settings-menu__item"
-              @select.prevent
-            >
-              <span class="navigator-settings-menu__item-label">{{ t('filter.showHiddenItems') }}</span>
-              <Switch
-                class="navigator-settings-menu__switch"
-                :model-value="showHiddenFiles"
-                @update:model-value="handleToggleHiddenFiles(!showHiddenFiles)"
+              <component
+                :is="actionIcon(item.id)"
+                :size="16"
+                class="navigator-toolbar-actions__icon"
               />
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-          <TooltipContent>
-            {{ t('settings.navigator.navigatorOptions') }}
-          </TooltipContent>
+            </Button>
+          </TooltipTrigger>
+          <TooltipContent>{{ actionLabel(item.id) }}</TooltipContent>
         </Tooltip>
-      </DropdownMenu>
-
-      <Tooltip>
-        <TooltipTrigger as-child>
-          <Button
-            variant="ghost"
-            size="icon"
-            :class="{ 'navigator-toolbar-actions__button--active': props.isSplitView }"
-            :disabled="props.isGlobalSearchOpen"
-            @click="emit('toggle-split-view')"
-          >
-            <FlipHorizontalIcon
-              :size="16"
-              class="navigator-toolbar-actions__icon"
-            />
-          </Button>
-        </TooltipTrigger>
-        <TooltipContent>
-          <div class="navigator-toolbar-actions__tooltip-row">
-            {{ t('splitView') }}
-            <ContextMenuShortcut>{{ shortcutsStore.getShortcutLabel('toggleSplitView') }}</ContextMenuShortcut>
-          </div>
-        </TooltipContent>
-      </Tooltip>
-      <Tooltip>
-        <TooltipTrigger as-child>
-          <Button
-            variant="ghost"
-            size="icon"
-            :class="{ 'navigator-toolbar-actions__button--active': props.showInfoPanel }"
-            @click="emit('toggle-info-panel')"
-          >
-            <PanelRightIcon
-              :size="16"
-              class="navigator-toolbar-actions__icon"
-            />
-          </Button>
-        </TooltipTrigger>
-        <TooltipContent>
-          {{ t('settings.infoPanel.title') }}
-        </TooltipContent>
-      </Tooltip>
+      </template>
     </div>
+
+    <!-- Edit state: same buttons, but draggable via smooth-dnd. Drag out to the
+         customize sheet's pool to remove; drag from pool to add. -->
+    <Container
+      v-else
+      class="navigator-toolbar-actions navigator-toolbar-actions--editing animate-fade-in"
+      orientation="horizontal"
+      :group-name="NAV_CUSTOMIZE_DRAG_GROUP"
+      :get-child-payload="toolbarPayload"
+      drag-class="navigator-toolbar-actions__chip--dragging"
+      @drop="onToolbarDrop"
+    >
+      <Draggable
+        v-for="(item, index) in toolbarItems"
+        :key="'edit-' + index"
+      >
+        <div
+          v-if="item.kind === 'separator'"
+          class="navigator-toolbar-actions__divider navigator-toolbar-actions__divider--editing"
+        />
+        <button
+          v-else-if="item.kind === 'widget' && widgetComponent(item.id)"
+          type="button"
+          class="navigator-toolbar-actions__edit-btn"
+          :title="widgetLabel(item.id)"
+        >
+          <component
+            :is="widgetIcon(item.id)"
+            :size="16"
+            class="navigator-toolbar-actions__icon"
+          />
+        </button>
+        <button
+          v-else-if="item.kind === 'action' && getToolbarActionDefinition(item.id)"
+          type="button"
+          class="navigator-toolbar-actions__edit-btn"
+          :title="actionLabel(item.id)"
+        >
+          <component
+            :is="actionIcon(item.id)"
+            :size="16"
+            class="navigator-toolbar-actions__icon"
+          />
+        </button>
+      </Draggable>
+    </Container>
   </Teleport>
 </template>
 
@@ -189,7 +308,7 @@ function handleToggleHiddenFiles(checked: boolean) {
   gap: 4px;
 }
 
-.navigator-toolbar-actions .sigma-ui-button {
+.navigator-toolbar-actions .cool-files-ui-button {
   width: 28px;
   height: 28px;
 }
@@ -202,6 +321,23 @@ function handleToggleHiddenFiles(checked: boolean) {
   background-color: hsl(var(--secondary));
 }
 
+.navigator-toolbar-actions__button--active .navigator-toolbar-actions__icon {
+  stroke: hsl(var(--primary));
+}
+
+.navigator-toolbar-actions__layout-group {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.navigator-toolbar-actions__divider {
+  width: 1px;
+  height: 20px;
+  margin: 0 2px;
+  background-color: hsl(var(--border));
+}
+
 .navigator-toolbar-actions__tooltip-row {
   display: flex;
   align-items: center;
@@ -209,100 +345,34 @@ function handleToggleHiddenFiles(checked: boolean) {
   gap: 12px;
 }
 
-.navigator-toolbar-actions__button--active .navigator-toolbar-actions__icon {
-  stroke: hsl(var(--primary));
+/* Edit mode: draggable buttons mirror the normal ghost-button look. */
+.navigator-toolbar-actions--editing {
+  padding: 2px 6px;
+  border: 1px dashed hsl(var(--primary) / 50%);
+  border-radius: var(--radius-sm);
 }
 
-.navigator-settings-menu__layout-label.sigma-ui-dropdown-menu-label {
-  padding-bottom: 4px;
-}
-
-.navigator-settings-menu__layout-row {
+.navigator-toolbar-actions__edit-btn {
   display: flex;
-  width: 100%;
-  height: 64px;
+  width: 28px;
+  height: 28px;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-}
-
-.navigator-settings-menu__item--layout.sigma-ui-dropdown-menu-item {
-  flex-direction: column;
-  align-items: flex-start;
-}
-
-.navigator-settings-menu__layout-option {
-  display: flex;
-  height: 100%;
-  flex: 1;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding-top: 4px;
-  border: 1px solid hsl(var(--border));
+  border: none;
   border-radius: var(--radius-sm);
   background: transparent;
-  color: hsl(var(--foreground));
-  cursor: pointer;
-  font-size: 11px;
-  gap: 2px;
-  transition: background-color 0.15s, color 0.15s;
+  cursor: grab;
 }
 
-.navigator-settings-menu__layout-option:focus-visible {
-  outline: 2px solid hsl(var(--ring) / 50%);
-  outline-offset: var(--ring-outline-offset);
-}
-
-.navigator-settings-menu__layout-option:hover {
+.navigator-toolbar-actions__edit-btn:hover {
   background-color: hsl(var(--secondary));
 }
 
-.navigator-settings-menu__layout-option--active {
-  background-color: hsl(var(--primary) / 15%);
-  color: hsl(var(--primary));
+.navigator-toolbar-actions__divider--editing {
+  cursor: grab;
 }
 
-.navigator-settings-menu__layout-option--active:hover {
-  background-color: hsl(var(--primary) / 25%);
-}
-
-.navigator-settings-menu__layout-option svg {
-  flex-shrink: 0;
-}
-
-.navigator-settings-menu.sigma-ui-dropdown-menu-content {
-  min-width: 200px;
-}
-
-.navigator-settings-menu__item.sigma-ui-dropdown-menu-item {
-  display: flex;
-  justify-content: space-between;
-  cursor: default;
-  gap: 8px;
-}
-
-.navigator-settings-menu__item.sigma-ui-dropdown-menu-item:focus,
-.navigator-settings-menu__item.sigma-ui-dropdown-menu-item:hover {
-  background-color: transparent;
-  color: inherit;
-}
-
-.navigator-settings-menu__item-label {
-  flex: 1;
-}
-
-.navigator-settings-menu__switch.sigma-ui-switch {
-  width: 1.75rem;
-  height: 1rem;
-}
-
-.navigator-settings-menu__switch .sigma-ui-switch__thumb {
-  width: 0.75rem;
-  height: 0.75rem;
-}
-
-.navigator-settings-menu__switch .sigma-ui-switch__thumb[data-state="checked"] {
-  transform: translateX(0.75rem);
+.navigator-toolbar-actions__chip--dragging {
+  opacity: 0.9;
 }
 </style>

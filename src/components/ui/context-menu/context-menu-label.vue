@@ -14,22 +14,22 @@ const forwardedProps = useForwardProps(props);
 <template>
   <ContextMenuLabel
     v-bind="forwardedProps"
-    class="sigma-ui-context-menu-label"
-    :class="[{ 'sigma-ui-context-menu-label--inset': inset }]"
+    class="cool-files-ui-context-menu-label"
+    :class="[{ 'cool-files-ui-context-menu-label--inset': inset }]"
   >
     <slot />
   </ContextMenuLabel>
 </template>
 
 <style>
-.sigma-ui-context-menu-label {
+.cool-files-ui-context-menu-label {
   padding: 0.375rem 0.5rem;
   color: hsl(var(--muted-foreground));
   font-size: 0.75rem;
   font-weight: 600;
 }
 
-.sigma-ui-context-menu-label--inset {
+.cool-files-ui-context-menu-label--inset {
   padding-left: 2rem;
 }
 </style>

@@ -1,8 +1,8 @@
-id: com.sigmafilemanager.app
+id: com.coolfiles.app
 runtime: org.gnome.Platform
 runtime-version: '48'
 sdk: org.gnome.Sdk
-command: sigma-file-manager
+command: cool_files
 appstream-compose: false
 
 finish-args:
@@ -22,24 +22,24 @@ finish-args:
   - --filesystem=xdg-config/autostart:create
 
 modules:
-  - name: sigma-file-manager
+  - name: cool_files
     buildsystem: simple
     sources:
       - type: file
-        path: .deb-input/sigma-file-manager.deb
+        path: .deb-input/cool_files.deb
       - type: file
-        path: com.sigma-file-manager.app.metainfo.xml
+        path: com.cool-files.app.metainfo.xml
     build-commands:
       - set -e
       - mkdir deb-extract
-      - ar -x sigma-file-manager.deb --output deb-extract
+      - ar -x cool_files.deb --output deb-extract
       - tar -C deb-extract -xf deb-extract/data.tar.*
-      - install -Dm755 deb-extract/usr/bin/sigma-file-manager /app/bin/sigma-file-manager
+      - install -Dm755 deb-extract/usr/bin/cool_files /app/bin/cool_files
       - |
-        if [ -d deb-extract/usr/lib/sigma-file-manager ]; then
-          mkdir -p /app/lib/sigma-file-manager
-          cp -a deb-extract/usr/lib/sigma-file-manager/. /app/lib/sigma-file-manager/
-          find /app/lib/sigma-file-manager -type f -exec chmod 644 {} \;
+        if [ -d deb-extract/usr/lib/cool_files ]; then
+          mkdir -p /app/lib/cool_files
+          cp -a deb-extract/usr/lib/cool_files/. /app/lib/cool_files/
+          find /app/lib/cool_files -type f -exec chmod 644 {} \;
         fi
       - |
         desktop_file=$(find deb-extract/usr/share/applications -maxdepth 1 -name '*.desktop' -print -quit)
@@ -47,18 +47,18 @@ modules:
           echo "No desktop file found in deb package"
           exit 1
         fi
-        sed -i 's/^Icon=.*/Icon=com.sigmafilemanager.app/' "$desktop_file"
+        sed -i 's/^Icon=.*/Icon=com.coolfiles.app/' "$desktop_file"
         if grep -q '^Categories=' "$desktop_file"; then
           sed -i 's/^Categories=.*/Categories=Utility;FileManager;/' "$desktop_file"
         else
           printf '\nCategories=Utility;FileManager;\n' >> "$desktop_file"
         fi
-        install -Dm644 "$desktop_file" /app/share/applications/com.sigmafilemanager.app.desktop
+        install -Dm644 "$desktop_file" /app/share/applications/com.coolfiles.app.desktop
       - |
         for icon_size in 32x32 128x128 256x256@2; do
           icon_source=$(find "deb-extract/usr/share/icons/hicolor/${icon_size}/apps" -name '*.png' -print -quit 2>/dev/null || true)
           if [ -n "$icon_source" ]; then
-            install -Dm644 "$icon_source" "/app/share/icons/hicolor/${icon_size}/apps/com.sigmafilemanager.app.png"
+            install -Dm644 "$icon_source" "/app/share/icons/hicolor/${icon_size}/apps/com.coolfiles.app.png"
           fi
         done
-      - install -Dm644 com.sigma-file-manager.app.metainfo.xml /app/share/metainfo/com.sigmafilemanager.app.metainfo.xml
+      - install -Dm644 com.cool-files.app.metainfo.xml /app/share/metainfo/com.coolfiles.app.metainfo.xml

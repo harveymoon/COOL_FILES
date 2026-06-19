@@ -1,5 +1,5 @@
 # NOTICE
-"Sigma File Manager" is free and open-source software licensed under the GNU GPL v3 or later, subject to the additional rules described below.
+"Cool Files" is free and open-source software licensed under the GNU GPL v3 or later, subject to the additional rules described below.
 Copyright © 2021 - present, Aleksey Hoffman. All rights reserved.
 Source code of this program can be found on GitHub.
 

@@ -1,6 +1,6 @@
 {
   "app": {
-    "name": "Sigma File Manager",
+    "name": "Cool Files",
     "description": "je brezplačni, odprtokodni, napredni, moderen upravitelj datotek, licenciran pod GNU GPLv3 ali poznejšo licenco.",
     "copyright": "Avtorske pravice © 2021 - danes Aleksey Hoffman. Vse pravice pridržane."
   },
@@ -184,7 +184,17 @@
     "setPreviousBackground": "Nastavi prejšnje ozadje",
     "dropZoneClickToBrowse": "Kliknite za iskanje slik ali videoposnetkov",
     "dropZoneOrDropFiles": "Ali povlecite datoteke sem",
-    "addMediaUrlPlaceholder": "Prilepite URL slike ali videa"
+    "addMediaUrlPlaceholder": "Prilepite URL slike ali videa",
+    "editLayout": "Edit layout",
+    "doneEditing": "Done",
+    "editLayoutHint": "Drag tiles to rearrange. Drag directory tiles between sections, or remove them. Add groups to organize your folders.",
+    "addGroup": "Add group",
+    "newGroupTitle": "New group",
+    "deleteGroup": "Delete group",
+    "renameGroup": "Group name",
+    "addDirectory": "Add directory",
+    "emptyGroup": "Drag directories here or click \"Add directory\"",
+    "reorderGroup": "Drag to reorder"
   },
   "navigator": {
     "newDirectoryFile": "Nova mapa / datoteka",
@@ -367,7 +377,26 @@
       "navigatorOptions": "Možnosti navigatorja",
       "systemIcons": "Tema ikon",
       "systemIconsDirectories": "Mape",
-      "systemIconsFiles": "Datoteke"
+      "systemIconsFiles": "Datoteke",
+      "toolbarCustomization": "Toolbar buttons",
+      "toolbarCustomizationDescription": "Reorder, show, hide, and group the buttons in the navigator toolbar. Drag to reorder.",
+      "sidebarCustomization": "Sidebar buttons",
+      "sidebarCustomizationDescription": "Reorder and show or hide the page buttons in the left sidebar. Drag to reorder.",
+      "toolbarSeparator": "Separator",
+      "toolbarEmpty": "No buttons. Add some below.",
+      "toolbarAddAction": "Add button",
+      "toolbarAddSeparator": "Add separator",
+      "toolbarReset": "Reset to default",
+      "toolbarPreview": "Toolbar",
+      "toolbarUnused": "Unused items",
+      "toolbarDragHint": "Drag icons to reorder. Drag into Unused to remove, or back onto the toolbar to add.",
+      "customizeTitle": "Toolbar & sidebar buttons",
+      "customizeDescription": "Customize which buttons appear in the navigator toolbar and the left sidebar, and their order. Editing happens in place on the navigator.",
+      "customizeButton": "Customize toolbar & sidebar",
+      "editSheetTitle": "Customizing toolbar & sidebar",
+      "editSheetHint": "Drag items onto the toolbar or sidebar to add them, or drag them off into here to remove. Drag a separator onto the toolbar to group buttons.",
+      "editDone": "Done",
+      "autoShowDrives": "Auto-show drives in sidebar"
     },
     "tabs": {
       "lastTabCloseBehavior": {
@@ -417,8 +446,18 @@
     },
     "experimental": {
       "defaultFileManager": {
-        "title": "Nastavi Sigma File Manager kot privzeti upravljalnik datotek",
+        "title": "Nastavi Cool Files kot privzeti upravljalnik datotek",
         "description": "Ta možnost spremeni sistemski register in lahko povzroči nepričakovane stranske učinke na vaši napravi. Nadaljujte na lastno odgovornost."
+      }
+    },
+    "appearance": {
+      "loadAnimations": {
+        "title": "Load-in animations",
+        "description": "Animate panels and items as they appear on the Home, Settings, Dashboard, and Extensions pages.",
+        "enable": "Enable load-in animations",
+        "speed": "Speed (duration)",
+        "cascade": "Cascade (stagger)",
+        "milliseconds": "{value} ms"
       }
     }
   },
@@ -436,7 +475,8 @@
     "dataStorage": "Podatki & shranjevanje",
     "stats": "Statistika",
     "experimental": "Eksperimentalno",
-    "extensions": "Razširitve"
+    "extensions": "Razširitve",
+    "navigator": "Navigator"
   },
   "settingsTags": {
     "language": "language",
@@ -463,7 +503,8 @@
     "experimental": "napredno, eksperimentalno, privzeti upravljalnik datotek, raziskovalec datotek, register, terminal, lupina",
     "whatsNew": "what's new, changelog, release notes, version, update, news",
     "autostart": "autostart, zagon, sistem, prijava, zagon ob zagonu",
-    "extensions": "extensions, plugins, addons, configuration, settings"
+    "extensions": "extensions, plugins, addons, configuration, settings",
+    "loadAnimations": "animation, animations, fade, slide, cascade, stagger, motion, transition, effects"
   },
   "drag": {
     "holdShiftToChangeMode": "Zadržite [Shift] za spremembo načina",
@@ -550,7 +591,10 @@
     "deleteSelectedItemsFromDrive": "Izbriši s pogona",
     "moveCurrentDirectoryToTrash": "Premakni trenutni imenik v koš",
     "deleteCurrentDirectoryFromDrive": "Izbriši trenutni imenik s pogona",
-    "toggleCommandPalette": "Open / close command palette"
+    "toggleCommandPalette": "Open / close command palette",
+    "setLayoutList": "Switch to list layout",
+    "setLayoutGrid": "Switch to grid layout",
+    "setLayoutColumns": "Switch to columns layout"
   },
   "dialogs": {
     "userDirectoryEditorDialog": {
@@ -861,7 +905,8 @@
       "share": "Deli prek omrežja",
       "openInNewTab": "Odpri v novem zavihku",
       "addToFavorites": "Dodaj med priljubljene",
-      "removeFromFavorites": "Odstrani iz priljubljenih"
+      "removeFromFavorites": "Odstrani iz priljubljenih",
+      "cut": "Cut"
     },
     "archive": {
       "extract": "Razširi",
@@ -880,7 +925,10 @@
       "errors": {
         "destinationInsideSelectedFolder": "Ciljni arhiv je znotraj izbrane mape"
       }
-    }
+    },
+    "type": "Type",
+    "folder": "Folder",
+    "resizeColumn": "Drag to resize column"
   },
   "openWith": {
     "loadingPrograms": "Nalagam programe...",
@@ -1001,7 +1049,7 @@
     },
     "badges": {
       "official": "Uradna",
-      "officialTooltip": "To razširitev je ustvarila in vzdržuje ekipa Sigma File Manager",
+      "officialTooltip": "To razširitev je ustvarila in vzdržuje ekipa Cool Files",
       "community": "Skupnost",
       "communityTooltip": "To je razširitev skupnosti. Pred namestitvijo pregledajte izvorno kodo.",
       "local": "Lokalna",
@@ -1063,5 +1111,15 @@
     "replaceShareDialogTitle": "Zamenjaj trenutno deljenje?",
     "replaceShareDialogDescription": "Datoteke se že delijo po omrežju. Trenutno deljenje bo ustavljeno in zamenjano z novim.",
     "replaceShareDialogConfirm": "Zamenjaj"
-  }
+  },
+  "columns": "Columns",
+  "columnsLayout": "Columns layout",
+  "nav": {
+    "pinDrive": "Pin drive to sidebar",
+    "unpinDrive": "Unpin drive from sidebar",
+    "pinShortcut": "Pin shortcut to sidebar",
+    "removeShortcut": "Remove shortcut",
+    "dropToPin": "Drop a folder to pin it"
+  },
+  "remove": "Remove"
 }

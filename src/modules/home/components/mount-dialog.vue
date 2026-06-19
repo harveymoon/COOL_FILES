@@ -469,7 +469,7 @@ function handleOpenChange(isOpen: boolean) {
 }
 
 .mount-dialog__spinner {
-  animation: sigma-ui-spin 0.8s linear infinite;
+  animation: cool-files-ui-spin 0.8s linear infinite;
 }
 
 .mount-dialog__empty {

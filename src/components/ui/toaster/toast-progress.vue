@@ -47,7 +47,7 @@ const operationIcon = computed(() => {
 
 const operationClass = computed(() => {
   if (props.data.operationType === 'delete') {
-    return 'sigma-ui-toast-progress--delete';
+    return 'cool-files-ui-toast-progress--delete';
   }
 
   return '';
@@ -64,7 +64,7 @@ const descriptionText = computed(() => {
 
 <template>
   <ToastCard
-    class="sigma-ui-toast-progress"
+    class="cool-files-ui-toast-progress"
     :class="operationClass"
   >
     <ToastHeader
@@ -81,36 +81,36 @@ const descriptionText = computed(() => {
         <component
           :is="operationIcon"
           :size="16"
-          class="sigma-ui-toast-progress__icon"
+          class="cool-files-ui-toast-progress__icon"
         />
       </template>
       <template
         v-if="props.data.progress && props.data.progress < 100"
         #trailing
       >
-        <div class="sigma-ui-toast-progress__percentage">
+        <div class="cool-files-ui-toast-progress__percentage">
           {{ props.data.progress }}%
         </div>
       </template>
     </ToastHeader>
     <div
       v-if="props.data.description || props.data.downloadSize"
-      class="sigma-ui-toast-progress__description"
+      class="cool-files-ui-toast-progress__description"
     >
       {{ descriptionText }}
     </div>
     <div
       v-if="props.data.progress > 0 && props.data.progress < 100"
-      class="sigma-ui-toast-progress__bar"
+      class="cool-files-ui-toast-progress__bar"
     >
       <div
-        class="sigma-ui-toast-progress__bar-fill"
+        class="cool-files-ui-toast-progress__bar-fill"
         :style="{ width: `${props.data.progress}%` }"
       />
     </div>
     <div
       v-if="props.data.actionText"
-      class="sigma-ui-toast-progress__toolbar"
+      class="cool-files-ui-toast-progress__toolbar"
     >
       <Button
         size="xs"
@@ -124,23 +124,23 @@ const descriptionText = computed(() => {
 </template>
 
 <style>
-.sigma-ui-toast-progress--delete .sigma-ui-toast-progress__icon {
+.cool-files-ui-toast-progress--delete .cool-files-ui-toast-progress__icon {
   color: hsl(var(--warning));
 }
 
-.sigma-ui-toast-progress__toolbar {
+.cool-files-ui-toast-progress__toolbar {
   display: flex;
   width: 100%;
   align-items: center;
   padding-top: 0.25rem;
 }
 
-.sigma-ui-toast-progress__icon {
+.cool-files-ui-toast-progress__icon {
   flex-shrink: 0;
   color: hsl(var(--primary));
 }
 
-.sigma-ui-toast-progress__percentage {
+.cool-files-ui-toast-progress__percentage {
   display: inline-flex;
   flex-shrink: 0;
   margin-left: auto;
@@ -149,7 +149,7 @@ const descriptionText = computed(() => {
   white-space: nowrap;
 }
 
-.sigma-ui-toast-progress__description {
+.cool-files-ui-toast-progress__description {
   overflow: hidden;
   color: hsl(var(--foreground) / 45%);
   font-size: 0.875rem;
@@ -157,7 +157,7 @@ const descriptionText = computed(() => {
   white-space: nowrap;
 }
 
-.sigma-ui-toast-progress__bar {
+.cool-files-ui-toast-progress__bar {
   width: 100%;
   height: 2px;
   border-radius: var(--rounded-full);
@@ -165,7 +165,7 @@ const descriptionText = computed(() => {
   font-size: 0.875rem;
 }
 
-.sigma-ui-toast-progress__bar-fill {
+.cool-files-ui-toast-progress__bar-fill {
   height: 2px;
   border-radius: var(--rounded-full);
   background-color: hsl(var(--primary));

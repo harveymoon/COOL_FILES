@@ -1,6 +1,6 @@
 {
   "app": {
-    "name": "Sigma File Manager",
+    "name": "Cool Files",
     "description": "это бесплатный, продвинутый, современный файловый менеджер с открытым исходным кодом, лицензированный по GNU GPLv3 или более поздней версии.",
     "copyright": "Copyright © 2021 - настоящее время Алексей Хоффман. Все права защищены."
   },
@@ -184,7 +184,17 @@
     "setPreviousBackground": "Установить предыдущий фон",
     "dropZoneClickToBrowse": "Нажмите, чтобы выбрать изображения или видео",
     "dropZoneOrDropFiles": "Или перетащите файлы сюда",
-    "addMediaUrlPlaceholder": "Вставьте URL изображения или видео"
+    "addMediaUrlPlaceholder": "Вставьте URL изображения или видео",
+    "editLayout": "Edit layout",
+    "doneEditing": "Done",
+    "editLayoutHint": "Drag tiles to rearrange. Drag directory tiles between sections, or remove them. Add groups to organize your folders.",
+    "addGroup": "Add group",
+    "newGroupTitle": "New group",
+    "deleteGroup": "Delete group",
+    "renameGroup": "Group name",
+    "addDirectory": "Add directory",
+    "emptyGroup": "Drag directories here or click \"Add directory\"",
+    "reorderGroup": "Drag to reorder"
   },
   "navigator": {
     "newDirectoryFile": "Новая папка / файл",
@@ -367,7 +377,26 @@
       "navigatorOptions": "Параметры навигатора",
       "systemIcons": "Тема значков",
       "systemIconsDirectories": "Папки",
-      "systemIconsFiles": "Файлы"
+      "systemIconsFiles": "Файлы",
+      "toolbarCustomization": "Toolbar buttons",
+      "toolbarCustomizationDescription": "Reorder, show, hide, and group the buttons in the navigator toolbar. Drag to reorder.",
+      "sidebarCustomization": "Sidebar buttons",
+      "sidebarCustomizationDescription": "Reorder and show or hide the page buttons in the left sidebar. Drag to reorder.",
+      "toolbarSeparator": "Separator",
+      "toolbarEmpty": "No buttons. Add some below.",
+      "toolbarAddAction": "Add button",
+      "toolbarAddSeparator": "Add separator",
+      "toolbarReset": "Reset to default",
+      "toolbarPreview": "Toolbar",
+      "toolbarUnused": "Unused items",
+      "toolbarDragHint": "Drag icons to reorder. Drag into Unused to remove, or back onto the toolbar to add.",
+      "customizeTitle": "Toolbar & sidebar buttons",
+      "customizeDescription": "Customize which buttons appear in the navigator toolbar and the left sidebar, and their order. Editing happens in place on the navigator.",
+      "customizeButton": "Customize toolbar & sidebar",
+      "editSheetTitle": "Customizing toolbar & sidebar",
+      "editSheetHint": "Drag items onto the toolbar or sidebar to add them, or drag them off into here to remove. Drag a separator onto the toolbar to group buttons.",
+      "editDone": "Done",
+      "autoShowDrives": "Auto-show drives in sidebar"
     },
     "tabs": {
       "lastTabCloseBehavior": {
@@ -417,8 +446,18 @@
     },
     "experimental": {
       "defaultFileManager": {
-        "title": "Сделать Sigma File Manager файловым менеджером по умолчанию",
+        "title": "Сделать Cool Files файловым менеджером по умолчанию",
         "description": "Эта опция изменяет системный реестр и может вызвать неожиданные побочные эффекты на вашем устройстве. Продолжайте на свой страх и риск."
+      }
+    },
+    "appearance": {
+      "loadAnimations": {
+        "title": "Load-in animations",
+        "description": "Animate panels and items as they appear on the Home, Settings, Dashboard, and Extensions pages.",
+        "enable": "Enable load-in animations",
+        "speed": "Speed (duration)",
+        "cascade": "Cascade (stagger)",
+        "milliseconds": "{value} ms"
       }
     }
   },
@@ -436,7 +475,8 @@
     "dataStorage": "Хранилище данных",
     "stats": "Статистика",
     "experimental": "Экспериментальные",
-    "extensions": "Расширения"
+    "extensions": "Расширения",
+    "navigator": "Navigator"
   },
   "settingsTags": {
     "language": "язык",
@@ -463,7 +503,8 @@
     "experimental": "расширенный, экспериментальный, файловый менеджер по умолчанию, проводник, реестр, терминал, оболочка",
     "whatsNew": "что нового, журнал изменений, примечания к выпуску, версия, обновление, новости",
     "autostart": "автозапуск, запуск, вход в систему, загрузка, система",
-    "extensions": "extensions, plugins, addons, configuration, settings"
+    "extensions": "extensions, plugins, addons, configuration, settings",
+    "loadAnimations": "animation, animations, fade, slide, cascade, stagger, motion, transition, effects"
   },
   "drag": {
     "holdShiftToChangeMode": "Удерживайте [Shift], чтобы изменить режим",
@@ -550,7 +591,10 @@
     "deleteSelectedItemsFromDrive": "Удалить с диска",
     "moveCurrentDirectoryToTrash": "Переместить текущий каталог в корзину",
     "deleteCurrentDirectoryFromDrive": "Удалить текущий каталог с диска",
-    "toggleCommandPalette": "Открыть / закрыть палитру команд"
+    "toggleCommandPalette": "Открыть / закрыть палитру команд",
+    "setLayoutList": "Switch to list layout",
+    "setLayoutGrid": "Switch to grid layout",
+    "setLayoutColumns": "Switch to columns layout"
   },
   "dialogs": {
     "userDirectoryEditorDialog": {
@@ -861,7 +905,8 @@
       "share": "Поделиться по сети",
       "openInNewTab": "Открыть в новой вкладке",
       "addToFavorites": "Добавить в избранное",
-      "removeFromFavorites": "Удалить из избранного"
+      "removeFromFavorites": "Удалить из избранного",
+      "cut": "Cut"
     },
     "archive": {
       "extract": "Извлечь",
@@ -880,7 +925,10 @@
       "errors": {
         "destinationInsideSelectedFolder": "Архив назначения находится внутри выбранной папки"
       }
-    }
+    },
+    "type": "Type",
+    "folder": "Folder",
+    "resizeColumn": "Drag to resize column"
   },
   "openWith": {
     "loadingPrograms": "Загрузка программ...",
@@ -978,7 +1026,7 @@
     },
     "badges": {
       "official": "Официальное",
-      "officialTooltip": "Это расширение создано и поддерживается командой Sigma File Manager",
+      "officialTooltip": "Это расширение создано и поддерживается командой Cool Files",
       "community": "Сообщество",
       "communityTooltip": "Это расширение сообщества. Проверьте исходный код перед установкой.",
       "local": "Локальное",
@@ -1063,5 +1111,15 @@
     "replaceShareDialogTitle": "Заменить текущий доступ?",
     "replaceShareDialogDescription": "Файлы уже доступны по сети. Текущий доступ будет остановлен и заменён новым.",
     "replaceShareDialogConfirm": "Заменить"
-  }
+  },
+  "columns": "Columns",
+  "columnsLayout": "Columns layout",
+  "nav": {
+    "pinDrive": "Pin drive to sidebar",
+    "unpinDrive": "Unpin drive from sidebar",
+    "pinShortcut": "Pin shortcut to sidebar",
+    "removeShortcut": "Remove shortcut",
+    "dropToPin": "Drop a folder to pin it"
+  },
+  "remove": "Remove"
 }

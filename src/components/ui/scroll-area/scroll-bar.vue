@@ -15,15 +15,15 @@ const props = withDefaults(defineProps<ScrollAreaScrollbarProps>(), {
   <Transition name="transition-fade-in-200">
     <ScrollAreaScrollbar
       v-bind="props"
-      class="sigma-ui-scroll-area-scrollbar"
+      class="cool-files-ui-scroll-area-scrollbar"
     >
-      <ScrollAreaThumb class="sigma-ui-scroll-area-scrollbar__thumb" />
+      <ScrollAreaThumb class="cool-files-ui-scroll-area-scrollbar__thumb" />
     </ScrollAreaScrollbar>
   </Transition>
 </template>
 
 <style>
-.sigma-ui-scroll-area-scrollbar {
+.cool-files-ui-scroll-area-scrollbar {
   display: flex;
   padding: 6px;
   touch-action: none;
@@ -33,19 +33,19 @@ const props = withDefaults(defineProps<ScrollAreaScrollbarProps>(), {
   user-select: none;
 }
 
-.sigma-ui-scroll-area-scrollbar[data-orientation="vertical"] {
+.cool-files-ui-scroll-area-scrollbar[data-orientation="vertical"] {
   width: 1.25rem;
   height: 100%;
   border-left: 1px solid transparent;
 }
 
-.sigma-ui-scroll-area-scrollbar[data-orientation="horizontal"] {
+.cool-files-ui-scroll-area-scrollbar[data-orientation="horizontal"] {
   height: 1.25rem;
   flex-direction: column;
   border-top: 1px solid transparent;
 }
 
-.sigma-ui-scroll-area-scrollbar__thumb {
+.cool-files-ui-scroll-area-scrollbar__thumb {
   position: relative;
   flex: 1;
   border-radius: var(--radius-full);

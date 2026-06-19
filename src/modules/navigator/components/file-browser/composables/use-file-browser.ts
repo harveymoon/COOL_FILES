@@ -46,7 +46,7 @@ import { getFileBrowserGridEntryOrder } from '../file-browser-entry-groups';
 
 export interface UseFileBrowserOptions {
   tab: () => Tab | undefined;
-  layout: () => 'list' | 'grid' | undefined;
+  layout: () => 'list' | 'grid' | 'columns' | undefined;
   externalEntries?: () => DirEntry[];
   basePath?: () => string;
   onSelectedEntriesChange: (entries: DirEntry[]) => void;
@@ -512,6 +512,7 @@ export function useFileBrowser(options: UseFileBrowserOptions) {
     clearSelection: selection.clearSelection,
     selectAll: selection.selectAll,
     selectEntryByPath: selection.selectEntryByPath,
+    replaceSelection: selection.replaceSelection,
     requestFocusEntryAfterRefresh: selection.requestFocusEntryAfterRefresh,
     armFocusRevealStaleRestoreGuard: selection.armFocusRevealStaleRestoreGuard,
     removeFromSelection: selection.removeFromSelection,

@@ -9,7 +9,7 @@ use crate::utils::{
 use std::fs;
 use std::path::Path;
 
-use super::types::{DirContents, DirEntry, OpenedDirectoryTimes};
+use super::types::{DirContents, DirEntry, DirItemCount, OpenedDirectoryTimes};
 
 fn get_mime_type(extension: &Option<String>) -> Option<String> {
     extension.as_ref().map(|ext| {
@@ -133,7 +133,17 @@ fn entry_name(path: &Path, normalized_path: &str) -> Option<String> {
         .or_else(|| Some(normalized_path.to_string()))
 }
 
-fn read_entry(path: &Path) -> Option<DirEntry> {
+/// Counts the immediate children of a directory. Returns `None` if the directory
+/// can't be read (e.g. permission denied). This is the expensive part of building
+/// a listing on a network share — one read per subfolder — so it is made optional
+/// in `read_entry` and computed separately/lazily via `get_dir_item_counts`.
+fn count_dir_entries(path: &Path) -> Option<u32> {
+    fs::read_dir(path)
+        .ok()
+        .map(|entries| entries.count() as u32)
+}
+
+fn read_entry(path: &Path, count_items: bool) -> Option<DirEntry> {
     if should_skip_path(path) {
         return None;
     }
@@ -158,13 +168,8 @@ fn read_entry(path: &Path) -> Option<DirEntry> {
 
     let size = if is_file { metadata.len() } else { 0 };
 
-    let item_count = if is_dir {
-        let directory_entries = match fs::read_dir(path) {
-            Ok(entries) => entries,
-            Err(_) => return None,
-        };
-
-        Some(directory_entries.count() as u32)
+    let item_count = if is_dir && count_items {
+        count_dir_entries(path)
     } else {
         None
     };
@@ -293,7 +298,19 @@ pub fn get_dir_entry(path: String) -> Result<DirEntry, String> {
         }
     }
 
-    read_entry(entry_path).ok_or_else(|| format!("Failed to read path: {}", path))
+    read_entry(entry_path, true).ok_or_else(|| format!("Failed to read path: {}", path))
+}
+
+/// Computes item counts for a batch of directory paths. Used to backfill folder
+/// counts after a fast `read_dir_names_only` listing has already been rendered.
+pub fn get_dir_item_counts(paths: Vec<String>) -> Vec<DirItemCount> {
+    paths
+        .into_iter()
+        .map(|path| {
+            let item_count = count_dir_entries(Path::new(&path));
+            DirItemCount { path, item_count }
+        })
+        .collect()
 }
 
 pub async fn get_dir_entry_with_timeout(path: String, timeout_ms: u64) -> Result<DirEntry, String> {
@@ -309,6 +326,171 @@ pub async fn get_dir_entry_with_timeout(path: String, timeout_ms: u64) -> Result
 }
 
 pub fn read_dir(path: String) -> Result<DirContents, String> {
+    read_dir_inner(path, true)
+}
+
+/// Like `read_dir` but skips per-subfolder item counting, so the listing returns
+/// without a network round-trip per subfolder. Folder `item_count` is left as
+/// `None`; counts are backfilled via `get_dir_item_counts`.
+pub fn read_dir_names_only(path: String) -> Result<DirContents, String> {
+    read_dir_inner(path, false)
+}
+
+/// Returns the host name when `path` is a UNC host-root (e.g. `\\pf-george`),
+/// i.e. a UNC path with exactly one segment and no share. WSL virtual host
+/// roots are excluded so they keep flowing through the normal fs-based path.
+#[cfg(windows)]
+fn unc_host_root(path: &str) -> Option<String> {
+    let normalized = normalize_path(path);
+
+    if !normalized.starts_with("//") || normalized.starts_with("///") {
+        return None;
+    }
+
+    let segments: Vec<&str> = normalized
+        .trim_matches('/')
+        .split('/')
+        .filter(|segment| !segment.is_empty())
+        .collect();
+
+    if segments.len() != 1 {
+        return None;
+    }
+
+    let host = segments[0];
+    let host_lower = host.to_lowercase();
+
+    if host_lower == "wsl.localhost" || host_lower == "wsl$" {
+        return None;
+    }
+
+    Some(host.to_string())
+}
+
+/// Enumerates the SMB shares published by `host` (what Windows Explorer shows
+/// when you type `\\host` in the address bar) and returns them as directory
+/// entries. Uses `NetShareEnum` (level 1), filtering out special/admin shares
+/// (IPC$, ADMIN$, C$, ...) and hidden `$`-suffixed shares.
+#[cfg(windows)]
+fn enumerate_smb_shares(host: &str, original_path: &str) -> Result<DirContents, String> {
+    use windows::core::PCWSTR;
+    use windows::Win32::NetworkManagement::NetManagement::{NetApiBufferFree, MAX_PREFERRED_LENGTH};
+    use windows::Win32::Storage::FileSystem::{NetShareEnum, SHARE_INFO_1, STYPE_SPECIAL};
+
+    const NERR_SUCCESS: u32 = 0;
+    const ERROR_MORE_DATA: u32 = 234;
+    const ERROR_ACCESS_DENIED: u32 = 5;
+    const ERROR_BAD_NETPATH: u32 = 53;
+    const ERROR_BAD_NET_NAME: u32 = 67;
+
+    // NetShareEnum expects the server in `\\server` form.
+    let server: Vec<u16> = format!("\\\\{host}")
+        .encode_utf16()
+        .chain(std::iter::once(0))
+        .collect();
+
+    let mut buffer: *mut u8 = std::ptr::null_mut();
+    let mut entries_read: u32 = 0;
+    let mut total_entries: u32 = 0;
+
+    let status = unsafe {
+        NetShareEnum(
+            PCWSTR(server.as_ptr()),
+            1,
+            &mut buffer as *mut *mut u8,
+            MAX_PREFERRED_LENGTH,
+            &mut entries_read,
+            &mut total_entries,
+            None,
+        )
+    };
+
+    if status != NERR_SUCCESS && status != ERROR_MORE_DATA {
+        if !buffer.is_null() {
+            unsafe {
+                NetApiBufferFree(Some(buffer as *const _));
+            }
+        }
+
+        return Err(match status {
+            ERROR_ACCESS_DENIED => format!(
+                "Access denied listing shares on \\\\{host}. The host may require credentials."
+            ),
+            ERROR_BAD_NETPATH | ERROR_BAD_NET_NAME => {
+                format!("Network host not found: \\\\{host}")
+            }
+            other => format!("Failed to list shares on \\\\{host} (error {other})"),
+        });
+    }
+
+    let mut entries: Vec<DirEntry> = Vec::new();
+
+    if !buffer.is_null() {
+        let shares = unsafe {
+            std::slice::from_raw_parts(buffer as *const SHARE_INFO_1, entries_read as usize)
+        };
+
+        for share in shares {
+            // Skip special/admin shares (IPC$, ADMIN$, drive-letter $ shares).
+            if (share.shi1_type.0 & STYPE_SPECIAL.0) != 0 {
+                continue;
+            }
+
+            let name = unsafe { share.shi1_netname.to_string() }.unwrap_or_default();
+
+            if name.is_empty() || name.ends_with('$') {
+                continue;
+            }
+
+            entries.push(DirEntry {
+                path: normalize_path(&format!("//{host}/{name}")),
+                name,
+                ext: None,
+                size: 0,
+                item_count: None,
+                modified_time: 0,
+                accessed_time: 0,
+                created_time: 0,
+                mime: None,
+                is_file: false,
+                is_dir: true,
+                is_symlink: false,
+                is_hidden: false,
+            });
+        }
+
+        unsafe {
+            NetApiBufferFree(Some(buffer as *const _));
+        }
+    }
+
+    entries.sort_by(|first, second| first.name.to_lowercase().cmp(&second.name.to_lowercase()));
+
+    let dir_count = entries.len();
+
+    Ok(DirContents {
+        path: normalize_path(original_path),
+        entries,
+        total_count: dir_count,
+        dir_count,
+        file_count: 0,
+        opened_directory_times: OpenedDirectoryTimes {
+            modified_time: 0,
+            accessed_time: 0,
+            created_time: 0,
+        },
+    })
+}
+
+fn read_dir_inner(path: String, count_items: bool) -> Result<DirContents, String> {
+    // A bare `\\host` UNC path can't be listed with `fs::read_dir` because the
+    // OS resolves it via SMB share enumeration, not a directory read. Mirror
+    // Explorer by listing the host's shares.
+    #[cfg(windows)]
+    if let Some(host) = unc_host_root(&path) {
+        return enumerate_smb_shares(&host, &path);
+    }
+
     let directory = Path::new(&path);
 
     let self_metadata = match fs::metadata(directory) {
@@ -334,7 +516,7 @@ pub fn read_dir(path: String) -> Result<DirContents, String> {
     let mut file_count = 0;
 
     for entry in read_result.flatten() {
-        if let Some(dir_entry) = read_entry(&entry.path()) {
+        if let Some(dir_entry) = read_entry(&entry.path(), count_items) {
             if dir_entry.is_dir {
                 dir_count += 1;
             } else if dir_entry.is_file {

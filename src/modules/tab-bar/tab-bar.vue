@@ -116,7 +116,7 @@ onBeforeUnmount(() => {
     :disabled="teleportDisabled"
   >
     <div
-      class="tab-bar animate-sigma-ui-fade-in"
+      class="tab-bar animate-cool-files-ui-fade-in"
       :class="{ 'tab-bar--compact': compact }"
     >
       <div

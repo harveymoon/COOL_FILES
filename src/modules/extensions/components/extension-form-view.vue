@@ -150,14 +150,14 @@ async function focusFirstInteractiveField(): Promise<void> {
 
   if (activeElement) {
     const formField = activeElement.closest?.(
-      'input, textarea, [role="combobox"], .sigma-ui-select-trigger',
+      'input, textarea, [role="combobox"], .cool-files-ui-select-trigger',
     );
 
     if (formField && formRootElement.value.contains(formField)) return;
   }
 
   const firstFocusableElement = formRootElement.value.querySelector<HTMLElement>(
-    'input:not([disabled]), textarea:not([disabled]), button[role="combobox"]:not([disabled]), .sigma-ui-select-trigger:not([disabled])',
+    'input:not([disabled]), textarea:not([disabled]), button[role="combobox"]:not([disabled]), .cool-files-ui-select-trigger:not([disabled])',
   );
 
   if (firstFocusableElement) {
@@ -175,7 +175,7 @@ onMounted(() => {
 async function scrollContentToTop(): Promise<void> {
   await nextTick();
   const viewport = formRootElement.value?.querySelector<HTMLElement>(
-    '[data-radix-scroll-area-viewport], .sigma-ui-scroll-area__viewport',
+    '[data-radix-scroll-area-viewport], .cool-files-ui-scroll-area__viewport',
   );
 
   if (viewport) {
@@ -527,7 +527,7 @@ watch(
   flex: 1 1 auto;
 }
 
-.ext-form-view__field :deep(.sigma-ui-select-trigger),
+.ext-form-view__field :deep(.cool-files-ui-select-trigger),
 .ext-form-view__field :deep(button[role="combobox"]) {
   width: 100%;
 }

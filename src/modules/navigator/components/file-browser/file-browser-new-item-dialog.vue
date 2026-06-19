@@ -186,7 +186,7 @@ function handleKeydown(event: KeyboardEvent) {
   font-weight: 500;
 }
 
-.file-browser-new-item-dialog__field .sigma-ui-input {
+.file-browser-new-item-dialog__field .cool-files-ui-input {
   width: 100%;
   min-width: 0;
   max-width: 100%;

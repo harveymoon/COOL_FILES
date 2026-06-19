@@ -9,7 +9,7 @@ Copyright © 2021 - present Aleksey Hoffman. All rights reserved.
 
 <template>
   <div
-    class="sigma-ui-card__header"
+    class="cool-files-ui-card__header"
     :class="[$attrs.class]"
   >
     <slot />
@@ -17,7 +17,7 @@ Copyright © 2021 - present Aleksey Hoffman. All rights reserved.
 </template>
 
 <style>
-.sigma-ui-card__header {
+.cool-files-ui-card__header {
   display: flex;
   flex-direction: column;
   padding: 1.5rem;

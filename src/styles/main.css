@@ -25,22 +25,22 @@
     overflow: hidden;
     background-color: hsl(var(--background));
     color: hsl(var(--foreground));
-    filter: brightness(calc(var(--sigma-visual-filter-brightness, 100) * 1%))
-      contrast(calc(var(--sigma-visual-filter-contrast, 100) * 1%));
+    filter: brightness(calc(var(--cool-files-visual-filter-brightness, 100) * 1%))
+      contrast(calc(var(--cool-files-visual-filter-contrast, 100) * 1%));
   }
 
   img,
   video {
-    filter: contrast(calc(100% * 100 / var(--sigma-visual-filter-contrast, 100)))
-      brightness(calc(100% * 100 / var(--sigma-visual-filter-brightness, 100)));
+    filter: contrast(calc(100% * 100 / var(--cool-files-visual-filter-contrast, 100)))
+      brightness(calc(100% * 100 / var(--cool-files-visual-filter-brightness, 100)));
   }
 
   .infusion-image,
   .infusion-video {
     filter: blur(var(--infusion-blur)) contrast(var(--infusion-media-contrast))
       brightness(var(--infusion-media-brightness))
-      contrast(calc(100% * 100 / var(--sigma-visual-filter-contrast, 100)))
-      brightness(calc(100% * 100 / var(--sigma-visual-filter-brightness, 100)));
+      contrast(calc(100% * 100 / var(--cool-files-visual-filter-contrast, 100)))
+      brightness(calc(100% * 100 / var(--cool-files-visual-filter-brightness, 100)));
   }
 
   .sr-only {
@@ -99,7 +99,7 @@
   }
 
   /* Shared keyframes */
-  @keyframes sigma-ui-fade-in {
+  @keyframes cool-files-ui-fade-in {
     from {
       opacity: 0;
     }
@@ -109,7 +109,7 @@
     }
   }
 
-  @keyframes sigma-ui-fade-out {
+  @keyframes cool-files-ui-fade-out {
     from {
       opacity: 1;
     }
@@ -119,7 +119,7 @@
     }
   }
 
-  @keyframes sigma-ui-fade-in-scale {
+  @keyframes cool-files-ui-fade-in-scale {
     from {
       opacity: 0;
       transform: scale(0.95);
@@ -131,7 +131,7 @@
     }
   }
 
-  @keyframes sigma-ui-fade-out-scale {
+  @keyframes cool-files-ui-fade-out-scale {
     from {
       opacity: 1;
       transform: scale(1);
@@ -143,7 +143,7 @@
     }
   }
 
-  @keyframes sigma-ui-spin {
+  @keyframes cool-files-ui-spin {
     from {
       transform: rotate(0deg);
     }
@@ -153,7 +153,7 @@
     }
   }
 
-  @keyframes sigma-ui-collapsible-down {
+  @keyframes cool-files-ui-collapsible-down {
     from {
       height: 0;
     }
@@ -163,7 +163,7 @@
     }
   }
 
-  @keyframes sigma-ui-collapsible-up {
+  @keyframes cool-files-ui-collapsible-up {
     from {
       height: var(--reka-collapsible-content-height);
     }
@@ -173,7 +173,7 @@
     }
   }
 
-  @keyframes sigma-ui-accordion-up {
+  @keyframes cool-files-ui-accordion-up {
     from {
       height: var(--reka-accordion-content-height);
     }
@@ -183,7 +183,7 @@
     }
   }
 
-  @keyframes sigma-ui-accordion-down {
+  @keyframes cool-files-ui-accordion-down {
     from {
       height: 0;
     }
@@ -195,15 +195,15 @@
 
   /* CSS animations */
   .animate-fade-in {
-    animation: sigma-ui-fade-in 0.5s ease;
+    animation: cool-files-ui-fade-in 0.5s ease;
   }
 
   .animate-fade-in-x2 {
-    animation: sigma-ui-fade-in 1s ease;
+    animation: cool-files-ui-fade-in 1s ease;
   }
 
-  .animate-sigma-ui-spin {
-    animation: sigma-ui-spin 1s linear infinite;
+  .animate-cool-files-ui-spin {
+    animation: cool-files-ui-spin 1s linear infinite;
   }
 
   /* Vue transitions */

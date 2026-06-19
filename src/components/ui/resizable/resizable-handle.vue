@@ -16,18 +16,18 @@ const forwarded = useForwardPropsEmits(props, emits);
 <template>
   <SplitterResizeHandle
     v-bind="forwarded"
-    class="sigma-ui-resizable-handle"
+    class="cool-files-ui-resizable-handle"
   >
     <template v-if="props.withHandle">
-      <div class="sigma-ui-resizable-handle__grip">
-        <GripVerticalIcon class="sigma-ui-resizable-handle__grip-icon" />
+      <div class="cool-files-ui-resizable-handle__grip">
+        <GripVerticalIcon class="cool-files-ui-resizable-handle__grip-icon" />
       </div>
     </template>
   </SplitterResizeHandle>
 </template>
 
 <style>
-.sigma-ui-resizable-handle {
+.cool-files-ui-resizable-handle {
   position: relative;
   display: flex;
   width: 1px;
@@ -36,7 +36,7 @@ const forwarded = useForwardPropsEmits(props, emits);
   background-color: hsl(var(--border));
 }
 
-.sigma-ui-resizable-handle::after {
+.cool-files-ui-resizable-handle::after {
   position: absolute;
   left: 50%;
   width: 4px;
@@ -45,28 +45,28 @@ const forwarded = useForwardPropsEmits(props, emits);
   transform: translateX(-50%);
 }
 
-.sigma-ui-resizable-handle:focus-visible {
+.cool-files-ui-resizable-handle:focus-visible {
   outline: 1px solid hsl(var(--ring) / 50%);
   outline-offset: 1px;
 }
 
-.sigma-ui-resizable-handle[data-orientation="vertical"] {
+.cool-files-ui-resizable-handle[data-orientation="vertical"] {
   width: 100%;
   height: 1px;
 }
 
-.sigma-ui-resizable-handle[data-orientation="vertical"]::after {
+.cool-files-ui-resizable-handle[data-orientation="vertical"]::after {
   left: 0;
   width: 100%;
   height: 4px;
   transform: translateY(-50%);
 }
 
-.sigma-ui-resizable-handle[data-orientation="vertical"] > div {
+.cool-files-ui-resizable-handle[data-orientation="vertical"] > div {
   transform: rotate(90deg);
 }
 
-.sigma-ui-resizable-handle__grip {
+.cool-files-ui-resizable-handle__grip {
   z-index: 10;
   display: flex;
   width: 0.75rem;
@@ -78,7 +78,7 @@ const forwarded = useForwardPropsEmits(props, emits);
   background-color: hsl(var(--border));
 }
 
-.sigma-ui-resizable-handle__grip-icon {
+.cool-files-ui-resizable-handle__grip-icon {
   width: 0.625rem;
   height: 0.625rem;
 }

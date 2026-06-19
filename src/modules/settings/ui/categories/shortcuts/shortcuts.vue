@@ -37,6 +37,9 @@ import {
   AlertTriangleIcon,
   SearchIcon,
   TextSearchIcon,
+  ListIcon,
+  LayoutGridIcon,
+  Columns3Icon,
   CopyIcon,
   FolderInputIcon,
   ClipboardPasteIcon,
@@ -137,6 +140,9 @@ const shortcutIcons: Record<ShortcutId, Component> = {
   goUpDirectory: ArrowUpIcon,
   switchToLeftPane: FlipHorizontalIcon,
   switchToRightPane: FlipHorizontalIcon,
+  setLayoutList: ListIcon,
+  setLayoutGrid: LayoutGridIcon,
+  setLayoutColumns: Columns3Icon,
   uiZoomIncrease: PlusIcon,
   uiZoomDecrease: MinusIcon,
   toggleFullscreen: FullscreenIcon,
@@ -2063,12 +2069,12 @@ const globalExtensionShortcuts = computed(() => {
   gap: 0.5rem;
 }
 
-.shortcut-editor-dialog__replace-button.sigma-ui-button {
+.shortcut-editor-dialog__replace-button.cool-files-ui-button {
   border-color: hsl(var(--destructive));
   color: hsl(var(--destructive));
 }
 
-.shortcut-editor-dialog__replace-button.sigma-ui-button:hover {
+.shortcut-editor-dialog__replace-button.cool-files-ui-button:hover {
   background-color: hsl(var(--destructive) / 12%);
   color: hsl(var(--destructive));
 }

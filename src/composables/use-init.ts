@@ -30,7 +30,7 @@ import { invoke } from '@tauri-apps/api/core';
 import { listen, type UnlistenFn } from '@tauri-apps/api/event';
 import { getCurrentWebviewWindow } from '@tauri-apps/api/webviewWindow';
 import { getCurrentWindow } from '@tauri-apps/api/window';
-import { SIGMA_AUTOSTART_CLI_FLAG } from '@/constants/autostart';
+import { COOL_FILES_AUTOSTART_CLI_FLAG } from '@/constants/autostart';
 import { applyLaunchAtStartupPreference } from '@/utils/autostart-sync';
 import {
   resolveLaunchTargetsFromArgs,
@@ -158,7 +158,7 @@ export function useInit() {
         'revealMainWindow:get_launch_context',
         () => invoke<LaunchContext>('get_launch_context'),
       );
-      const launchedFromOsAutostart = launchContext.args.includes(SIGMA_AUTOSTART_CLI_FLAG);
+      const launchedFromOsAutostart = launchContext.args.includes(COOL_FILES_AUTOSTART_CLI_FLAG);
       const stayHiddenAfterAutostart = launchedFromOsAutostart
         && userSettingsStore.userSettings.launchAtStartupHidden;
       const keepHidden = stayHiddenAfterAutostart

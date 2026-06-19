@@ -8,24 +8,24 @@ export { default as Button } from './button.vue';
 export { default as ConfirmButton } from './confirm-button.vue';
 
 export const buttonVariants = cva(
-  'sigma-ui-button',
+  'cool-files-ui-button',
   {
     variants: {
       variant: {
-        default: 'sigma-ui-button--default',
-        destructive: 'sigma-ui-button--destructive',
-        outline: 'sigma-ui-button--outline',
-        secondary: 'sigma-ui-button--secondary',
-        tertiary: 'sigma-ui-button--tertiary',
-        ghost: 'sigma-ui-button--ghost',
-        link: 'sigma-ui-button--link',
+        default: 'cool-files-ui-button--default',
+        destructive: 'cool-files-ui-button--destructive',
+        outline: 'cool-files-ui-button--outline',
+        secondary: 'cool-files-ui-button--secondary',
+        tertiary: 'cool-files-ui-button--tertiary',
+        ghost: 'cool-files-ui-button--ghost',
+        link: 'cool-files-ui-button--link',
       },
       size: {
-        default: 'sigma-ui-button--size-default',
-        xs: 'sigma-ui-button--size-xs',
-        sm: 'sigma-ui-button--size-sm',
-        lg: 'sigma-ui-button--size-lg',
-        icon: 'sigma-ui-button--size-icon',
+        default: 'cool-files-ui-button--size-default',
+        xs: 'cool-files-ui-button--size-xs',
+        sm: 'cool-files-ui-button--size-sm',
+        lg: 'cool-files-ui-button--size-lg',
+        icon: 'cool-files-ui-button--size-icon',
       },
     },
     defaultVariants: {

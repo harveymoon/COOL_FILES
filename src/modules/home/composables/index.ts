@@ -5,3 +5,5 @@
 export { useDrives } from './use-drives';
 export { useUserDirectories } from './use-user-directories';
 export type { UserDirectory } from './use-user-directories';
+export { useHomeCustomize, applyHomeOrder } from './use-home-customize';
+export type { HomeDirDragPayload } from './use-home-customize';

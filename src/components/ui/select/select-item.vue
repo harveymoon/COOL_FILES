@@ -22,22 +22,22 @@ const forwardedProps = useForwardProps(props);
 <template>
   <SelectItem
     v-bind="forwardedProps"
-    class="sigma-ui-select-item"
+    class="cool-files-ui-select-item"
   >
     <SelectItemText>
       <slot />
     </SelectItemText>
 
-    <span class="sigma-ui-select-item__indicator-wrapper">
+    <span class="cool-files-ui-select-item__indicator-wrapper">
       <SelectItemIndicator>
-        <CheckIcon class="sigma-ui-select-item__check-icon" />
+        <CheckIcon class="cool-files-ui-select-item__check-icon" />
       </SelectItemIndicator>
     </span>
   </SelectItem>
 </template>
 
 <style>
-.sigma-ui-select-item {
+.cool-files-ui-select-item {
   position: relative;
   display: flex;
   width: 100%;
@@ -51,17 +51,17 @@ const forwardedProps = useForwardProps(props);
   user-select: none;
 }
 
-.sigma-ui-select-item:focus {
+.cool-files-ui-select-item:focus {
   background-color: hsl(var(--secondary-foreground) / 5%);
   color: hsl(var(--secondary-foreground));
 }
 
-.sigma-ui-select-item[data-disabled] {
+.cool-files-ui-select-item[data-disabled] {
   opacity: 0.5;
   pointer-events: none;
 }
 
-.sigma-ui-select-item__indicator-wrapper {
+.cool-files-ui-select-item__indicator-wrapper {
   position: absolute;
   right: 0.5rem;
   display: flex;
@@ -71,7 +71,7 @@ const forwardedProps = useForwardProps(props);
   justify-content: center;
 }
 
-.sigma-ui-select-item__check-icon {
+.cool-files-ui-select-item__check-icon {
   width: 1rem;
   height: 1rem;
 }

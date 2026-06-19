@@ -32,7 +32,7 @@ function createDirEntry(path: string, overrides?: Partial<DirEntry>): DirEntry {
 describe('launch-directories', () => {
   function createLaunchContext(overrides?: Partial<LaunchContext>): LaunchContext {
     return {
-      args: ['C:/Apps/Sigma File Manager.exe'],
+      args: ['C:/Apps/Cool Files.exe'],
       cwd: null,
       executableDir: 'C:/Apps',
       hadAbsorbedShellPaths: false,
@@ -44,11 +44,11 @@ describe('launch-directories', () => {
   it('filters out executable paths, flags, empty values, and duplicates', () => {
     expect(getLaunchDirectoryCandidates(createLaunchContext({
       args: [
-        'C:/Apps/Sigma File Manager.exe',
+        'C:/Apps/Cool Files.exe',
         'C:/Users/aleks/Documents',
         '',
         '   ',
-        '--sigma-autostart',
+        '--cool-files-autostart',
         'C:/Users/aleks/Documents',
         'C:/Users/aleks/Pictures',
       ],
@@ -61,7 +61,7 @@ describe('launch-directories', () => {
   it('deduplicates Windows paths without regard to case', () => {
     expect(getLaunchDirectoryCandidates(createLaunchContext({
       args: [
-        'C:/Apps/Sigma File Manager.exe',
+        'C:/Apps/Cool Files.exe',
         'C:/Users/aleks/Documents',
         'c:/users/aleks/documents',
       ],
@@ -73,7 +73,7 @@ describe('launch-directories', () => {
   it('normalizes bare Windows drive roots from args', () => {
     expect(getLaunchDirectoryCandidates(createLaunchContext({
       args: [
-        'C:/Apps/Sigma File Manager.exe',
+        'C:/Apps/Cool Files.exe',
         'C:',
       ],
     }))).toEqual([
@@ -84,7 +84,7 @@ describe('launch-directories', () => {
   it('normalizes quoted Windows drive roots from args', () => {
     expect(getLaunchDirectoryCandidates(createLaunchContext({
       args: [
-        'C:/Apps/Sigma File Manager.exe',
+        'C:/Apps/Cool Files.exe',
         'C:"',
       ],
     }))).toEqual([
@@ -95,7 +95,7 @@ describe('launch-directories', () => {
   it('normalizes fully quoted paths from args', () => {
     expect(getLaunchDirectoryCandidates(createLaunchContext({
       args: [
-        'C:/Apps/Sigma File Manager.exe',
+        'C:/Apps/Cool Files.exe',
         '"C:/Users/aleks/Documents"',
       ],
     }))).toEqual([
@@ -106,7 +106,7 @@ describe('launch-directories', () => {
   it('preserves apostrophes in path names', () => {
     expect(getLaunchDirectoryCandidates(createLaunchContext({
       args: [
-        'C:/Apps/Sigma File Manager.exe',
+        'C:/Apps/Cool Files.exe',
         'C:/Users/O\'Connor/Documents',
       ],
     }))).toEqual([
@@ -148,7 +148,7 @@ describe('launch-directories', () => {
   it('does not fall back to Windows shell cwd paths', () => {
     expect(getLaunchDirectoryCandidates(createLaunchContext({
       cwd: 'C:/Windows/System32',
-      executableDir: 'C:/Program Files/Sigma File Manager',
+      executableDir: 'C:/Program Files/Cool Files',
       hadAbsorbedShellPaths: true,
     }))).toEqual([]);
   });
@@ -171,10 +171,10 @@ describe('launch-directories', () => {
 
     await expect(resolveLaunchTargetsFromArgs(createLaunchContext({
       args: [
-        'C:/Apps/Sigma File Manager.exe',
+        'C:/Apps/Cool Files.exe',
         'C:/Users/aleks/Documents',
         'C:/Users/aleks/file.txt',
-        '--sigma-autostart',
+        '--cool-files-autostart',
         'C:/Users/aleks/missing',
       ],
     }), getDirEntry)).resolves.toEqual([

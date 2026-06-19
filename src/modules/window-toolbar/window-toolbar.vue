@@ -9,8 +9,7 @@ import { useRoute } from 'vue-router';
 import Spacer from './spacer.vue';
 import WindowActions from './window-actions.vue';
 import { GlobalSearchToolbarButton } from '@/modules/global-search';
-import { LanShareReplaceDialog, LanShareToolbarButton } from '@/modules/lan-share';
-import { StatusCenterToolbarButton } from '@/modules/status-center';
+import { LanShareReplaceDialog } from '@/modules/lan-share';
 import CommandPaletteToolbarButton from '@/modules/extensions/components/command-palette-toolbar-button.vue';
 import { ProgressiveBlur, type ProgressiveBlurLayer } from '@/components/ui/progressive-blur';
 
@@ -24,12 +23,20 @@ const isBlurred = computed(() => {
   return route.name === 'extensions';
 });
 
-const shouldShowGlobalSearchButton = computed(() => {
-  return route.name === 'home' || route.name === 'navigator';
+const isNavigatorRoute = computed(() => {
+  return route.name === 'navigator';
 });
 
-const shouldShowNavigatorToolbarExtras = computed(() => {
-  return route.name === 'navigator';
+// On the navigator route the four toolbar extras (command palette, global search,
+// LAN share, status center) are supplied by the customizable toolbar config
+// (navigator.toolbar.items) instead of being hardwired here. Off the navigator
+// route they keep their original placement.
+const shouldShowGlobalSearchButton = computed(() => {
+  return route.name === 'home';
+});
+
+const shouldShowCommandPaletteButton = computed(() => {
+  return !isNavigatorRoute.value;
 });
 
 const toolbarProgressiveBlurLayers: ProgressiveBlurLayer[] = [
@@ -75,14 +82,12 @@ const toolbarProgressiveBlurLayers: ProgressiveBlurLayer[] = [
     />
     <div class="window-toolbar-action-layer">
       <LanShareReplaceDialog />
-      <CommandPaletteToolbarButton />
+      <CommandPaletteToolbarButton v-if="shouldShowCommandPaletteButton" />
       <div class="window-toolbar-extension-embed-teleport-target" />
       <div class="window-toolbar-primary-teleport-target" />
       <Spacer class="window-toolbar-spacer" />
       <div class="window-toolbar-secondary-teleport-target" />
       <div class="window-toolbar-tertiary">
-        <LanShareToolbarButton v-if="shouldShowNavigatorToolbarExtras" />
-        <StatusCenterToolbarButton v-if="shouldShowNavigatorToolbarExtras" />
         <GlobalSearchToolbarButton v-if="shouldShowGlobalSearchButton" />
       </div>
       <WindowActions />

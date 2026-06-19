@@ -1,11 +1,11 @@
-# @sigma-file-manager/api
+# @cool_files/api
 
-Type definitions and the extension manifest JSON schema for [Sigma File Manager](https://github.com/aleksey-hoffman/sigma-file-manager) extensions.
+Type definitions and the extension manifest JSON schema for [Cool Files](https://github.com/harveymoon/COOL_FILES) extensions.
 
 ## Install
 
 ```bash
-npm install -D @sigma-file-manager/api
+npm install -D @cool_files/api
 ```
 
 Add a `devDependency` only; the host does not run `npm install` for installed extensions.
@@ -15,7 +15,7 @@ Add a `devDependency` only; the host does not run `npm install` for installed ex
 Import types for entrypoints and helpers. The global `sigma` object is declared in this package.
 
 ```ts
-import type { ExtensionActivationContext, ExtensionContextEntry, UIElement } from '@sigma-file-manager/api';
+import type { ExtensionActivationContext, ExtensionContextEntry, UIElement } from '@cool_files/api';
 
 export async function activate(context: ExtensionActivationContext): Promise<void> {
   await sigma.i18n.mergeFromPath('locales');
@@ -44,7 +44,7 @@ In extension `package.json`:
 
 ```json
 {
-  "$schema": "./node_modules/@sigma-file-manager/api/manifest.schema.json"
+  "$schema": "./node_modules/@cool_files/api/manifest.schema.json"
 }
 ```
 
@@ -52,7 +52,7 @@ Run `npm install` first so the local schema file exists.
 
 ## Release
 
-API package versions are independent from app releases and are published to npm as `@sigma-file-manager/api`.
+API package versions are independent from app releases and are published to npm as `@cool_files/api`.
 
 ## Resources
 

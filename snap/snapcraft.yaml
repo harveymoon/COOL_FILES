@@ -1,9 +1,9 @@
-name: sigma-file-manager
+name: cool_files
 base: core22
 adopt-info: build-app
 summary: Modern, free, open-source file manager for Windows and Linux
 description: |
-  Sigma File Manager is a modern, feature-rich file manager (explorer)
+  Cool Files is a modern, feature-rich file manager (explorer)
   for Linux and Windows. It includes a fast global search with typo
   correction, tabs and split view, an extension marketplace, LAN file
   sharing with browser access and QR codes, network locations
@@ -19,9 +19,9 @@ layout:
     bind: $SNAP/usr/lib/$CRAFT_ARCH_TRIPLET/webkit2gtk-4.1
 
 apps:
-  sigma-file-manager:
-    command: usr/bin/sigma-file-manager
-    desktop: usr/share/applications/sigma-file-manager.desktop
+  cool_files:
+    command: usr/bin/cool_files
+    desktop: usr/share/applications/cool_files.desktop
     extensions: [gnome]
     plugs:
       - home
@@ -42,13 +42,13 @@ slots:
   single-instance:
     interface: dbus
     bus: session
-    name: org.com_sigma_file_manager_app.SingleInstance
+    name: org.com_cool_files_app.SingleInstance
 
 plugs:
   single-instance-plug:
     interface: dbus
     bus: session
-    name: org.com_sigma_file_manager_app.SingleInstance
+    name: org.com_cool_files_app.SingleInstance
 
 package-repositories:
   - type: apt
@@ -91,7 +91,7 @@ parts:
       dpkg -x src-tauri/target/release/bundle/deb/*.deb "$CRAFT_PART_INSTALL/"
 
       desktop_dir="$CRAFT_PART_INSTALL/usr/share/applications"
-      target_desktop="$desktop_dir/sigma-file-manager.desktop"
+      target_desktop="$desktop_dir/cool_files.desktop"
       source_desktop=$(find "$desktop_dir" -maxdepth 1 -name '*.desktop' -print -quit)
       if [ -z "$source_desktop" ]; then
         echo "::error:: No .desktop file produced by the deb bundler"
@@ -102,5 +102,5 @@ parts:
         mv "$source_desktop" "$target_desktop"
       fi
       sed -i \
-        -E "s|^Icon=.*|Icon=/usr/share/icons/hicolor/32x32/apps/sigma-file-manager.png|" \
+        -E "s|^Icon=.*|Icon=/usr/share/icons/hicolor/32x32/apps/cool_files.png|" \
         "$target_desktop"

@@ -4,7 +4,7 @@ Copyright © 2021 - present Aleksey Hoffman. All rights reserved.
 -->
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { computed, ref, watch } from 'vue';
 import { InfoIcon, XIcon } from '@lucide/vue';
 import { Button } from '@/components/ui/button';
 import InfoPanelHeader from './info-panel-header.vue';
@@ -12,6 +12,11 @@ import InfoPanelPreview from './info-panel-preview.vue';
 import InfoPanelProperties from './info-panel-properties.vue';
 import type { DirEntry } from '@/types/dir-entry';
 import { useIsSmallScreen } from '@/composables/use-responsive-query';
+import { useUserSettingsStore } from '@/stores/storage/user-settings';
+
+// Resize bounds: the original fixed width is the minimum, twice that the maximum.
+const INFO_PANEL_MIN_WIDTH = 280;
+const INFO_PANEL_MAX_WIDTH = INFO_PANEL_MIN_WIDTH * 2;
 
 defineProps<{
   selectedEntry: DirEntry | null;
@@ -20,10 +25,89 @@ defineProps<{
 
 const isCompact = useIsSmallScreen();
 const isDrawerOpen = ref(false);
+
+const userSettingsStore = useUserSettingsStore();
+
+function clampWidth(width: number): number {
+  if (!Number.isFinite(width)) {
+    return INFO_PANEL_MIN_WIDTH;
+  }
+
+  return Math.min(INFO_PANEL_MAX_WIDTH, Math.max(INFO_PANEL_MIN_WIDTH, Math.round(width)));
+}
+
+// Live width drives the CSS var; it updates instantly while dragging and is
+// persisted to user settings on release.
+const panelWidth = ref(clampWidth(userSettingsStore.userSettings.navigator.infoPanel.width));
+
+// Keep in sync if the setting changes elsewhere (and not mid-drag).
+watch(
+  () => userSettingsStore.userSettings.navigator.infoPanel.width,
+  (next) => {
+    if (!isResizing.value) {
+      panelWidth.value = clampWidth(next);
+    }
+  },
+);
+
+const panelStyle = computed(() => ({ '--info-panel-width': `${panelWidth.value}px` }));
+
+const isResizing = ref(false);
+let resizeStartX = 0;
+let resizeStartWidth = 0;
+
+function onResizePointerDown(event: PointerEvent) {
+  isResizing.value = true;
+  resizeStartX = event.clientX;
+  resizeStartWidth = panelWidth.value;
+  (event.target as HTMLElement).setPointerCapture(event.pointerId);
+  event.preventDefault();
+}
+
+function onResizePointerMove(event: PointerEvent) {
+  if (!isResizing.value) {
+    return;
+  }
+
+  // The handle is on the panel's left edge, so dragging left widens it.
+  const delta = resizeStartX - event.clientX;
+  panelWidth.value = clampWidth(resizeStartWidth + delta);
+}
+
+function onResizePointerUp(event: PointerEvent) {
+  if (!isResizing.value) {
+    return;
+  }
+
+  isResizing.value = false;
+
+  const handle = event.target as HTMLElement;
+
+  if (handle.hasPointerCapture(event.pointerId)) {
+    handle.releasePointerCapture(event.pointerId);
+  }
+
+  void userSettingsStore.set('navigator.infoPanel.width', panelWidth.value);
+}
 </script>
 
 <template>
-  <div class="info-panel">
+  <div
+    class="info-panel"
+    :class="{ 'info-panel--resizing': isResizing }"
+    :style="panelStyle"
+  >
+    <div
+      v-if="!isCompact"
+      class="info-panel__resizer"
+      :class="{ 'info-panel__resizer--active': isResizing }"
+      role="separator"
+      aria-orientation="vertical"
+      @pointerdown="onResizePointerDown"
+      @pointermove="onResizePointerMove"
+      @pointerup="onResizePointerUp"
+      @pointercancel="onResizePointerUp"
+    />
     <InfoPanelPreview
       :selected-entry="selectedEntry"
       :is-current-dir="isCurrentDir"
@@ -81,15 +165,48 @@ const isDrawerOpen = ref(false);
 
 <style scoped>
 .info-panel {
+  position: relative;
   display: flex;
   overflow: hidden;
-  width: 280px;
-  min-width: 280px;
+  width: var(--info-panel-width, 280px);
+  min-width: var(--info-panel-width, 280px);
   flex-direction: column;
   flex-shrink: 0;
   padding: 6px;
   border-radius: var(--radius-sm);
   background-color: hsl(var(--background-2));
+}
+
+.info-panel--resizing {
+  user-select: none;
+}
+
+/* Drag strip on the panel's left edge (sits over the 6px gap to the browser). */
+.info-panel__resizer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  display: flex;
+  width: 10px;
+  height: 100%;
+  justify-content: center;
+  cursor: col-resize;
+  touch-action: none;
+}
+
+.info-panel__resizer::before {
+  width: 2px;
+  height: 100%;
+  background-color: transparent;
+  content: '';
+  transition: background-color var(--hover-transition-duration-out) var(--hover-transition-easing-out);
+}
+
+.info-panel__resizer:hover::before,
+.info-panel__resizer--active::before {
+  background-color: hsl(var(--primary) / 50%);
+  transition: background-color var(--hover-transition-duration-in);
 }
 
 @media (width <= 800px) {

@@ -568,7 +568,7 @@ async function handleUpdateTagColor(tagId: string, color: string) {
 }
 
 @media (width <= 768px) {
-  .dashboard-page__tabs-list.sigma-ui-tabs-list {
+  .dashboard-page__tabs-list.cool-files-ui-tabs-list {
     display: grid;
     height: auto;
     grid-template-columns: repeat(4, 1fr);

@@ -18,7 +18,7 @@ const forwarded = useForwardProps(props);
 <template>
   <CollapsibleContent
     v-bind="{ ...forwarded, ...$attrs }"
-    class="sigma-ui-collapsible-content"
+    class="cool-files-ui-collapsible-content"
     :class="$attrs.class"
   >
     <slot />
@@ -26,15 +26,15 @@ const forwarded = useForwardProps(props);
 </template>
 
 <style>
-.sigma-ui-collapsible-content {
+.cool-files-ui-collapsible-content {
   overflow: hidden;
 }
 
-.sigma-ui-collapsible-content[data-state="open"] {
-  animation: sigma-ui-collapsible-down 0.2s ease-out;
+.cool-files-ui-collapsible-content[data-state="open"] {
+  animation: cool-files-ui-collapsible-down 0.2s ease-out;
 }
 
-.sigma-ui-collapsible-content[data-state="closed"] {
-  animation: sigma-ui-collapsible-up 0.2s ease-out;
+.cool-files-ui-collapsible-content[data-state="closed"] {
+  animation: cool-files-ui-collapsible-up 0.2s ease-out;
 }
 </style>

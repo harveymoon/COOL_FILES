@@ -55,7 +55,7 @@ const columnVisibility = computed(() => userSettingsStore.userSettings.navigator
 
 <style scoped>
 .file-browser-loading {
-  animation: sigma-ui-fade-in 1s ease-out;
+  animation: cool-files-ui-fade-in 1s ease-out;
 }
 
 .file-browser-loading__list {

@@ -1,11 +1,11 @@
 {
-  "name": "@sigma-file-manager/api",
+  "name": "@cool_files/api",
   "version": "1.8.1",
-  "description": "Type definitions and manifest schema for Sigma File Manager extensions",
+  "description": "Type definitions and manifest schema for Cool Files extensions",
   "license": "GPL-3.0-or-later",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/aleksey-hoffman/sigma-file-manager.git",
+    "url": "git+https://github.com/harveymoon/COOL_FILES.git",
     "directory": "packages/api"
   },
   "files": [

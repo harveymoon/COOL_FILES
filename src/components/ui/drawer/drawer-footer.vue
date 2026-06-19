@@ -8,7 +8,7 @@ Copyright © 2021 - present Aleksey Hoffman. All rights reserved.
 
 <template>
   <div
-    class="sigma-ui-drawer-footer"
+    class="cool-files-ui-drawer-footer"
     :class="[$attrs.class]"
   >
     <slot />
@@ -16,7 +16,7 @@ Copyright © 2021 - present Aleksey Hoffman. All rights reserved.
 </template>
 
 <style>
-.sigma-ui-drawer-footer {
+.cool-files-ui-drawer-footer {
   display: flex;
   flex-direction: column;
   padding: 1rem;

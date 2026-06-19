@@ -84,7 +84,7 @@ async function handleExtensionAction(registration: ContextMenuItemRegistration) 
 </template>
 
 <style>
-.file-browser-context-menu.sigma-ui-context-menu-content {
+.file-browser-context-menu.cool-files-ui-context-menu-content {
   min-width: 250px;
   max-width: 300px;
   padding: 8px;

@@ -1,8 +1,8 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://raw.githubusercontent.com/aleksey-hoffman/sigma-file-manager/main/packages/api/manifest.schema.json",
-  "title": "Sigma File Manager Extension Manifest",
-  "description": "Schema for Sigma File Manager extension package.json files",
+  "$id": "https://raw.githubusercontent.com/harveymoon/COOL_FILES/main/packages/api/manifest.schema.json",
+  "title": "Cool Files Extension Manifest",
+  "description": "Schema for Cool Files extension package.json files",
   "type": "object",
   "required": [
     "id",
@@ -730,7 +730,7 @@
       "properties": {
         "sigmaFileManager": {
           "type": "string",
-          "description": "Required Sigma File Manager version range"
+          "description": "Required Cool Files version range"
         }
       }
     }

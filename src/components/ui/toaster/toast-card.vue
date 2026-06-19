@@ -4,13 +4,13 @@ Copyright © 2021 - present Aleksey Hoffman. All rights reserved.
 -->
 
 <template>
-  <div class="sigma-ui-toast-card">
+  <div class="cool-files-ui-toast-card">
     <slot />
   </div>
 </template>
 
 <style>
-.sigma-ui-toast-card {
+.cool-files-ui-toast-card {
   display: flex;
   width: 100%;
   box-sizing: border-box;

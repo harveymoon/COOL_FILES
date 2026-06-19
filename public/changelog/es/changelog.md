@@ -115,7 +115,7 @@ Los elementos en la página de inicio y el panel de control ahora tienen menús 
 - **Brillo del multimedia de superposición**: ajusta el brillo del multimedia de superposición de efectos visuales (`Configuración > Apariencia de la interfaz > Efectos visuales`);
 - **Modo de mezcla de efectos visuales**: ajusta el modo de mezcla para los efectos visuales, permitiéndote elegir cómo el multimedia de fondo se mezcla con la interfaz de la aplicación (`Configuración > Apariencia de la interfaz > Efectos visuales`);
 - **Pausar video de fondo**: pausar el banner de inicio y el video de fondo cuando la aplicación está inactiva o minimizada (`Configuración > Apariencia de la interfaz > Efectos visuales`);
-- **Administrador de archivos predeterminado**: establecer Sigma File Manager como el explorador de archivos predeterminado en Windows (`Configuración > Experimental`);
+- **Administrador de archivos predeterminado**: establecer Cool Files como el explorador de archivos predeterminado en Windows (`Configuración > Experimental`);
 - **Iniciar al arrancar el sistema**: iniciar automáticamente la aplicación al iniciar sesión en el sistema (`Configuración > General > Comportamiento de inicio`);
 
 ### Nuevos atajos de teclado
@@ -517,7 +517,7 @@ Se migró la aplicación de Vuetify a Sigma-UI para un diseño más espacioso y 
 
 ### Migración a Tauri
 
-Sigma File Manager v2 ha sido reconstruido desde cero usando Vue 3 Composition API, TypeScript y Tauri v2. El tamaño de instalación de la aplicación se redujo de 153 MB a solo 4 MB en Windows. El tamaño de la aplicación instalada se redujo de 419 MB a 12 MB.
+Cool Files v2 ha sido reconstruido desde cero usando Vue 3 Composition API, TypeScript y Tauri v2. El tamaño de instalación de la aplicación se redujo de 153 MB a solo 4 MB en Windows. El tamaño de la aplicación instalada se redujo de 419 MB a 12 MB.
 
 ### Paneles redimensionables
 

@@ -15,12 +15,12 @@ const props = defineProps<ContextMenuSeparatorProps>();
 <template>
   <ContextMenuSeparator
     v-bind="props"
-    class="sigma-ui-context-menu-separator"
+    class="cool-files-ui-context-menu-separator"
   />
 </template>
 
 <style>
-.sigma-ui-context-menu-separator {
+.cool-files-ui-context-menu-separator {
   height: 1px;
   margin: 0.25rem -0.25rem;
   background-color: hsl(var(--border));

@@ -122,7 +122,7 @@ function handleKeydown(event: KeyboardEvent) {
   gap: 16px;
 }
 
-.extension-dialog__form .sigma-ui-input {
+.extension-dialog__form .cool-files-ui-input {
   width: 100%;
   min-width: 0;
   max-width: 100%;

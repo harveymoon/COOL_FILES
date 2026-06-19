@@ -1,5 +1,11 @@
-.animate-stagger-slide-up {
-  animation: animate-stagger-slide-up 0.44s ease-out forwards;
+/*
+ * The staggered slide-up "load-in" animation only applies when the user has
+ * enabled it (Settings → Appearance). When off (the default) or absent, elements
+ * render normally with no animation and full opacity, so content is never hidden
+ * if JavaScript has not yet set the attribute.
+ */
+[data-load-animations="on"] .animate-stagger-slide-up {
+  animation: animate-stagger-slide-up var(--stagger-slide-up-duration, 0.44s) ease-out forwards;
   opacity: 0;
 }
 
@@ -16,7 +22,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .animate-stagger-slide-up {
+  [data-load-animations="on"] .animate-stagger-slide-up {
     animation: none;
     opacity: 1;
     transform: none;

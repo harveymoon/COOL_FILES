@@ -15,12 +15,12 @@ const props = defineProps<DropdownMenuSeparatorProps>();
 <template>
   <DropdownMenuSeparator
     v-bind="props"
-    class="sigma-ui-dropdown-menu-separator"
+    class="cool-files-ui-dropdown-menu-separator"
   />
 </template>
 
 <style>
-.sigma-ui-dropdown-menu-separator {
+.cool-files-ui-dropdown-menu-separator {
   height: 1px;
   margin: 0.25rem -0.25rem;
   background-color: hsl(var(--border));

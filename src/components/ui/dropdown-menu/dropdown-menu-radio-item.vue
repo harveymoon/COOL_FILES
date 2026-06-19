@@ -22,12 +22,12 @@ const forwarded = useForwardPropsEmits(props, emits);
 <template>
   <DropdownMenuRadioItem
     v-bind="forwarded"
-    class="sigma-ui-dropdown-menu-radio-item"
+    class="cool-files-ui-dropdown-menu-radio-item"
   >
-    <span class="sigma-ui-dropdown-menu-radio-item__indicator">
+    <span class="cool-files-ui-dropdown-menu-radio-item__indicator">
       <DropdownMenuItemIndicator>
 
-        <CircleIcon class="sigma-ui-dropdown-menu-radio-item__icon" />
+        <CircleIcon class="cool-files-ui-dropdown-menu-radio-item__icon" />
       </DropdownMenuItemIndicator>
     </span>
     <slot />
@@ -35,7 +35,7 @@ const forwarded = useForwardPropsEmits(props, emits);
 </template>
 
 <style>
-.sigma-ui-dropdown-menu-radio-item {
+.cool-files-ui-dropdown-menu-radio-item {
   position: relative;
   display: flex;
   align-items: center;
@@ -49,17 +49,17 @@ const forwarded = useForwardPropsEmits(props, emits);
   user-select: none;
 }
 
-.sigma-ui-dropdown-menu-radio-item:focus {
+.cool-files-ui-dropdown-menu-radio-item:focus {
   background-color: hsl(var(--secondary));
   color: hsl(var(--secondary-foreground));
 }
 
-.sigma-ui-dropdown-menu-radio-item[data-disabled] {
+.cool-files-ui-dropdown-menu-radio-item[data-disabled] {
   opacity: 0.5;
   pointer-events: none;
 }
 
-.sigma-ui-dropdown-menu-radio-item__indicator {
+.cool-files-ui-dropdown-menu-radio-item__indicator {
   position: absolute;
   left: 0.5rem;
   display: flex;
@@ -69,7 +69,7 @@ const forwarded = useForwardPropsEmits(props, emits);
   justify-content: center;
 }
 
-.sigma-ui-dropdown-menu-radio-item__icon {
+.cool-files-ui-dropdown-menu-radio-item__icon {
   width: 0.5rem;
   height: 0.5rem;
   fill: currentcolor;

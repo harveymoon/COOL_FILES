@@ -4,7 +4,7 @@
 
 import { convertFileSrc } from '@tauri-apps/api/core';
 import { join } from '@tauri-apps/api/path';
-import type { ExtensionIconThemeContribution } from '@sigma-file-manager/api';
+import type { ExtensionIconThemeContribution } from '@cool_files/api';
 import type { InstalledExtension } from '@/types/extension';
 import {
   BUILTIN_NAVIGATOR_ICON_THEME_IDS,

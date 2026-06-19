@@ -574,7 +574,7 @@ fn disable_default_file_manager(app_handle: &tauri::AppHandle) -> Result<bool, S
 
         if current_keys != snapshot.owned_keys {
             return Err(
-                "Registry entries changed after Sigma File Manager became the default file manager. Refusing to overwrite external changes. Restore the previous default file manager via its own settings, or remove the Sigma File Manager registry entries manually.".to_string(),
+                "Registry entries changed after Cool Files became the default file manager. Refusing to overwrite external changes. Restore the previous default file manager via its own settings, or remove the Cool Files registry entries manually.".to_string(),
             );
         }
 
@@ -592,7 +592,7 @@ fn disable_default_file_manager(app_handle: &tauri::AppHandle) -> Result<bool, S
 
     if current_keys != expected_legacy_owned_registry_roots()? {
         return Err(
-            "Sigma File Manager owns the file manager registry commands, but no restore snapshot exists. Refusing to delete registry keys that contain external values.".to_string(),
+            "Cool Files owns the file manager registry commands, but no restore snapshot exists. Refusing to delete registry keys that contain external values.".to_string(),
         );
     }
 
@@ -678,7 +678,7 @@ mod tests {
         let snapshot = DefaultFileManagerRegistrySnapshot {
             version: SNAPSHOT_VERSION,
             created_at_unix_seconds: 123,
-            executable_path: "C:\\Program Files\\Sigma File Manager\\sigma-file-manager.exe"
+            executable_path: "C:\\Program Files\\Cool Files\\cool_files.exe"
                 .to_string(),
             original_keys: vec![key.clone()],
             owned_keys: vec![key],

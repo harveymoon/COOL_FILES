@@ -25,7 +25,7 @@ import type { AddressBarEditorMode } from './address-bar-editor-utils';
 const props = withDefaults(defineProps<{
   tab?: Tab;
   paneIndex?: number;
-  layout?: 'list' | 'grid';
+  layout?: 'list' | 'grid' | 'columns';
   externalEntries?: DirEntry[];
   basePath?: string;
   hideToolbar?: boolean;
@@ -94,6 +94,8 @@ provideFileBrowserContext({
   error: fb.error,
   selectedEntries: fb.selectedEntries,
   isEntrySelected: fb.isEntrySelected,
+  replaceSelection: fb.replaceSelection,
+  clearSelection: fb.clearSelection,
   contextMenu: fb.contextMenu,
   getImageThumbnail: fb.getImageThumbnail,
   getImageThumbnailPlaceholder: fb.getImageThumbnailPlaceholder,
@@ -121,6 +123,8 @@ provideFileBrowserContext({
   openOpenWithDialog: fb.openOpenWithDialog,
   openNewItemDialog: fb.openNewItemDialog,
   navigateToHome: fb.navigateToHome,
+  navigateToPath: fb.navigateToPath,
+  openFile: fb.openFile,
   refresh: fb.refresh,
   requestFocusEntryAfterRefresh: fb.requestFocusEntryAfterRefresh,
   entryDescription: props.entryDescription,
@@ -153,6 +157,7 @@ defineExpose({
   goBack: fb.goBack,
   goForward: fb.goForward,
   navigateToParent: fb.navigateToParent,
+  navigateToHome: fb.navigateToHome,
   openNewItemDialog: fb.openNewItemDialog,
   copyItems: fb.copyItems,
   cutItems: fb.cutItems,

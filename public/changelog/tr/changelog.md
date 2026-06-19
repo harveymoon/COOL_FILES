@@ -91,7 +91,7 @@ Ana sayfa ve gösterge panelindeki öğeler artık gezginde mevcut olan işlevse
 - **Kaplama medya parlaklığı**: görsel efektler kaplama medyasının parlaklığını ayarlayın (`Ayarlar > Arayüz görünümü > Görsel efektler`);
 - **Görsel Efektler Karıştırma Modu**: arka plan medyasının uygulama arayüzüyle nasıl karıştığını seçmenize olanak tanıyan görsel efektler için karıştırma modunu ayarlayın (`Ayarlar > Arayüz görünümü > Görsel efektler`);
 - **Arka plan videosunu duraklat**: uygulama boşta veya simge durumuna küçültülmüşken ana sayfa afişini ve arka plan videosunu duraklatın (`Ayarlar > Arayüz görünümü > Görsel efektler`);
-- **Varsayılan dosya yöneticisi**: Sigma File Manager'ı Windows'ta varsayılan dosya gezgini olarak ayarlayın (`Ayarlar > Deneysel`);
+- **Varsayılan dosya yöneticisi**: Cool Files'ı Windows'ta varsayılan dosya gezgini olarak ayarlayın (`Ayarlar > Deneysel`);
 - **Sistem girişinde başlat**: sisteme giriş yaptığınızda uygulamayı otomatik olarak başlatın (`Ayarlar > Genel > Başlangıç davranışı`);
 
 ### Yeni Kısayollar
@@ -493,7 +493,7 @@ Daha ferah, modern bir tasarım ve geliştirilmiş kod kalitesi için uygulama V
 
 ### Tauri Geçişi
 
-Sigma File Manager v2, Vue 3 Composition API, TypeScript ve Tauri v2 kullanılarak sıfırdan yeniden inşa edildi. Uygulama kurulum boyutu Windows'ta 153 MB'den yalnızca 4 MB'ye düşürüldü. Yüklü uygulama boyutu 419 MB'den 12 MB'ye düşürüldü.
+Cool Files v2, Vue 3 Composition API, TypeScript ve Tauri v2 kullanılarak sıfırdan yeniden inşa edildi. Uygulama kurulum boyutu Windows'ta 153 MB'den yalnızca 4 MB'ye düşürüldü. Yüklü uygulama boyutu 419 MB'den 12 MB'ye düşürüldü.
 
 ### Yeniden Boyutlandırılabilir Paneller
 

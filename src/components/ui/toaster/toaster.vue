@@ -19,14 +19,14 @@ const props = defineProps<ToasterProps>();
       ...props.toastOptions,
       unstyled: true,
       classes: {
-        toast: 'sigma-ui-toast-shell',
+        toast: 'cool-files-ui-toast-shell',
       },
     }"
   />
 </template>
 
 <style>
-.sigma-ui-toaster {
+.cool-files-ui-toaster {
   position: fixed;
   z-index: 60;
   display: flex;
@@ -59,13 +59,13 @@ const props = defineProps<ToasterProps>();
   opacity: 0;
 }
 
-[data-sonner-toast][data-mounted='false'] .sigma-ui-toast-card {
+[data-sonner-toast][data-mounted='false'] .cool-files-ui-toast-card {
   backdrop-filter: blur(0);
   background-color: hsl(var(--background) / 0%);
 }
 
-[data-sonner-toast][data-mounted='false'] :deep(.sigma-ui-toast-static),
-[data-sonner-toast][data-mounted='false'] :deep(.sigma-ui-toast-progress) {
+[data-sonner-toast][data-mounted='false'] :deep(.cool-files-ui-toast-static),
+[data-sonner-toast][data-mounted='false'] :deep(.cool-files-ui-toast-progress) {
   backdrop-filter: blur(0);
   background-color: hsl(var(--background) / 0%);
 }
@@ -78,7 +78,7 @@ const props = defineProps<ToasterProps>();
   opacity: 0;
 }
 
-.sigma-ui-toast-shell {
+.cool-files-ui-toast-shell {
   display: flex;
   width: 100%;
   align-items: stretch;

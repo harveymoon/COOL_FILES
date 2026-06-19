@@ -15,17 +15,17 @@ const forwardedProps = useForwardProps(props);
 <template>
   <SelectTrigger
     v-bind="forwardedProps"
-    class="sigma-ui-select-trigger"
+    class="cool-files-ui-select-trigger"
   >
     <slot />
     <SelectIcon as-child>
-      <ChevronDownIcon class="sigma-ui-select-trigger__icon" />
+      <ChevronDownIcon class="cool-files-ui-select-trigger__icon" />
     </SelectIcon>
   </SelectTrigger>
 </template>
 
 <style>
-.sigma-ui-select-trigger {
+.cool-files-ui-select-trigger {
   display: flex;
   width: 100%;
   height: 2.5rem;
@@ -40,24 +40,24 @@ const forwardedProps = useForwardProps(props);
   line-height: 1.25rem;
 }
 
-.sigma-ui-select-trigger:focus {
+.cool-files-ui-select-trigger:focus {
   outline: 2px solid hsl(var(--ring) / 50%);
   outline-offset: var(--ring-outline-offset);
 }
 
-.sigma-ui-select-trigger:disabled {
+.cool-files-ui-select-trigger:disabled {
   cursor: not-allowed;
   opacity: 0.5;
 }
 
-.sigma-ui-select-trigger > span {
+.cool-files-ui-select-trigger > span {
   display: -webkit-box;
   overflow: hidden;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 1;
 }
 
-.sigma-ui-select-trigger__icon {
+.cool-files-ui-select-trigger__icon {
   width: 1rem;
   height: 1rem;
   opacity: 0.5;

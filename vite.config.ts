@@ -1,7 +1,6 @@
 import { fileURLToPath, URL } from 'node:url';
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
-import vueDevTools from 'vite-plugin-vue-devtools';
 import { run } from 'vite-plugin-run';
 import { assertNoRestrictedBackgroundSourceImport } from './src/build/background-source-import-guard';
 import { rejectTestModulesInProductionBuild } from './src/build/reject-test-modules-in-production-build';
@@ -20,7 +19,6 @@ const backgroundSourceImportGuard = {
 export default defineConfig({
   plugins: [
     vue(),
-    vueDevTools(),
     backgroundSourceImportGuard,
     rejectTestModulesInProductionBuild(),
     run([

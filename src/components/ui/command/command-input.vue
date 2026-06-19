@@ -18,20 +18,20 @@ const forwardedProps = useForwardProps(props);
 
 <template>
   <div
-    class="sigma-ui-command-input"
+    class="cool-files-ui-command-input"
     cmdk-input-wrapper
   >
-    <SearchIcon class="sigma-ui-command-input__icon" />
+    <SearchIcon class="cool-files-ui-command-input__icon" />
     <ComboboxInput
       v-bind="{ ...forwardedProps, ...$attrs }"
       auto-focus
-      class="sigma-ui-command-input__field"
+      class="cool-files-ui-command-input__field"
     />
   </div>
 </template>
 
 <style>
-.sigma-ui-command-input {
+.cool-files-ui-command-input {
   display: flex;
   align-items: center;
   padding-right: 0.75rem;
@@ -39,7 +39,7 @@ const forwardedProps = useForwardProps(props);
   border-bottom: 1px solid hsl(var(--border));
 }
 
-.sigma-ui-command-input__icon {
+.cool-files-ui-command-input__icon {
   width: 1rem;
   height: 1rem;
   flex-shrink: 0;
@@ -47,7 +47,7 @@ const forwardedProps = useForwardProps(props);
   opacity: 0.5;
 }
 
-.sigma-ui-command-input__field {
+.cool-files-ui-command-input__field {
   display: flex;
   width: 100%;
   height: 2.75rem;
@@ -60,11 +60,11 @@ const forwardedProps = useForwardProps(props);
   outline: none;
 }
 
-.sigma-ui-command-input__field::placeholder {
+.cool-files-ui-command-input__field::placeholder {
   color: hsl(var(--muted-foreground));
 }
 
-.sigma-ui-command-input__field:disabled {
+.cool-files-ui-command-input__field:disabled {
   cursor: not-allowed;
   opacity: 0.5;
 }

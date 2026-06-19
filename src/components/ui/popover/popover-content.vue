@@ -32,7 +32,7 @@ const forwarded = useForwardPropsEmits(props, emits);
   <PopoverPortal>
     <PopoverContent
       v-bind="{ ...forwarded, ...$attrs }"
-      class="sigma-ui-popover-content"
+      class="cool-files-ui-popover-content"
       :class="$attrs.class"
     >
       <slot />
@@ -41,7 +41,7 @@ const forwarded = useForwardPropsEmits(props, emits);
 </template>
 
 <style>
-.sigma-ui-popover-content {
+.cool-files-ui-popover-content {
   z-index: 50;
   width: 18rem;
   padding: 1rem;
@@ -55,27 +55,27 @@ const forwarded = useForwardPropsEmits(props, emits);
   transform-origin: var(--reka-popover-content-transform-origin);
 }
 
-.sigma-ui-popover-content[data-state="open"][data-side="bottom"] {
-  animation: sigma-ui-slide-from-top 150ms ease-out;
+.cool-files-ui-popover-content[data-state="open"][data-side="bottom"] {
+  animation: cool-files-ui-slide-from-top 150ms ease-out;
 }
 
-.sigma-ui-popover-content[data-state="open"][data-side="top"] {
-  animation: sigma-ui-slide-from-bottom 150ms ease-out;
+.cool-files-ui-popover-content[data-state="open"][data-side="top"] {
+  animation: cool-files-ui-slide-from-bottom 150ms ease-out;
 }
 
-.sigma-ui-popover-content[data-state="open"][data-side="left"] {
-  animation: sigma-ui-slide-from-right 150ms ease-out;
+.cool-files-ui-popover-content[data-state="open"][data-side="left"] {
+  animation: cool-files-ui-slide-from-right 150ms ease-out;
 }
 
-.sigma-ui-popover-content[data-state="open"][data-side="right"] {
-  animation: sigma-ui-slide-from-left 150ms ease-out;
+.cool-files-ui-popover-content[data-state="open"][data-side="right"] {
+  animation: cool-files-ui-slide-from-left 150ms ease-out;
 }
 
-.sigma-ui-popover-content[data-state="closed"] {
-  animation: sigma-ui-popover-out 150ms ease-in;
+.cool-files-ui-popover-content[data-state="closed"] {
+  animation: cool-files-ui-popover-out 150ms ease-in;
 }
 
-@keyframes sigma-ui-popover-out {
+@keyframes cool-files-ui-popover-out {
   from {
     filter: blur(0);
     opacity: 1;
@@ -89,7 +89,7 @@ const forwarded = useForwardPropsEmits(props, emits);
   }
 }
 
-@keyframes sigma-ui-slide-from-top {
+@keyframes cool-files-ui-slide-from-top {
   from {
     filter: blur(4px);
     transform: translateY(-1rem) scaleY(0.98);
@@ -101,7 +101,7 @@ const forwarded = useForwardPropsEmits(props, emits);
   }
 }
 
-@keyframes sigma-ui-slide-from-bottom {
+@keyframes cool-files-ui-slide-from-bottom {
   from {
     filter: blur(4px);
     transform: translateY(1rem) scaleY(0.98);
@@ -113,7 +113,7 @@ const forwarded = useForwardPropsEmits(props, emits);
   }
 }
 
-@keyframes sigma-ui-slide-from-left {
+@keyframes cool-files-ui-slide-from-left {
   from {
     filter: blur(4px);
     transform: translateX(-1rem) scaleY(0.98);
@@ -125,7 +125,7 @@ const forwarded = useForwardPropsEmits(props, emits);
   }
 }
 
-@keyframes sigma-ui-slide-from-right {
+@keyframes cool-files-ui-slide-from-right {
   from {
     filter: blur(4px);
     transform: translateX(1rem) scaleY(0.98);

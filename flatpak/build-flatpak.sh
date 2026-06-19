@@ -8,12 +8,12 @@ deb_input_directory="$flatpak_directory/.deb-input"
 build_directory="$flatpak_directory/.build"
 repo_directory="$flatpak_directory/.repo"
 output_directory="$flatpak_directory/output"
-manifest_path="$flatpak_directory/com.sigma-file-manager.app.yml"
-app_id="com.sigmafilemanager.app"
+manifest_path="$flatpak_directory/com.cool-files.app.yml"
+app_id="com.coolfiles.app"
 runtime_ref="org.gnome.Platform/x86_64/48"
 
 version="$(node -p "require('$root_directory/package.json').version")"
-bundle_path="$output_directory/Sigma-File-Manager-${version}-linux.flatpak"
+bundle_path="$output_directory/Cool-Files-${version}-linux.flatpak"
 
 find_deb_package() {
   if [ ! -d "$deb_bundle_directory" ]; then
@@ -67,7 +67,7 @@ ensure_flatpak_runtime() {
 
 deb_package="$(ensure_deb_package)"
 mkdir -p "$deb_input_directory" "$output_directory"
-cp "$deb_package" "$deb_input_directory/sigma-file-manager.deb"
+cp "$deb_package" "$deb_input_directory/cool_files.deb"
 
 rm -rf "$build_directory" "$repo_directory"
 ensure_flatpak_runtime

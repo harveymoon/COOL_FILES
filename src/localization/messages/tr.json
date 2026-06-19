@@ -1,6 +1,6 @@
 {
   "app": {
-    "name": "Sigma File Manager",
+    "name": "Cool Files",
     "description": "ücretsiz, açık kaynaklı, gelişmiş, modern bir dosya yöneticisi uygulamasıdır, GNU GPLv3 veya üstü altında lisanslanmıştır.",
     "copyright": "Telif Hakkı © 2021 - şimdiki zaman Aleksey Hoffman. Tüm hakları saklıdır."
   },
@@ -155,7 +155,17 @@
     "setPreviousBackground": "Önceki Arka Planı Ayarla",
     "dropZoneClickToBrowse": "Görüntü veya video göz atmak için tıklayın",
     "dropZoneOrDropFiles": "Veya dosyaları buraya sürükleyin",
-    "addMediaUrlPlaceholder": "Resim veya video URL'si yapıştırın"
+    "addMediaUrlPlaceholder": "Resim veya video URL'si yapıştırın",
+    "editLayout": "Edit layout",
+    "doneEditing": "Done",
+    "editLayoutHint": "Drag tiles to rearrange. Drag directory tiles between sections, or remove them. Add groups to organize your folders.",
+    "addGroup": "Add group",
+    "newGroupTitle": "New group",
+    "deleteGroup": "Delete group",
+    "renameGroup": "Group name",
+    "addDirectory": "Add directory",
+    "emptyGroup": "Drag directories here or click \"Add directory\"",
+    "reorderGroup": "Drag to reorder"
   },
   "navigator": {
     "newDirectoryFile": "Yeni dizin / dosya",
@@ -338,7 +348,26 @@
       "navigatorOptions": "Gezgin seçenekleri",
       "systemIcons": "Simge teması",
       "systemIconsDirectories": "Klasörler",
-      "systemIconsFiles": "Dosyalar"
+      "systemIconsFiles": "Dosyalar",
+      "toolbarCustomization": "Toolbar buttons",
+      "toolbarCustomizationDescription": "Reorder, show, hide, and group the buttons in the navigator toolbar. Drag to reorder.",
+      "sidebarCustomization": "Sidebar buttons",
+      "sidebarCustomizationDescription": "Reorder and show or hide the page buttons in the left sidebar. Drag to reorder.",
+      "toolbarSeparator": "Separator",
+      "toolbarEmpty": "No buttons. Add some below.",
+      "toolbarAddAction": "Add button",
+      "toolbarAddSeparator": "Add separator",
+      "toolbarReset": "Reset to default",
+      "toolbarPreview": "Toolbar",
+      "toolbarUnused": "Unused items",
+      "toolbarDragHint": "Drag icons to reorder. Drag into Unused to remove, or back onto the toolbar to add.",
+      "customizeTitle": "Toolbar & sidebar buttons",
+      "customizeDescription": "Customize which buttons appear in the navigator toolbar and the left sidebar, and their order. Editing happens in place on the navigator.",
+      "customizeButton": "Customize toolbar & sidebar",
+      "editSheetTitle": "Customizing toolbar & sidebar",
+      "editSheetHint": "Drag items onto the toolbar or sidebar to add them, or drag them off into here to remove. Drag a separator onto the toolbar to group buttons.",
+      "editDone": "Done",
+      "autoShowDrives": "Auto-show drives in sidebar"
     },
     "tabs": {
       "lastTabCloseBehavior": {
@@ -388,8 +417,18 @@
     },
     "experimental": {
       "defaultFileManager": {
-        "title": "Sigma File Manager'i varsayılan dosya yöneticisi olarak ayarla",
+        "title": "Cool Files'i varsayılan dosya yöneticisi olarak ayarla",
         "description": "Bu seçenek sistem kaydını değiştirir ve cihazınızda beklenmedik yan etkilere neden olabilir. Riski kabul ederek devam edin."
+      }
+    },
+    "appearance": {
+      "loadAnimations": {
+        "title": "Load-in animations",
+        "description": "Animate panels and items as they appear on the Home, Settings, Dashboard, and Extensions pages.",
+        "enable": "Enable load-in animations",
+        "speed": "Speed (duration)",
+        "cascade": "Cascade (stagger)",
+        "milliseconds": "{value} ms"
       }
     }
   },
@@ -407,7 +446,8 @@
     "dataStorage": "Veri depolama",
     "stats": "İstatistikler",
     "experimental": "Deneysel",
-    "extensions": "Uzantılar"
+    "extensions": "Uzantılar",
+    "navigator": "Navigator"
   },
   "settingsTags": {
     "language": "dil",
@@ -434,7 +474,8 @@
     "experimental": "gelişmiş, deneysel, varsayılan dosya yöneticisi, dosya gezgini, kayıt defteri, terminal, shell",
     "whatsNew": "yenilikler, değişiklik günlüğü, sürüm notları, sürüm, güncelleme, haberler",
     "autostart": "otomatik başlatma, başlangıç, oturum açma, sistem, açılış",
-    "extensions": "extensions, plugins, addons, configuration, settings"
+    "extensions": "extensions, plugins, addons, configuration, settings",
+    "loadAnimations": "animation, animations, fade, slide, cascade, stagger, motion, transition, effects"
   },
   "drag": {
     "holdShiftToChangeMode": "Modu değiştirmek için [Shift]'e basılı tutun",
@@ -521,7 +562,10 @@
     "deleteSelectedItemsFromDrive": "Sürücüden sil",
     "moveCurrentDirectoryToTrash": "Geçerli dizini çöp kutusuna taşı",
     "deleteCurrentDirectoryFromDrive": "Geçerli dizini sürücüden sil",
-    "toggleCommandPalette": "Open / close command palette"
+    "toggleCommandPalette": "Open / close command palette",
+    "setLayoutList": "Switch to list layout",
+    "setLayoutGrid": "Switch to grid layout",
+    "setLayoutColumns": "Switch to columns layout"
   },
   "dialogs": {
     "userDirectoryEditorDialog": {
@@ -831,7 +875,8 @@
       "share": "Yerel ağda paylaş",
       "openInNewTab": "Yeni sekmede aç",
       "addToFavorites": "Favorilere ekle",
-      "removeFromFavorites": "Favorilerden kaldır"
+      "removeFromFavorites": "Favorilerden kaldır",
+      "cut": "Cut"
     },
     "archive": {
       "extract": "Çıkar",
@@ -850,7 +895,10 @@
       "errors": {
         "destinationInsideSelectedFolder": "Hedef arşiv seçilen bir klasörün içinde"
       }
-    }
+    },
+    "type": "Type",
+    "folder": "Folder",
+    "resizeColumn": "Drag to resize column"
   },
   "openWith": {
     "loadingPrograms": "Programlar yükleniyor...",
@@ -949,7 +997,7 @@
     },
     "badges": {
       "official": "Resmi",
-      "officialTooltip": "Bu eklenti Sigma File Manager ekibi tarafından oluşturulmuş ve sürdürülmektedir",
+      "officialTooltip": "Bu eklenti Cool Files ekibi tarafından oluşturulmuş ve sürdürülmektedir",
       "community": "Topluluk",
       "communityTooltip": "Bu bir topluluk eklentisidir. Yüklemeden önce kaynak kodunu inceleyin.",
       "local": "Yerel",
@@ -1063,5 +1111,15 @@
     "replaceShareDialogTitle": "Mevcut paylaşım değiştirilsin mi?",
     "replaceShareDialogDescription": "Ağ üzerinden zaten dosyalar paylaşılıyor. Mevcut paylaşım durdurulup yenisiyle değiştirilecek.",
     "replaceShareDialogConfirm": "Değiştir"
-  }
+  },
+  "columns": "Columns",
+  "columnsLayout": "Columns layout",
+  "nav": {
+    "pinDrive": "Pin drive to sidebar",
+    "unpinDrive": "Unpin drive from sidebar",
+    "pinShortcut": "Pin shortcut to sidebar",
+    "removeShortcut": "Remove shortcut",
+    "dropToPin": "Drop a folder to pin it"
+  },
+  "remove": "Remove"
 }

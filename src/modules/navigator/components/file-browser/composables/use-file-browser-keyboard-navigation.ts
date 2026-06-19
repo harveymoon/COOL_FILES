@@ -11,7 +11,7 @@ const OVERLAP_TOLERANCE_PX = 2;
 export function useFileBrowserKeyboardNavigation(options: {
   entries: Ref<DirEntry[]>;
   selectedEntries: Ref<DirEntry[]>;
-  layout: () => 'list' | 'grid' | undefined;
+  layout: () => 'list' | 'grid' | 'columns' | undefined;
   selectEntryByPath: (path: string) => boolean;
   scrollToPath?: (path: string, align?: ScrollLogicalPosition) => Promise<boolean>;
   getEntryElement?: (path: string) => HTMLElement | null;

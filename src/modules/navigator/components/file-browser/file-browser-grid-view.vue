@@ -185,7 +185,7 @@ function getSectionRowStyle(row: FileBrowserGridSectionVirtualRow): Record<strin
 }
 
 .file-browser-grid-view--animate {
-  animation: sigma-ui-fade-in 0.2s ease-out;
+  animation: cool-files-ui-fade-in 0.2s ease-out;
 }
 
 .file-browser-grid-view__virtual-window {

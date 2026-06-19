@@ -16,14 +16,14 @@ const forwarded = useForwardPropsEmits(props, emits);
 <template>
   <NumberFieldRoot
     v-bind="forwarded"
-    class="sigma-ui-number-field"
+    class="cool-files-ui-number-field"
   >
     <slot />
   </NumberFieldRoot>
 </template>
 
 <style>
-.sigma-ui-number-field {
+.cool-files-ui-number-field {
   display: grid;
   gap: 0.375rem;
 }

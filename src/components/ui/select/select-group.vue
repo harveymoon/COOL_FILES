@@ -11,7 +11,7 @@ const props = defineProps<SelectGroupProps>();
 
 <template>
   <SelectGroup
-    class="sigma-ui-select-group"
+    class="cool-files-ui-select-group"
     v-bind="props"
   >
     <slot />
@@ -19,7 +19,7 @@ const props = defineProps<SelectGroupProps>();
 </template>
 
 <style>
-.sigma-ui-select-group {
+.cool-files-ui-select-group {
   width: 100%;
   padding: 0.25rem;
 }

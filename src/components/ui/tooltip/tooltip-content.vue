@@ -26,7 +26,7 @@ const forwarded = useForwardPropsEmits(props, emits);
   <TooltipPortal>
     <TooltipContent
       v-bind="{ ...forwarded, ...$attrs }"
-      class="sigma-ui-tooltip-content"
+      class="cool-files-ui-tooltip-content"
       :class="[$attrs.class]"
     >
       <slot />
@@ -35,13 +35,13 @@ const forwarded = useForwardPropsEmits(props, emits);
 </template>
 
 <style>
-.sigma-ui-tooltip-content {
+.cool-files-ui-tooltip-content {
   z-index: 50;
   overflow: hidden;
   padding: 0.375rem 0.75rem;
   border: 1px solid hsl(var(--border));
   border-radius: var(--radius-md);
-  animation: sigma-ui-tooltip-in 150ms cubic-bezier(0.16, 1, 0.3, 1);
+  animation: cool-files-ui-tooltip-in 150ms cubic-bezier(0.16, 1, 0.3, 1);
   backdrop-filter: blur(var(--backdrop-filter-blur));
   background-color: hsl(var(--popover));
   box-shadow: 0 2px 4px rgb(0 0 0 / 10%);
@@ -49,27 +49,27 @@ const forwarded = useForwardPropsEmits(props, emits);
   font-size: 0.875rem;
 }
 
-.sigma-ui-tooltip-content[data-side="bottom"] {
-  animation: sigma-ui-tooltip-in-bottom 150ms cubic-bezier(0.16, 1, 0.3, 1);
+.cool-files-ui-tooltip-content[data-side="bottom"] {
+  animation: cool-files-ui-tooltip-in-bottom 150ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.sigma-ui-tooltip-content[data-side="top"] {
-  animation: sigma-ui-tooltip-in-top 150ms cubic-bezier(0.16, 1, 0.3, 1);
+.cool-files-ui-tooltip-content[data-side="top"] {
+  animation: cool-files-ui-tooltip-in-top 150ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.sigma-ui-tooltip-content[data-side="left"] {
-  animation: sigma-ui-tooltip-in-left 150ms cubic-bezier(0.16, 1, 0.3, 1);
+.cool-files-ui-tooltip-content[data-side="left"] {
+  animation: cool-files-ui-tooltip-in-left 150ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.sigma-ui-tooltip-content[data-side="right"] {
-  animation: sigma-ui-tooltip-in-right 150ms cubic-bezier(0.16, 1, 0.3, 1);
+.cool-files-ui-tooltip-content[data-side="right"] {
+  animation: cool-files-ui-tooltip-in-right 150ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.sigma-ui-tooltip-content[data-state="closed"] {
-  animation: sigma-ui-tooltip-out 250ms cubic-bezier(0.16, 1, 0.3, 1);
+.cool-files-ui-tooltip-content[data-state="closed"] {
+  animation: cool-files-ui-tooltip-out 250ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-@keyframes sigma-ui-tooltip-in {
+@keyframes cool-files-ui-tooltip-in {
   from {
     opacity: 0;
     transform: scale(0.95);
@@ -81,7 +81,7 @@ const forwarded = useForwardPropsEmits(props, emits);
   }
 }
 
-@keyframes sigma-ui-tooltip-out {
+@keyframes cool-files-ui-tooltip-out {
   from {
     opacity: 1;
     transform: scale(1);
@@ -93,7 +93,7 @@ const forwarded = useForwardPropsEmits(props, emits);
   }
 }
 
-@keyframes sigma-ui-tooltip-in-bottom {
+@keyframes cool-files-ui-tooltip-in-bottom {
   from {
     opacity: 0;
     transform: translateY(-0.5rem);
@@ -105,7 +105,7 @@ const forwarded = useForwardPropsEmits(props, emits);
   }
 }
 
-@keyframes sigma-ui-tooltip-in-top {
+@keyframes cool-files-ui-tooltip-in-top {
   from {
     opacity: 0;
     transform: translateY(0.5rem);
@@ -117,7 +117,7 @@ const forwarded = useForwardPropsEmits(props, emits);
   }
 }
 
-@keyframes sigma-ui-tooltip-in-left {
+@keyframes cool-files-ui-tooltip-in-left {
   from {
     opacity: 0;
     transform: translateX(0.5rem);
@@ -129,7 +129,7 @@ const forwarded = useForwardPropsEmits(props, emits);
   }
 }
 
-@keyframes sigma-ui-tooltip-in-right {
+@keyframes cool-files-ui-tooltip-in-right {
   from {
     opacity: 0;
     transform: translateX(-0.5rem);

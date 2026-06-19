@@ -23,16 +23,16 @@ const forwarded = useForwardPropsEmits(props, emits);
 <template>
   <CheckboxRoot
     v-bind="forwarded"
-    class="sigma-ui-checkbox"
+    class="cool-files-ui-checkbox"
   >
-    <CheckboxIndicator class="sigma-ui-checkbox__indicator">
-      <CheckIcon class="sigma-ui-checkbox__icon" />
+    <CheckboxIndicator class="cool-files-ui-checkbox__indicator">
+      <CheckIcon class="cool-files-ui-checkbox__icon" />
     </CheckboxIndicator>
   </CheckboxRoot>
 </template>
 
 <style>
-.sigma-ui-checkbox {
+.cool-files-ui-checkbox {
   display: flex;
   width: 1rem;
   height: 1rem;
@@ -47,32 +47,32 @@ const forwarded = useForwardPropsEmits(props, emits);
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.sigma-ui-checkbox:focus-visible {
+.cool-files-ui-checkbox:focus-visible {
   outline: 2px solid hsl(var(--ring) / 50%);
   outline-offset: var(--ring-outline-offset);
 }
 
-.sigma-ui-checkbox:disabled {
+.cool-files-ui-checkbox:disabled {
   cursor: not-allowed;
   opacity: 0.5;
 }
 
-.sigma-ui-checkbox[data-state="checked"] {
+.cool-files-ui-checkbox[data-state="checked"] {
   background-color: hsl(var(--primary));
   color: hsl(var(--primary-foreground));
 }
 
-.sigma-ui-checkbox[data-state="unchecked"] {
+.cool-files-ui-checkbox[data-state="unchecked"] {
   background-color: transparent;
 }
 
-.sigma-ui-checkbox__indicator {
+.cool-files-ui-checkbox__indicator {
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.sigma-ui-checkbox__icon {
+.cool-files-ui-checkbox__icon {
   width: 0.75rem;
   height: 0.75rem;
   stroke-width: 3;

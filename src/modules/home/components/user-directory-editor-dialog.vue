@@ -295,7 +295,7 @@ async function handleBrowse() {
   gap: 8px;
 }
 
-.user-directory-editor-dialog__path-row .sigma-ui-input {
+.user-directory-editor-dialog__path-row .cool-files-ui-input {
   flex: 1;
 }
 

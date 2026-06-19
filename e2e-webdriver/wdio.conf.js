@@ -9,7 +9,7 @@ const __dirname = fileURLToPath(new URL('.', import.meta.url));
 const vendoredEdgeDriverPath = path.join(__dirname, '.drivers', 'msedgedriver.exe');
 
 const repoRoot = path.resolve(__dirname, '..');
-const tauriBinaryName = process.platform === 'win32' ? 'sigma-file-manager.exe' : 'sigma-file-manager';
+const tauriBinaryName = process.platform === 'win32' ? 'cool_files.exe' : 'cool_files';
 const applicationPath = path.join(repoRoot, 'src-tauri', 'target', 'debug', tauriBinaryName);
 const tauriDriverName = process.platform === 'win32' ? 'tauri-driver.exe' : 'tauri-driver';
 const tauriDriverPath = path.join(os.homedir(), '.cargo', 'bin', tauriDriverName);

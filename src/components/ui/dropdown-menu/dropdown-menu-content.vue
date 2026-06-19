@@ -49,7 +49,7 @@ function handleCloseAutoFocus(event: Event) {
         ...$attrs,
         ...(preventCloseFocusReturn ? { onCloseAutoFocus: handleCloseAutoFocus } : {}),
       }"
-      class="sigma-ui-dropdown-menu-content"
+      class="cool-files-ui-dropdown-menu-content"
       :class="$attrs.class"
     >
       <slot />
@@ -58,7 +58,7 @@ function handleCloseAutoFocus(event: Event) {
 </template>
 
 <style>
-.sigma-ui-dropdown-menu-content {
+.cool-files-ui-dropdown-menu-content {
   z-index: 50;
   overflow: hidden;
   min-width: 8rem;
@@ -72,15 +72,15 @@ function handleCloseAutoFocus(event: Event) {
   transform-origin: var(--reka-dropdown-menu-content-transform-origin);
 }
 
-.sigma-ui-dropdown-menu-content[data-state="open"] {
-  animation: sigma-ui-dropdown-menu-fade-in 200ms ease-out;
+.cool-files-ui-dropdown-menu-content[data-state="open"] {
+  animation: cool-files-ui-dropdown-menu-fade-in 200ms ease-out;
 }
 
-.sigma-ui-dropdown-menu-content[data-state="closed"] {
-  animation: sigma-ui-dropdown-menu-fade-out 100ms ease-in forwards;
+.cool-files-ui-dropdown-menu-content[data-state="closed"] {
+  animation: cool-files-ui-dropdown-menu-fade-out 100ms ease-in forwards;
 }
 
-@keyframes sigma-ui-dropdown-menu-fade-in {
+@keyframes cool-files-ui-dropdown-menu-fade-in {
   from {
     opacity: 0;
     transform: scale(0.95);
@@ -92,7 +92,7 @@ function handleCloseAutoFocus(event: Event) {
   }
 }
 
-@keyframes sigma-ui-dropdown-menu-fade-out {
+@keyframes cool-files-ui-dropdown-menu-fade-out {
   from {
     opacity: 1;
     transform: scale(1);

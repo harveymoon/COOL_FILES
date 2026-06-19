@@ -91,7 +91,7 @@ Elementi na domači strani in nadzorni plošči imajo zdaj polne kontekstne meni
 - **Svetlost prekrivnega medija**: prilagodite svetlost prekrivnega medija vizualnih učinkov (`Nastavitve > Videz uporabniškega vmesnika > Vizualni učinki`);
 - **Način mešanja vizualnih učinkov**: prilagodite način mešanja za vizualne učinke, ki vam omogoča izbiro, kako se ozadje meša z uporabniškim vmesnikom aplikacije (`Nastavitve > Videz uporabniškega vmesnika > Vizualni učinki`);
 - **Zaustavi video v ozadju**: zaustavite pasico domače strani in video v ozadju, ko je aplikacija nedejavna ali pomanjšana (`Nastavitve > Videz uporabniškega vmesnika > Vizualni učinki`);
-- **Privzeti upravitelj datotek**: nastavite Sigma File Manager kot privzeti raziskovalec datotek v sistemu Windows (`Nastavitve > Eksperimentalno`);
+- **Privzeti upravitelj datotek**: nastavite Cool Files kot privzeti raziskovalec datotek v sistemu Windows (`Nastavitve > Eksperimentalno`);
 - **Zagon ob prijavi v sistem**: samodejno zaženite aplikacijo ob prijavi v sistem (`Nastavitve > Splošno > Vedenje ob zagonu`);
 
 ### Nove bližnjice
@@ -493,7 +493,7 @@ Aplikacija preseljena iz Vuetify na Sigma-UI za bolj prostorno, sodobno zasnovo 
 
 ### Migracija na Tauri
 
-Sigma File Manager v2 je bil na novo zgrajen od temeljev z uporabo Vue 3 Composition API, TypeScript in Tauri v2. Velikost namestitve aplikacije zmanjšana s 153 MB na le 4 MB v sistemu Windows. Velikost nameščene aplikacije zmanjšana s 419 MB na 12 MB.
+Cool Files v2 je bil na novo zgrajen od temeljev z uporabo Vue 3 Composition API, TypeScript in Tauri v2. Velikost namestitve aplikacije zmanjšana s 153 MB na le 4 MB v sistemu Windows. Velikost nameščene aplikacije zmanjšana s 419 MB na 12 MB.
 
 ### Spremenljiva podokna
 

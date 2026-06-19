@@ -148,7 +148,7 @@ function scrollOperationsToTop() {
 
   const rootElement = (scrollAreaInstance as unknown as { $el?: HTMLElement }).$el;
   const viewportElement = rootElement?.querySelector<HTMLElement>(
-    '.sigma-ui-scroll-area__viewport',
+    '.cool-files-ui-scroll-area__viewport',
   );
 
   if (viewportElement) {
@@ -343,7 +343,7 @@ function handleClearCompleted() {
 </template>
 
 <style scoped>
-.status-center-toolbar-button :deep(.sigma-ui-button.status-center-toolbar-button__button) {
+.status-center-toolbar-button :deep(.cool-files-ui-button.status-center-toolbar-button__button) {
   position: relative;
   display: inline-flex;
   overflow: hidden;
@@ -360,23 +360,23 @@ function handleClearCompleted() {
     color 0.25s ease;
 }
 
-.status-center-toolbar-button :deep(.sigma-ui-button.status-center-toolbar-button__button--open-idle) {
+.status-center-toolbar-button :deep(.cool-files-ui-button.status-center-toolbar-button__button--open-idle) {
   background-color: hsl(var(--secondary));
 }
 
 .status-center-toolbar-button
-  :deep(.sigma-ui-button.status-center-toolbar-button__button--open-idle)
+  :deep(.cool-files-ui-button.status-center-toolbar-button__button--open-idle)
   .status-center-toolbar-button__icon {
   stroke: hsl(var(--primary));
 }
 
-.status-center-toolbar-button :deep(.sigma-ui-button.status-center-toolbar-button__button--expanded) {
+.status-center-toolbar-button :deep(.cool-files-ui-button.status-center-toolbar-button__button--expanded) {
   border-radius: 9999px;
   background: hsl(var(--primary) / 18%);
   color: hsl(var(--primary));
 }
 
-.status-center-toolbar-button :deep(.sigma-ui-button.status-center-toolbar-button__button--expanded:hover) {
+.status-center-toolbar-button :deep(.cool-files-ui-button.status-center-toolbar-button__button--expanded:hover) {
   background: hsl(var(--primary) / 26%);
 }
 
@@ -388,7 +388,7 @@ function handleClearCompleted() {
   transition: gap 0.35s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.status-center-toolbar-button :deep(.sigma-ui-button.status-center-toolbar-button__button--expanded) .status-center-toolbar-button__inner {
+.status-center-toolbar-button :deep(.cool-files-ui-button.status-center-toolbar-button__button--expanded) .status-center-toolbar-button__inner {
   gap: 6px;
 }
 
@@ -485,11 +485,11 @@ function handleClearCompleted() {
   max-height: var(--status-center-scroll-max);
 }
 
-.status-center__content :deep(.sigma-ui-scroll-area__viewport) {
+.status-center__content :deep(.cool-files-ui-scroll-area__viewport) {
   max-height: var(--status-center-scroll-max);
 }
 
-.status-center__content :deep(.sigma-ui-scroll-area-scrollbar) {
+.status-center__content :deep(.cool-files-ui-scroll-area-scrollbar) {
   right: -6px;
 }
 

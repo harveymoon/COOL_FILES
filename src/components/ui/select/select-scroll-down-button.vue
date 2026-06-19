@@ -16,16 +16,16 @@ const forwardedProps = useForwardProps(props);
 <template>
   <SelectScrollDownButton
     v-bind="forwardedProps"
-    class="sigma-ui-select-scroll-down"
+    class="cool-files-ui-select-scroll-down"
   >
     <slot>
-      <ChevronDownIcon class="sigma-ui-select-scroll-down__icon" />
+      <ChevronDownIcon class="cool-files-ui-select-scroll-down__icon" />
     </slot>
   </SelectScrollDownButton>
 </template>
 
 <style>
-.sigma-ui-select-scroll-down {
+.cool-files-ui-select-scroll-down {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -33,7 +33,7 @@ const forwardedProps = useForwardProps(props);
   cursor: default;
 }
 
-.sigma-ui-select-scroll-down__icon {
+.cool-files-ui-select-scroll-down__icon {
   width: 1rem;
   height: 1rem;
 }

@@ -25,21 +25,21 @@ const iconComponent = computed(() => {
 
 <template>
   <div
-    class="sigma-ui-alert"
-    :class="`sigma-ui-alert--${tone}`"
+    class="cool-files-ui-alert"
+    :class="`cool-files-ui-alert--${tone}`"
   >
     <component
       :is="iconComponent"
       :size="16"
-      class="sigma-ui-alert__icon"
+      class="cool-files-ui-alert__icon"
     />
-    <div class="sigma-ui-alert__content">
-      <div class="sigma-ui-alert__title">
+    <div class="cool-files-ui-alert__content">
+      <div class="cool-files-ui-alert__title">
         {{ title }}
       </div>
       <p
         v-if="description"
-        class="sigma-ui-alert__description"
+        class="cool-files-ui-alert__description"
       >
         {{ description }}
       </p>
@@ -48,7 +48,7 @@ const iconComponent = computed(() => {
 </template>
 
 <style scoped>
-.sigma-ui-alert {
+.cool-files-ui-alert {
   display: flex;
   align-items: flex-start;
   padding: 12px 14px;
@@ -57,36 +57,36 @@ const iconComponent = computed(() => {
   gap: 10px;
 }
 
-.sigma-ui-alert--info {
+.cool-files-ui-alert--info {
   border-color: hsl(217deg 91% 60% / 28%);
   background-color: hsl(217deg 91% 60% / 10%);
   color: hsl(217deg 91% 60%);
 }
 
-.sigma-ui-alert--success {
+.cool-files-ui-alert--success {
   border-color: hsl(142deg 76% 36% / 28%);
   background-color: hsl(142deg 76% 36% / 10%);
   color: hsl(142deg 76% 36%);
 }
 
-.sigma-ui-alert--warning {
+.cool-files-ui-alert--warning {
   border-color: hsl(38deg 92% 50% / 30%);
   background-color: hsl(38deg 92% 50% / 10%);
   color: hsl(38deg 92% 50%);
 }
 
-.sigma-ui-alert--error {
+.cool-files-ui-alert--error {
   border-color: hsl(0deg 84% 60% / 30%);
   background-color: hsl(0deg 84% 60% / 12%);
   color: hsl(0deg 84% 60%);
 }
 
-.sigma-ui-alert__icon {
+.cool-files-ui-alert__icon {
   flex-shrink: 0;
   margin-top: 1px;
 }
 
-.sigma-ui-alert__content {
+.cool-files-ui-alert__content {
   display: flex;
   min-width: 0;
   flex: 1;
@@ -94,14 +94,14 @@ const iconComponent = computed(() => {
   gap: 4px;
 }
 
-.sigma-ui-alert__title {
+.cool-files-ui-alert__title {
   color: inherit;
   font-size: 0.875rem;
   font-weight: 600;
   line-height: 1.4;
 }
 
-.sigma-ui-alert__description {
+.cool-files-ui-alert__description {
   color: inherit;
   font-size: 0.8125rem;
   line-height: 1.5;

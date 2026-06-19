@@ -184,7 +184,17 @@
     "setPreviousBackground": "पिछली पृष्ठभूमि सेट करें",
     "dropZoneClickToBrowse": "छवियाँ या वीडियो ब्राउज़ करने के लिए क्लिक करें",
     "dropZoneOrDropFiles": "या फ़ाइलों को यहां खींचें और छोड़ें",
-    "addMediaUrlPlaceholder": "छवि या वीडियो URL चिपकाएँ"
+    "addMediaUrlPlaceholder": "छवि या वीडियो URL चिपकाएँ",
+    "editLayout": "Edit layout",
+    "doneEditing": "Done",
+    "editLayoutHint": "Drag tiles to rearrange. Drag directory tiles between sections, or remove them. Add groups to organize your folders.",
+    "addGroup": "Add group",
+    "newGroupTitle": "New group",
+    "deleteGroup": "Delete group",
+    "renameGroup": "Group name",
+    "addDirectory": "Add directory",
+    "emptyGroup": "Drag directories here or click \"Add directory\"",
+    "reorderGroup": "Drag to reorder"
   },
   "navigator": {
     "newDirectoryFile": "नई निर्देशिका/फ़ाइल",
@@ -367,7 +377,26 @@
       "navigatorOptions": "नेविगेटर विकल्प",
       "systemIcons": "आइकन थीम",
       "systemIconsDirectories": "निर्देशिका",
-      "systemIconsFiles": "फ़ाइलें"
+      "systemIconsFiles": "फ़ाइलें",
+      "toolbarCustomization": "Toolbar buttons",
+      "toolbarCustomizationDescription": "Reorder, show, hide, and group the buttons in the navigator toolbar. Drag to reorder.",
+      "sidebarCustomization": "Sidebar buttons",
+      "sidebarCustomizationDescription": "Reorder and show or hide the page buttons in the left sidebar. Drag to reorder.",
+      "toolbarSeparator": "Separator",
+      "toolbarEmpty": "No buttons. Add some below.",
+      "toolbarAddAction": "Add button",
+      "toolbarAddSeparator": "Add separator",
+      "toolbarReset": "Reset to default",
+      "toolbarPreview": "Toolbar",
+      "toolbarUnused": "Unused items",
+      "toolbarDragHint": "Drag icons to reorder. Drag into Unused to remove, or back onto the toolbar to add.",
+      "customizeTitle": "Toolbar & sidebar buttons",
+      "customizeDescription": "Customize which buttons appear in the navigator toolbar and the left sidebar, and their order. Editing happens in place on the navigator.",
+      "customizeButton": "Customize toolbar & sidebar",
+      "editSheetTitle": "Customizing toolbar & sidebar",
+      "editSheetHint": "Drag items onto the toolbar or sidebar to add them, or drag them off into here to remove. Drag a separator onto the toolbar to group buttons.",
+      "editDone": "Done",
+      "autoShowDrives": "Auto-show drives in sidebar"
     },
     "tabs": {
       "lastTabCloseBehavior": {
@@ -420,6 +449,16 @@
         "title": "सिग्मा फ़ाइल प्रबंधक को डिफ़ॉल्ट फ़ाइल प्रबंधक के रूप में सेट करें",
         "description": "यह विकल्प सिस्टम रजिस्ट्री को संशोधित करता है और आपके डिवाइस पर अप्रत्याशित दुष्प्रभाव हो सकता है। स्वयं के जोखिम पर आगे बढ़ें।"
       }
+    },
+    "appearance": {
+      "loadAnimations": {
+        "title": "Load-in animations",
+        "description": "Animate panels and items as they appear on the Home, Settings, Dashboard, and Extensions pages.",
+        "enable": "Enable load-in animations",
+        "speed": "Speed (duration)",
+        "cascade": "Cascade (stagger)",
+        "milliseconds": "{value} ms"
+      }
     }
   },
   "projectGithubButtons": {
@@ -436,7 +475,8 @@
     "dataStorage": "आधार सामग्री भंडारण",
     "extensions": "एक्सटेंशन",
     "stats": "आँकड़े",
-    "experimental": "प्रयोगात्मक"
+    "experimental": "प्रयोगात्मक",
+    "navigator": "Navigator"
   },
   "settingsTags": {
     "language": "भाषा",
@@ -463,7 +503,8 @@
     "experimental": "उन्नत, प्रयोगात्मक, डिफ़ॉल्ट फ़ाइल प्रबंधक, फ़ाइल एक्सप्लोरर, रजिस्ट्री, टर्मिनल, शेल",
     "whatsNew": "नया क्या है, चेंजलॉग, रिलीज़ नोट्स, संस्करण, अपडेट, समाचार",
     "autostart": "ऑटोस्टार्ट, स्टार्टअप, बूट, लॉगिन, लॉन्च, सिस्टम, वेक",
-    "extensions": "एक्सटेंशन, प्लगइन्स, ऐडऑन, कॉन्फ़िगरेशन, सेटिंग्स"
+    "extensions": "एक्सटेंशन, प्लगइन्स, ऐडऑन, कॉन्फ़िगरेशन, सेटिंग्स",
+    "loadAnimations": "animation, animations, fade, slide, cascade, stagger, motion, transition, effects"
   },
   "drag": {
     "holdShiftToChangeMode": "मोड बदलने के लिए [Shift] दबाए रखें",
@@ -550,7 +591,10 @@
     "moveSelectedItemsToTrash": "ट्रैश में ले जाएं",
     "deleteSelectedItemsFromDrive": "ड्राइव से हटाएँ",
     "moveCurrentDirectoryToTrash": "वर्तमान डायरेक्टरी को ट्रैश में ले जाएं",
-    "deleteCurrentDirectoryFromDrive": "वर्तमान डायरेक्टरी को ड्राइव से हटाएँ"
+    "deleteCurrentDirectoryFromDrive": "वर्तमान डायरेक्टरी को ड्राइव से हटाएँ",
+    "setLayoutList": "Switch to list layout",
+    "setLayoutGrid": "Switch to grid layout",
+    "setLayoutColumns": "Switch to columns layout"
   },
   "dialogs": {
     "homeBannerPickerDialog": {
@@ -861,7 +905,8 @@
       "share": "LAN पर साझा करें",
       "openInNewTab": "वेब टेब में खोलें",
       "addToFavorites": "पसंदीदा में जोड़े",
-      "removeFromFavorites": "पसंदीदा से हटाएँ"
+      "removeFromFavorites": "पसंदीदा से हटाएँ",
+      "cut": "Cut"
     },
     "archive": {
       "extract": "निकालना",
@@ -880,7 +925,10 @@
       "errors": {
         "destinationInsideSelectedFolder": "गंतव्य संग्रह एक चयनित फ़ोल्डर के अंदर है"
       }
-    }
+    },
+    "type": "Type",
+    "folder": "Folder",
+    "resizeColumn": "Drag to resize column"
   },
   "openWith": {
     "loadingPrograms": "प्रोग्राम लोड हो रहे हैं...",
@@ -1063,5 +1111,15 @@
     "replaceShareDialogTitle": "वर्तमान शेयर बदलें?",
     "replaceShareDialogDescription": "फ़ाइलें पहले से ही नेटवर्क पर साझा की जा रही हैं. वर्तमान शेयर बंद कर दिया जाएगा और उसके स्थान पर नया शेयर ले लिया जाएगा।",
     "replaceShareDialogConfirm": "प्रतिस्थापित करें"
-  }
+  },
+  "columns": "Columns",
+  "columnsLayout": "Columns layout",
+  "nav": {
+    "pinDrive": "Pin drive to sidebar",
+    "unpinDrive": "Unpin drive from sidebar",
+    "pinShortcut": "Pin shortcut to sidebar",
+    "removeShortcut": "Remove shortcut",
+    "dropToPin": "Drop a folder to pin it"
+  },
+  "remove": "Remove"
 }

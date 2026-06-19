@@ -17,16 +17,16 @@ const forwarded = useForwardProps(props);
   <NumberFieldDecrement
     data-slot="decrement"
     v-bind="forwarded"
-    class="sigma-ui-number-field-decrement"
+    class="cool-files-ui-number-field-decrement"
   >
     <slot>
-      <MinusIcon class="sigma-ui-number-field-decrement__icon" />
+      <MinusIcon class="cool-files-ui-number-field-decrement__icon" />
     </slot>
   </NumberFieldDecrement>
 </template>
 
 <style>
-.sigma-ui-number-field-decrement {
+.cool-files-ui-number-field-decrement {
   position: absolute;
   top: 50%;
   left: 0;
@@ -34,12 +34,12 @@ const forwarded = useForwardProps(props);
   transform: translateY(-50%);
 }
 
-.sigma-ui-number-field-decrement:disabled {
+.cool-files-ui-number-field-decrement:disabled {
   cursor: not-allowed;
   opacity: 0.2;
 }
 
-.sigma-ui-number-field-decrement__icon {
+.cool-files-ui-number-field-decrement__icon {
   width: 1rem;
   height: 1rem;
 }

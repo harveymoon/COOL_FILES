@@ -14,15 +14,15 @@ const forwardedProps = useForwardProps(props);
 <template>
   <DropdownMenuItem
     v-bind="forwardedProps"
-    class="sigma-ui-dropdown-menu-item"
-    :class="[{ 'sigma-ui-dropdown-menu-item--inset': inset }]"
+    class="cool-files-ui-dropdown-menu-item"
+    :class="[{ 'cool-files-ui-dropdown-menu-item--inset': inset }]"
   >
     <slot />
   </DropdownMenuItem>
 </template>
 
 <style>
-.sigma-ui-dropdown-menu-item {
+.cool-files-ui-dropdown-menu-item {
   position: relative;
   display: flex;
   align-items: center;
@@ -37,16 +37,16 @@ const forwardedProps = useForwardProps(props);
   user-select: none;
 }
 
-.sigma-ui-dropdown-menu-item--inset {
+.cool-files-ui-dropdown-menu-item--inset {
   padding-left: 2rem;
 }
 
-.sigma-ui-dropdown-menu-item:focus {
+.cool-files-ui-dropdown-menu-item:focus {
   background-color: hsl(var(--secondary));
   color: hsl(var(--popover-foreground) / 80%);
 }
 
-.sigma-ui-dropdown-menu-item[data-disabled] {
+.cool-files-ui-dropdown-menu-item[data-disabled] {
   opacity: 0.5;
   pointer-events: none;
 }

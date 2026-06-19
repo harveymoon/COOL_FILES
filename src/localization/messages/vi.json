@@ -1,6 +1,6 @@
 {
   "app": {
-    "name": "Sigma File Manager",
+    "name": "Cool Files",
     "description": "là một ứng dụng quản lý tệp hiện đại, mã nguồn mở, miễn phí, được cấp phép theo GNU GPLv3 trở lên.",
     "copyright": "Bản quyền © 2021 - thời điểm hiện tại Aleksey Hoffman. Đã đăng ký Bản quyền."
   },
@@ -155,7 +155,17 @@
     "setPreviousBackground": "Đặt nền trước đó",
     "dropZoneClickToBrowse": "Nhấp để duyệt ảnh hoặc video",
     "dropZoneOrDropFiles": "Hoặc kéo thả tệp vào đây",
-    "addMediaUrlPlaceholder": "Dán URL hình ảnh hoặc video"
+    "addMediaUrlPlaceholder": "Dán URL hình ảnh hoặc video",
+    "editLayout": "Edit layout",
+    "doneEditing": "Done",
+    "editLayoutHint": "Drag tiles to rearrange. Drag directory tiles between sections, or remove them. Add groups to organize your folders.",
+    "addGroup": "Add group",
+    "newGroupTitle": "New group",
+    "deleteGroup": "Delete group",
+    "renameGroup": "Group name",
+    "addDirectory": "Add directory",
+    "emptyGroup": "Drag directories here or click \"Add directory\"",
+    "reorderGroup": "Drag to reorder"
   },
   "navigator": {
     "newDirectoryFile": "Thư mục/tệp mới",
@@ -338,7 +348,26 @@
       "navigatorOptions": "Tùy chọn điều hướng",
       "systemIcons": "Chủ đề biểu tượng",
       "systemIconsDirectories": "Thư mục",
-      "systemIconsFiles": "Tệp"
+      "systemIconsFiles": "Tệp",
+      "toolbarCustomization": "Toolbar buttons",
+      "toolbarCustomizationDescription": "Reorder, show, hide, and group the buttons in the navigator toolbar. Drag to reorder.",
+      "sidebarCustomization": "Sidebar buttons",
+      "sidebarCustomizationDescription": "Reorder and show or hide the page buttons in the left sidebar. Drag to reorder.",
+      "toolbarSeparator": "Separator",
+      "toolbarEmpty": "No buttons. Add some below.",
+      "toolbarAddAction": "Add button",
+      "toolbarAddSeparator": "Add separator",
+      "toolbarReset": "Reset to default",
+      "toolbarPreview": "Toolbar",
+      "toolbarUnused": "Unused items",
+      "toolbarDragHint": "Drag icons to reorder. Drag into Unused to remove, or back onto the toolbar to add.",
+      "customizeTitle": "Toolbar & sidebar buttons",
+      "customizeDescription": "Customize which buttons appear in the navigator toolbar and the left sidebar, and their order. Editing happens in place on the navigator.",
+      "customizeButton": "Customize toolbar & sidebar",
+      "editSheetTitle": "Customizing toolbar & sidebar",
+      "editSheetHint": "Drag items onto the toolbar or sidebar to add them, or drag them off into here to remove. Drag a separator onto the toolbar to group buttons.",
+      "editDone": "Done",
+      "autoShowDrives": "Auto-show drives in sidebar"
     },
     "tabs": {
       "lastTabCloseBehavior": {
@@ -388,8 +417,18 @@
     },
     "experimental": {
       "defaultFileManager": {
-        "title": "Đặt Sigma File Manager làm trình quản lý tệp mặc định",
+        "title": "Đặt Cool Files làm trình quản lý tệp mặc định",
         "description": "Tùy chọn này sửa đổi sổ đăng ký hệ thống và có thể gây ra tác dụng phụ ngoài ý muốn trên thiết bị của bạn. Hãy tiếp tục với rủi ro của riêng bạn."
+      }
+    },
+    "appearance": {
+      "loadAnimations": {
+        "title": "Load-in animations",
+        "description": "Animate panels and items as they appear on the Home, Settings, Dashboard, and Extensions pages.",
+        "enable": "Enable load-in animations",
+        "speed": "Speed (duration)",
+        "cascade": "Cascade (stagger)",
+        "milliseconds": "{value} ms"
       }
     }
   },
@@ -407,7 +446,8 @@
     "dataStorage": "Dữ liệu & lưu trữ",
     "stats": "Số liệu thống kê",
     "experimental": "Thử nghiệm",
-    "extensions": "Tiện ích mở rộng"
+    "extensions": "Tiện ích mở rộng",
+    "navigator": "Navigator"
   },
   "settingsTags": {
     "language": "ngôn ngữ",
@@ -434,7 +474,8 @@
     "experimental": "nâng cao, thử nghiệm, trình quản lý tệp mặc định, trình khám phá tệp, sổ đăng ký, terminal, shell",
     "whatsNew": "tin mới, nhật ký thay đổi, ghi chú phát hành, phiên bản, cập nhật, tin tức",
     "autostart": "khởi động tự động, khởi động, đăng nhập, hệ thống, boot",
-    "extensions": "extensions, plugins, addons, configuration, settings"
+    "extensions": "extensions, plugins, addons, configuration, settings",
+    "loadAnimations": "animation, animations, fade, slide, cascade, stagger, motion, transition, effects"
   },
   "drag": {
     "holdShiftToChangeMode": "Giữ [Shift] để thay đổi chế độ",
@@ -521,7 +562,10 @@
     "deleteSelectedItemsFromDrive": "Xóa các mục đã chọn khỏi ổ đĩa",
     "moveCurrentDirectoryToTrash": "Chuyển thư mục hiện tại vào thùng rác",
     "deleteCurrentDirectoryFromDrive": "Xóa thư mục hiện tại khỏi ổ đĩa",
-    "toggleCommandPalette": "Open / close command palette"
+    "toggleCommandPalette": "Open / close command palette",
+    "setLayoutList": "Switch to list layout",
+    "setLayoutGrid": "Switch to grid layout",
+    "setLayoutColumns": "Switch to columns layout"
   },
   "dialogs": {
     "userDirectoryEditorDialog": {
@@ -831,7 +875,8 @@
       "share": "Chia sẻ qua mạng LAN",
       "openInNewTab": "Mở trong thẻ mới",
       "addToFavorites": "Thêm vào yêu thích",
-      "removeFromFavorites": "Xóa khỏi yêu thích"
+      "removeFromFavorites": "Xóa khỏi yêu thích",
+      "cut": "Cut"
     },
     "archive": {
       "extract": "Giải nén",
@@ -850,7 +895,10 @@
       "errors": {
         "destinationInsideSelectedFolder": "Tệp lưu trữ đích nằm trong một thư mục đã chọn"
       }
-    }
+    },
+    "type": "Type",
+    "folder": "Folder",
+    "resizeColumn": "Drag to resize column"
   },
   "openWith": {
     "loadingPrograms": "Đang tải chương trình...",
@@ -949,7 +997,7 @@
     },
     "badges": {
       "official": "Chính thức",
-      "officialTooltip": "Tiện ích mở rộng này được tạo và duy trì bởi đội ngũ Sigma File Manager",
+      "officialTooltip": "Tiện ích mở rộng này được tạo và duy trì bởi đội ngũ Cool Files",
       "community": "Cộng đồng",
       "communityTooltip": "Đây là tiện ích mở rộng cộng đồng. Xem xét mã nguồn trước khi cài đặt.",
       "local": "Cục bộ",
@@ -1063,5 +1111,15 @@
     "replaceShareDialogTitle": "Thay thế chia sẻ hiện tại?",
     "replaceShareDialogDescription": "Các tập tin đang được chia sẻ qua mạng. Chia sẻ hiện tại sẽ bị dừng và thay thế bằng chia sẻ mới.",
     "replaceShareDialogConfirm": "Thay thế"
-  }
+  },
+  "columns": "Columns",
+  "columnsLayout": "Columns layout",
+  "nav": {
+    "pinDrive": "Pin drive to sidebar",
+    "unpinDrive": "Unpin drive from sidebar",
+    "pinShortcut": "Pin shortcut to sidebar",
+    "removeShortcut": "Remove shortcut",
+    "dropToPin": "Drop a folder to pin it"
+  },
+  "remove": "Remove"
 }

@@ -23,9 +23,9 @@ const PROGRESS_EMIT_INTERVAL_BYTES: u64 = 256 * 1024;
 const MAX_RETRY_AFTER_SECS: u64 = 60;
 
 pub const HTTP_USER_AGENT: &str = concat!(
-    "sigma-file-manager/",
+    "cool_files/",
     env!("CARGO_PKG_VERSION"),
-    " (+https://github.com/aleksey-hoffman/sigma-file-manager)"
+    " (+https://github.com/harveymoon/COOL_FILES)"
 );
 
 pub fn build_http_client() -> Result<reqwest::Client, String> {

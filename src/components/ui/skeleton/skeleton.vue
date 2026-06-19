@@ -8,19 +8,19 @@ Copyright © 2021 - present Aleksey Hoffman. All rights reserved.
 
 <template>
   <div
-    class="sigma-ui-skeleton"
+    class="cool-files-ui-skeleton"
     :class="[$attrs.class]"
   />
 </template>
 
 <style>
-.sigma-ui-skeleton {
+.cool-files-ui-skeleton {
   border-radius: var(--radius-md);
-  animation: sigma-ui-skeleton-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  animation: cool-files-ui-skeleton-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
   background-color: hsl(var(--muted));
 }
 
-@keyframes sigma-ui-skeleton-pulse {
+@keyframes cool-files-ui-skeleton-pulse {
   0%, 100% {
     opacity: 1;
   }

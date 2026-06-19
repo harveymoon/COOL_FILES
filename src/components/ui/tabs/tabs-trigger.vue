@@ -14,14 +14,14 @@ const forwardedProps = useForwardProps(props);
 <template>
   <TabsTrigger
     v-bind="forwardedProps"
-    class="sigma-ui-tabs-trigger"
+    class="cool-files-ui-tabs-trigger"
   >
     <slot />
   </TabsTrigger>
 </template>
 
 <style>
-.sigma-ui-tabs-trigger {
+.cool-files-ui-tabs-trigger {
   display: inline-flex;
   height: 100%;
   flex: 1 0 auto;
@@ -38,17 +38,17 @@ const forwardedProps = useForwardProps(props);
   white-space: nowrap;
 }
 
-.sigma-ui-tabs-trigger:focus-visible {
+.cool-files-ui-tabs-trigger:focus-visible {
   outline: 2px solid hsl(var(--ring) / 50%);
   outline-offset: var(--ring-outline-offset);
 }
 
-.sigma-ui-tabs-trigger:disabled {
+.cool-files-ui-tabs-trigger:disabled {
   opacity: 0.5;
   pointer-events: none;
 }
 
-.sigma-ui-tabs-trigger[data-state="active"] {
+.cool-files-ui-tabs-trigger[data-state="active"] {
   background-color: hsl(var(--muted));
   box-shadow:
     0 1px 3px 0 rgb(0 0 0 / 10%),

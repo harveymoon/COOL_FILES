@@ -11,14 +11,14 @@ const model = defineModel<string | number>();
 <template>
   <input
     v-model="model"
-    class="sigma-ui-input"
+    class="cool-files-ui-input"
     :class="[$attrs.class]"
     autocomplete="off"
   >
 </template>
 
 <style>
-.sigma-ui-input {
+.cool-files-ui-input {
   display: flex;
   width: 100%;
   height: 2.5rem;
@@ -30,23 +30,23 @@ const model = defineModel<string | number>();
   padding-inline: 0.75rem;
 }
 
-.sigma-ui-input::file-selector-button {
+.cool-files-ui-input::file-selector-button {
   border: 0;
   background-color: transparent;
   font-size: 0.875rem;
   font-weight: 500;
 }
 
-.sigma-ui-input::placeholder {
+.cool-files-ui-input::placeholder {
   color: hsl(var(--muted-foreground));
 }
 
-.sigma-ui-input:focus-visible {
+.cool-files-ui-input:focus-visible {
   outline: 2px solid hsl(var(--ring) / 50%);
   outline-offset: var(--ring-outline-offset);
 }
 
-.sigma-ui-input:disabled {
+.cool-files-ui-input:disabled {
   cursor: not-allowed;
   opacity: 0.5;
 }

@@ -11,7 +11,7 @@ defineProps<SelectLabelProps>();
 
 <template>
   <SelectLabel
-    class="sigma-ui-select-label"
+    class="cool-files-ui-select-label"
     :class="[$attrs.class]"
   >
     <slot />
@@ -19,7 +19,7 @@ defineProps<SelectLabelProps>();
 </template>
 
 <style>
-.sigma-ui-select-label {
+.cool-files-ui-select-label {
   padding: 0.375rem 0.5rem 0.375rem 2rem;
   font-size: 0.875rem;
   font-weight: 600;

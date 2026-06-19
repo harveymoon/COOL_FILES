@@ -13,14 +13,14 @@ const props = defineProps<DrawerDescriptionProps>();
 <template>
   <DrawerDescription
     v-bind="props"
-    class="sigma-ui-drawer-description"
+    class="cool-files-ui-drawer-description"
   >
     <slot />
   </DrawerDescription>
 </template>
 
 <style>
-.sigma-ui-drawer-description {
+.cool-files-ui-drawer-description {
   color: hsl(var(--muted-foreground));
   font-size: 0.875rem;
 }

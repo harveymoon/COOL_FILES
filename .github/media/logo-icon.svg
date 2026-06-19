@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
+  <defs>
+    <linearGradient id="folder" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#34d399"/>
+      <stop offset="1" stop-color="#bef264"/>
+    </linearGradient>
+    <linearGradient id="folderBack" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#2bbf9c"/>
+      <stop offset="1" stop-color="#9ec64a"/>
+    </linearGradient>
+    <linearGradient id="gloss" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.28"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="14" stdDeviation="18" flood-color="#0f3d33" flood-opacity="0.30"/>
+    </filter>
+    <filter id="coolFilesShadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#0f3d33" flood-opacity="0.28"/>
+    </filter>
+  </defs>
+
+  <g filter="url(#softShadow)">
+    <!-- folder back panel + tab -->
+    <path fill="url(#folderBack)"
+      d="M120 248
+         a56 56 0 0 1 56 -56
+         h232
+         a40 40 0 0 1 34 19
+         l28 45
+         h344
+         a56 56 0 0 1 56 56
+         v40
+         H120 Z"/>
+    <!-- folder front body -->
+    <rect x="120" y="300" width="784" height="556" rx="56" fill="url(#folder)"/>
+    <!-- glossy top highlight on the front body -->
+    <path fill="url(#gloss)"
+      d="M176 300 h672 a56 56 0 0 1 56 56 v120
+         q-392 -150 -784 0 v-120 a56 56 0 0 1 56 -56 Z"/>
+  </g>
+
+  <!-- Cool Files -->
+  <path filter="url(#coolFilesShadow)" fill="none" stroke="#ffffff" stroke-width="66"
+        stroke-linejoin="round" stroke-linecap="round"
+        d="M660 450 H392 L520 588 L392 726 H660"/>
+</svg>

@@ -16,14 +16,14 @@ const forwarded = useForwardPropsEmits(props, emits);
 <template>
   <ComboboxItem
     v-bind="{ ...forwarded, ...$attrs }"
-    :class="['sigma-ui-combobox-item', $attrs.class]"
+    :class="['cool-files-ui-combobox-item', $attrs.class]"
   >
     <slot />
   </ComboboxItem>
 </template>
 
 <style>
-.sigma-ui-combobox-item {
+.cool-files-ui-combobox-item {
   position: relative;
   display: flex;
   align-items: center;
@@ -39,17 +39,17 @@ const forwarded = useForwardPropsEmits(props, emits);
   user-select: none;
 }
 
-.sigma-ui-combobox-item[data-highlighted] {
+.cool-files-ui-combobox-item[data-highlighted] {
   background-color: hsl(var(--secondary-foreground) / 5%);
   color: hsl(var(--popover-foreground) / 80%);
 }
 
-.sigma-ui-combobox-item[data-disabled] {
+.cool-files-ui-combobox-item[data-disabled] {
   opacity: 0.5;
   pointer-events: none;
 }
 
-.sigma-ui-combobox-item svg {
+.cool-files-ui-combobox-item svg {
   width: 1rem;
   height: 1rem;
   flex-shrink: 0;

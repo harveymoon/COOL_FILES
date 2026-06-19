@@ -111,13 +111,13 @@ onBeforeUnmount(() => {
   height: 36px;
 }
 
-:global(.settings-search-popover.sigma-ui-popover-content) {
+:global(.settings-search-popover.cool-files-ui-popover-content) {
   width: 300px;
   padding: 0;
 }
 
 @media (width <= 768px) {
-  :global(.settings-search-popover.sigma-ui-popover-content) {
+  :global(.settings-search-popover.cool-files-ui-popover-content) {
     width: 250px;
   }
 }

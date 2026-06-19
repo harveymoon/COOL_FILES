@@ -34,12 +34,22 @@ import { useActiveFileBrowserDragState } from '@/modules/navigator/components/fi
 import { provideFileBrowserInternalDropHandler } from '@/modules/navigator/components/file-browser/composables/use-file-browser-internal-drop';
 import { InfoPanel } from '@/modules/navigator/components/info-panel';
 import { NavigatorToolbarActions } from '@/modules/navigator/components/navigator-toolbar-actions';
+import { NavigatorCustomizeSheet } from '@/modules/navigator/components/navigator-customize-sheet';
+import { useNavCustomizeStore } from '@/stores/runtime/nav-customize';
 import { ClipboardToolbar } from '@/modules/navigator/components/clipboard-toolbar';
 import { GlobalSearchView } from '@/modules/global-search';
 import type { DirEntry } from '@/types/dir-entry';
 import { useIsSmallScreen } from '@/composables/use-responsive-query';
 import { useFileDropOperation } from '@/composables/use-file-drop-operation';
 import { arePathsEquivalent, getParentPath } from '@/utils/file-operation-paths';
+import { getPathDisplayName } from '@/utils/normalize-path';
+import { useDrives } from '@/modules/home/composables/use-drives';
+import {
+  useDeskDeckBridge,
+  type DeskDeckCommand,
+  type DeskDeckPlace,
+  type DeskDeckState,
+} from '@/composables/use-desk-deck-bridge';
 
 type FileBrowserInstance = InstanceType<typeof FileBrowser> & {
   rootElement?: HTMLElement | null;
@@ -63,6 +73,7 @@ type FileBrowserInstance = InstanceType<typeof FileBrowser> & {
   goBack?: () => void | Promise<void>;
   goForward?: () => void | Promise<void>;
   navigateToParent?: () => void | Promise<void>;
+  navigateToHome?: () => void | Promise<void>;
   openNewItemDialog?: (type: 'file' | 'directory') => void;
   printEntry?: (entry?: DirEntry) => Promise<void>;
 };
@@ -81,6 +92,7 @@ const shortcutsStore = useShortcutsStore();
 const terminalsStore = useTerminalsStore();
 const dirSizesStore = useDirSizesStore();
 const navigatorSelectionStore = useNavigatorSelectionStore();
+const navCustomizeStore = useNavCustomizeStore();
 const { t } = useI18n();
 const activeFileBrowserDragState = useActiveFileBrowserDragState();
 const {
@@ -225,6 +237,11 @@ function handleToggleSplitView() {
 
 function handleToggleInfoPanel() {
   showInfoPanel.value = !showInfoPanel.value;
+}
+
+async function handleToolbarNavigateHome() {
+  const pane = getNavigatorPaneRef();
+  await pane?.navigateToHome?.();
 }
 
 function activateTabPane(tabId: string) {
@@ -822,11 +839,133 @@ function registerShortcutHandlers() {
   shortcutsStore.registerHandler('goUpDirectory', handleGoUpDirectoryShortcut);
   shortcutsStore.registerHandler('switchToLeftPane', () => switchToPane(0));
   shortcutsStore.registerHandler('switchToRightPane', () => switchToPane(1));
+  shortcutsStore.registerHandler('setLayoutList', () => setNavigatorLayout('list'));
+  shortcutsStore.registerHandler('setLayoutGrid', () => setNavigatorLayout('grid'));
+  shortcutsStore.registerHandler('setLayoutColumns', () => setNavigatorLayout('columns'));
   shortcutsStore.registerHandler('toggleSplitView', () => {
     if (globalSearchStore.isOpen) return false;
     handleToggleSplitView();
   });
 }
+
+function setNavigatorLayout(layoutName: 'list' | 'grid' | 'columns') {
+  const layoutTitleByName = {
+    list: 'listLayout',
+    grid: 'gridLayout',
+    columns: 'columnsLayout',
+  } as const;
+  userSettingsStore.set('navigator.layout.type', {
+    title: layoutTitleByName[layoutName],
+    name: layoutName,
+  });
+}
+
+// --- Desk_Deck integration bridge -----------------------------------------
+// Drives back the "places" list the tablet jumps to; useDrives() also keeps the
+// polling alive while the navigator is mounted.
+const { drives } = useDrives();
+
+function buildDeskDeckPlaces(): DeskDeckPlace[] {
+  const sidebar = userSettingsStore.userSettings.navigator.sidebar;
+  const pinnedPaths = sidebar?.pinnedPaths ?? [];
+  const autoShowDrives = sidebar?.autoShowDrives ?? true;
+  const places: DeskDeckPlace[] = [];
+
+  pinnedPaths.forEach((path, index) => {
+    places.push({
+      id: `pin:${index}`,
+      name: getPathDisplayName(path) || path,
+      path,
+      kind: 'pin',
+    });
+  });
+
+  if (autoShowDrives) {
+    drives.value.forEach((drive, index) => {
+      const isNetwork = drive.drive_type === 'network'
+        || drive.path.startsWith('\\\\')
+        || drive.path.startsWith('//');
+      places.push({
+        id: `drive:${index}`,
+        name: drive.name || drive.path,
+        path: drive.path,
+        kind: isNetwork ? 'network' : 'drive',
+      });
+    });
+  }
+
+  return places;
+}
+
+function buildDeskDeckState(): DeskDeckState {
+  const current = currentDirEntry.value?.path
+    ?? getNavigatorPaneRef()?.currentPath
+    ?? null;
+
+  return {
+    current,
+    currentName: current ? (getPathDisplayName(current) || current) : null,
+    layout: currentLayout.value,
+    showHidden: userSettingsStore.userSettings.navigator.showHiddenFiles,
+    selectionCount: selectedEntries.value.length,
+    places: buildDeskDeckPlaces(),
+  };
+}
+
+async function handleDeskDeckCommand(command: DeskDeckCommand) {
+  const pane = getNavigatorPaneRef();
+
+  switch (command.verb) {
+    case 'back':
+      await pane?.goBack?.();
+      break;
+    case 'forward':
+      await pane?.goForward?.();
+      break;
+    case 'up':
+      await pane?.navigateToParent?.();
+      break;
+    case 'home':
+      await pane?.navigateToHome?.();
+      break;
+    case 'reload':
+      await pane?.refresh?.();
+      break;
+
+    case 'layout': {
+      const mode = command.value;
+
+      if (mode === 'list' || mode === 'grid' || mode === 'columns') {
+        setNavigatorLayout(mode);
+      }
+
+      break;
+    }
+
+    case 'toggleHidden':
+      userSettingsStore.set(
+        'navigator.showHiddenFiles',
+        !userSettingsStore.userSettings.navigator.showHiddenFiles,
+      );
+      break;
+    case 'go':
+      if (typeof command.value === 'string' && command.value.length > 0) {
+        await pane?.navigateToPath?.(command.value);
+      }
+
+      break;
+    case 'mkdir':
+      pane?.openNewItemDialog?.('directory');
+      break;
+    default:
+      break;
+  }
+}
+
+useDeskDeckBridge({
+  onCommand: handleDeskDeckCommand,
+  state: buildDeskDeckState,
+});
 
 onMounted(() => {
   registerShortcutHandlers();
@@ -837,6 +976,9 @@ onMounted(() => {
 
 onUnmounted(() => {
   navigatorSelectionStore.setSelectedDirEntries([]);
+  // Leaving the navigator page exits toolbar/sidebar edit mode so the bars
+  // return to their normal clickable state everywhere else.
+  navCustomizeStore.exitEditMode();
 });
 </script>
 
@@ -847,8 +989,10 @@ onUnmounted(() => {
     :is-global-search-open="globalSearchStore.isOpen"
     @toggle-split-view="handleToggleSplitView"
     @toggle-info-panel="handleToggleInfoPanel"
+    @navigate-home="handleToolbarNavigateHome"
   />
   <div class="navigator-page">
+    <NavigatorCustomizeSheet />
     <TabBar v-if="!isSmallScreen" />
     <div class="navigator-page__main">
       <div

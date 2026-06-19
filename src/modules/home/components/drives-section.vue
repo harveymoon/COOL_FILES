@@ -7,11 +7,14 @@ Copyright © 2021 - present Aleksey Hoffman. All rights reserved.
 import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { PlusIcon } from '@lucide/vue';
-import { useDrives } from '@/modules/home/composables';
+import { Container, Draggable, type DropResult } from 'vue3-smooth-dnd';
+import { useDrives, useHomeCustomize, applyHomeOrder } from '@/modules/home/composables';
 import { usePlatformStore } from '@/stores/runtime/platform';
+import { useHomeCustomizeStore, HOME_CUSTOMIZE_DRIVES_DRAG_GROUP } from '@/stores/runtime/home-customize';
 import { Button } from '@/components/ui/button';
 import { DirEntryInteractive } from '@/components/dir-entry-interactive';
 import DriveCard from './drive-card.vue';
+import HomeEditCard from './home-edit-card.vue';
 import MountDialog from './mount-dialog.vue';
 import { getStaggerSlideUpBinding } from '@/utils/stagger-animation';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
@@ -19,12 +22,35 @@ import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip
 const { t } = useI18n();
 const { drives, isLoading, error, refresh } = useDrives();
 const platformStore = usePlatformStore();
+const homeCustomizeStore = useHomeCustomizeStore();
+const { drivesOrder, setDrivesOrder } = useHomeCustomize();
+
+const editing = computed(() => homeCustomizeStore.isEditMode);
+const orderedDrives = computed(() => applyHomeOrder(drives.value, drivesOrder.value, drive => drive.path));
 
 const showMountDialog = ref(false);
 
 const sectionTitle = computed(() => {
   return platformStore.isWindows ? t('drives') : t('locations');
 });
+
+function drivePayload(index: number) {
+  return { path: orderedDrives.value[index]?.path };
+}
+
+// Drives are auto-discovered hardware: reorder only (no removal, no cross-group).
+async function onDrop(dropResult: DropResult) {
+  const { removedIndex, addedIndex } = dropResult;
+
+  if (removedIndex === null || addedIndex === null) {
+    return;
+  }
+
+  const paths = orderedDrives.value.map(drive => drive.path);
+  const [moved] = paths.splice(removedIndex, 1);
+  paths.splice(addedIndex, 0, moved);
+  await setDrivesOrder(paths);
+}
 </script>
 
 <template>
@@ -79,12 +105,32 @@ const sectionTitle = computed(() => {
       {{ t('placeholders.noDrivesFound') }}
     </div>
 
+    <!-- Edit state: reorder-only via smooth-dnd (clicks are suppressed). -->
+    <Container
+      v-else-if="editing"
+      class="drives-section__grid"
+      orientation="horizontal"
+      :group-name="HOME_CUSTOMIZE_DRIVES_DRAG_GROUP"
+      :get-child-payload="drivePayload"
+      drag-class="drives-section__chip--dragging"
+      @drop="onDrop"
+    >
+      <Draggable
+        v-for="drive in orderedDrives"
+        :key="drive.path"
+      >
+        <HomeEditCard>
+          <DriveCard :drive="drive" />
+        </HomeEditCard>
+      </Draggable>
+    </Container>
+
     <div
       v-else
       class="drives-section__grid"
     >
       <DirEntryInteractive
-        v-for="(drive, itemIndex) in drives"
+        v-for="(drive, itemIndex) in orderedDrives"
         :key="drive.path"
         :path="drive.path"
       >
@@ -146,6 +192,20 @@ const sectionTitle = computed(() => {
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
 }
 
+/* Preserve the grid layout that smooth-dnd would otherwise override (it forces
+   a table/inline-block layout on horizontal containers). */
+.drives-section__grid.smooth-dnd-container {
+  display: grid !important;
+}
+
+.drives-section__grid > .smooth-dnd-draggable-wrapper {
+  height: 100%;
+}
+
+.drives-section__chip--dragging {
+  opacity: 0.9;
+}
+
 .drives-section__loading {
   display: flex;
   align-items: center;
@@ -160,7 +220,7 @@ const sectionTitle = computed(() => {
   border: 2px solid hsl(var(--border));
   border-radius: 50%;
   border-top-color: hsl(var(--foreground));
-  animation: sigma-ui-spin 0.8s linear infinite;
+  animation: cool-files-ui-spin 0.8s linear infinite;
 }
 
 .drives-section__error {

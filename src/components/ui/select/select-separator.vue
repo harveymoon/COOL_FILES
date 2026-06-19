@@ -12,12 +12,12 @@ const props = defineProps<SelectSeparatorProps>();
 <template>
   <SelectSeparator
     v-bind="props"
-    class="sigma-ui-select-separator"
+    class="cool-files-ui-select-separator"
   />
 </template>
 
 <style>
-.sigma-ui-select-separator {
+.cool-files-ui-select-separator {
   height: 1px;
   margin: 0.25rem -0.25rem;
   background-color: hsl(var(--muted));

@@ -92,7 +92,7 @@ const shortcutsStore = useShortcutsStore();
   min-width: 180px;
 }
 
-.file-browser-toolbar-create-button__dropdown :deep(.sigma-ui-dropdown-menu-item) {
+.file-browser-toolbar-create-button__dropdown :deep(.cool-files-ui-dropdown-menu-item) {
   gap: 8px;
 }
 

@@ -22,12 +22,12 @@ const forwarded = useForwardPropsEmits(props, emits);
 <template>
   <DropdownMenuCheckboxItem
     v-bind="forwarded"
-    class="sigma-ui-dropdown-menu-checkbox-item"
+    class="cool-files-ui-dropdown-menu-checkbox-item"
   >
-    <span class="sigma-ui-dropdown-menu-checkbox-item__indicator">
+    <span class="cool-files-ui-dropdown-menu-checkbox-item__indicator">
       <DropdownMenuItemIndicator>
 
-        <CheckIcon class="sigma-ui-dropdown-menu-checkbox-item__icon" />
+        <CheckIcon class="cool-files-ui-dropdown-menu-checkbox-item__icon" />
       </DropdownMenuItemIndicator>
     </span>
     <slot />
@@ -35,7 +35,7 @@ const forwarded = useForwardPropsEmits(props, emits);
 </template>
 
 <style>
-.sigma-ui-dropdown-menu-checkbox-item {
+.cool-files-ui-dropdown-menu-checkbox-item {
   position: relative;
   display: flex;
   align-items: center;
@@ -49,17 +49,17 @@ const forwarded = useForwardPropsEmits(props, emits);
   user-select: none;
 }
 
-.sigma-ui-dropdown-menu-checkbox-item:focus {
+.cool-files-ui-dropdown-menu-checkbox-item:focus {
   background-color: hsl(var(--secondary));
   color: hsl(var(--secondary-foreground));
 }
 
-.sigma-ui-dropdown-menu-checkbox-item[data-disabled] {
+.cool-files-ui-dropdown-menu-checkbox-item[data-disabled] {
   opacity: 0.5;
   pointer-events: none;
 }
 
-.sigma-ui-dropdown-menu-checkbox-item__indicator {
+.cool-files-ui-dropdown-menu-checkbox-item__indicator {
   position: absolute;
   left: 0.5rem;
   display: flex;
@@ -69,7 +69,7 @@ const forwarded = useForwardPropsEmits(props, emits);
   justify-content: center;
 }
 
-.sigma-ui-dropdown-menu-checkbox-item__icon {
+.cool-files-ui-dropdown-menu-checkbox-item__icon {
   width: 1rem;
   height: 1rem;
 }

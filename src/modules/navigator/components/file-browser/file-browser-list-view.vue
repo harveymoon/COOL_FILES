@@ -36,6 +36,7 @@ const userSettingsStore = useUserSettingsStore();
 const { clipboardItems, clipboardType, isToolbarSuppressed } = storeToRefs(clipboardStore);
 
 const columnVisibility = computed(() => userSettingsStore.userSettings.navigator.listColumnVisibility);
+const showTypeColumn = computed(() => columnVisibility.value.type);
 const showItemsColumn = computed(() => columnVisibility.value.items);
 const showSizeColumn = computed(() => columnVisibility.value.size);
 const showModifiedColumn = computed(() => columnVisibility.value.modified);
@@ -92,6 +93,18 @@ function getSizeDisplay(entry: DirEntry): string | null {
   }
 
   return formatBytes(sizeInfo.size);
+}
+
+function getTypeDisplay(entry: DirEntry): string {
+  if (entry.is_dir) {
+    return t('fileBrowser.folder');
+  }
+
+  if (entry.ext) {
+    return entry.ext.toUpperCase();
+  }
+
+  return t('file');
 }
 
 function getItemsDisplay(entry: DirEntry): string {
@@ -197,6 +210,12 @@ const { clockRef: listModifiedClock } = useRelativeDateDisplayClock(shouldTrackL
             </div>
           </div>
           <span
+            v-if="showTypeColumn"
+            class="file-browser-list-view__entry-type"
+          >
+            {{ getTypeDisplay(row.entry) }}
+          </span>
+          <span
             v-if="showItemsColumn"
             class="file-browser-list-view__entry-items"
           >
@@ -287,7 +306,7 @@ const { clockRef: listModifiedClock } = useRelativeDateDisplayClock(shouldTrackL
 }
 
 .file-browser-list-view__list--animate {
-  animation: sigma-ui-fade-in 0.2s ease-out;
+  animation: cool-files-ui-fade-in 0.2s ease-out;
 }
 
 .file-browser-list-view__entry {
@@ -360,6 +379,7 @@ const { clockRef: listModifiedClock } = useRelativeDateDisplayClock(shouldTrackL
   white-space: nowrap;
 }
 
+.file-browser-list-view__entry-type,
 .file-browser-list-view__entry-items,
 .file-browser-list-view__entry-size,
 .file-browser-list-view__entry-modified,
@@ -372,6 +392,11 @@ const { clockRef: listModifiedClock } = useRelativeDateDisplayClock(shouldTrackL
   font-size: 12px;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.file-browser-list-view__entry-type {
+  display: flex;
+  align-items: center;
 }
 
 .file-browser-list-view__entry-tags {
@@ -477,6 +502,7 @@ const { clockRef: listModifiedClock } = useRelativeDateDisplayClock(shouldTrackL
 }
 
 .file-browser-list-view__entry[data-selected][data-in-clipboard][data-clipboard-type="move"] .file-browser-list-view__entry-text,
+.file-browser-list-view__entry[data-selected][data-in-clipboard][data-clipboard-type="move"] .file-browser-list-view__entry-type,
 .file-browser-list-view__entry[data-selected][data-in-clipboard][data-clipboard-type="move"] .file-browser-list-view__entry-items,
 .file-browser-list-view__entry[data-selected][data-in-clipboard][data-clipboard-type="move"] .file-browser-list-view__entry-size,
 .file-browser-list-view__entry[data-selected][data-in-clipboard][data-clipboard-type="move"] .file-browser-list-view__entry-modified,
@@ -487,6 +513,7 @@ const { clockRef: listModifiedClock } = useRelativeDateDisplayClock(shouldTrackL
 }
 
 .file-browser-list-view__entry[data-in-clipboard][data-clipboard-type="copy"] .file-browser-list-view__entry-text,
+.file-browser-list-view__entry[data-in-clipboard][data-clipboard-type="copy"] .file-browser-list-view__entry-type,
 .file-browser-list-view__entry[data-in-clipboard][data-clipboard-type="copy"] .file-browser-list-view__entry-items,
 .file-browser-list-view__entry[data-in-clipboard][data-clipboard-type="copy"] .file-browser-list-view__entry-size,
 .file-browser-list-view__entry[data-in-clipboard][data-clipboard-type="copy"] .file-browser-list-view__entry-modified,
@@ -497,6 +524,7 @@ const { clockRef: listModifiedClock } = useRelativeDateDisplayClock(shouldTrackL
 }
 
 .file-browser-list-view__entry[data-in-clipboard][data-clipboard-type="move"] .file-browser-list-view__entry-text,
+.file-browser-list-view__entry[data-in-clipboard][data-clipboard-type="move"] .file-browser-list-view__entry-type,
 .file-browser-list-view__entry[data-in-clipboard][data-clipboard-type="move"] .file-browser-list-view__entry-items,
 .file-browser-list-view__entry[data-in-clipboard][data-clipboard-type="move"] .file-browser-list-view__entry-size,
 .file-browser-list-view__entry[data-in-clipboard][data-clipboard-type="move"] .file-browser-list-view__entry-modified,

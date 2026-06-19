@@ -10,12 +10,12 @@ import { NumberFieldInput } from 'reka-ui';
 <template>
   <NumberFieldInput
     data-slot="input"
-    class="sigma-ui-number-field-input"
+    class="cool-files-ui-number-field-input"
   />
 </template>
 
 <style>
-.sigma-ui-number-field-input {
+.cool-files-ui-number-field-input {
   display: flex;
   width: 100%;
   height: 2.5rem;
@@ -27,16 +27,16 @@ import { NumberFieldInput } from 'reka-ui';
   text-align: center;
 }
 
-.sigma-ui-number-field-input::placeholder {
+.cool-files-ui-number-field-input::placeholder {
   color: hsl(var(--muted-foreground));
 }
 
-.sigma-ui-number-field-input:focus-visible {
+.cool-files-ui-number-field-input:focus-visible {
   outline: 2px solid hsl(var(--ring) / 50%);
   outline-offset: var(--ring-outline-offset);
 }
 
-.sigma-ui-number-field-input:disabled {
+.cool-files-ui-number-field-input:disabled {
   cursor: not-allowed;
   opacity: 0.5;
 }

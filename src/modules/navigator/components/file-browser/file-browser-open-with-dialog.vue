@@ -69,7 +69,7 @@ const newCommandPath = ref('');
 const newCommandArgs = ref('');
 
 function loadCustomCommands() {
-  const stored = localStorage.getItem('sigma-custom-open-commands');
+  const stored = localStorage.getItem('cool-files-custom-open-commands');
 
   if (stored) {
     try {
@@ -82,7 +82,7 @@ function loadCustomCommands() {
 }
 
 function saveCustomCommands() {
-  localStorage.setItem('sigma-custom-open-commands', JSON.stringify(customCommands.value));
+  localStorage.setItem('cool-files-custom-open-commands', JSON.stringify(customCommands.value));
 }
 
 watch(isOpen, (open) => {

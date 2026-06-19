@@ -23,14 +23,14 @@ const forwarded = useForwardPropsEmits(props, emits);
 <template>
   <SwitchRoot
     v-bind="forwarded"
-    class="sigma-ui-switch"
+    class="cool-files-ui-switch"
   >
-    <SwitchThumb class="sigma-ui-switch__thumb" />
+    <SwitchThumb class="cool-files-ui-switch__thumb" />
   </SwitchRoot>
 </template>
 
 <style>
-.sigma-ui-switch {
+.cool-files-ui-switch {
   display: inline-flex;
   width: 2.75rem;
   height: 1.5rem;
@@ -44,25 +44,25 @@ const forwarded = useForwardPropsEmits(props, emits);
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.sigma-ui-switch:focus-visible {
+.cool-files-ui-switch:focus-visible {
   outline: 2px solid hsl(var(--ring) / 50%);
   outline-offset: var(--ring-outline-offset);
 }
 
-.sigma-ui-switch:disabled {
+.cool-files-ui-switch:disabled {
   cursor: not-allowed;
   opacity: 0.5;
 }
 
-.sigma-ui-switch[data-state="checked"] {
+.cool-files-ui-switch[data-state="checked"] {
   background-color: hsl(var(--primary));
 }
 
-.sigma-ui-switch[data-state="unchecked"] {
+.cool-files-ui-switch[data-state="unchecked"] {
   background-color: hsl(218deg 14% 84% / 70%);
 }
 
-.sigma-ui-switch__thumb {
+.cool-files-ui-switch__thumb {
   display: block;
   width: 1.25rem;
   height: 1.25rem;
@@ -74,17 +74,17 @@ const forwarded = useForwardPropsEmits(props, emits);
   transition: transform 150ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.sigma-ui-switch__thumb[data-state="checked"] {
-  animation: sigma-ui-thumb-motion-blur-in 150ms cubic-bezier(0.4, 0, 0.2, 1);
+.cool-files-ui-switch__thumb[data-state="checked"] {
+  animation: cool-files-ui-thumb-motion-blur-in 150ms cubic-bezier(0.4, 0, 0.2, 1);
   transform: translateX(1.25rem);
 }
 
-.sigma-ui-switch__thumb[data-state="unchecked"] {
-  animation: sigma-ui-thumb-motion-blur-out 150ms cubic-bezier(0.4, 0, 0.2, 1);
+.cool-files-ui-switch__thumb[data-state="unchecked"] {
+  animation: cool-files-ui-thumb-motion-blur-out 150ms cubic-bezier(0.4, 0, 0.2, 1);
   transform: translateX(0);
 }
 
-@keyframes sigma-ui-thumb-motion-blur-in {
+@keyframes cool-files-ui-thumb-motion-blur-in {
   0% {
     filter: blur(0);
   }
@@ -98,7 +98,7 @@ const forwarded = useForwardPropsEmits(props, emits);
   }
 }
 
-@keyframes sigma-ui-thumb-motion-blur-out {
+@keyframes cool-files-ui-thumb-motion-blur-out {
   0% {
     filter: blur(0);
   }

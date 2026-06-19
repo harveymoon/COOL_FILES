@@ -80,7 +80,7 @@ function syncQuickViewStripViewportRef() {
   const instance = stripScrollAreaRef.value as unknown as ComponentPublicInstance | null;
   const rawElement = instance && '$el' in instance ? instance.$el : null;
   const root = rawElement instanceof HTMLElement ? rawElement : null;
-  stripScrollViewportRef.value = root?.querySelector<HTMLElement>('.sigma-ui-scroll-area__viewport') ?? null;
+  stripScrollViewportRef.value = root?.querySelector<HTMLElement>('.cool-files-ui-scroll-area__viewport') ?? null;
 }
 
 watch([stripScrollAreaRef, () => resolvedSiblingPaths.value.length], () => {
@@ -456,7 +456,7 @@ watch(
 );
 
 function getScrollViewportFromPane(pane: HTMLElement | null): HTMLElement | null {
-  return pane?.querySelector('.sigma-ui-scroll-area__viewport') ?? null;
+  return pane?.querySelector('.cool-files-ui-scroll-area__viewport') ?? null;
 }
 
 function getTextEditorScrollViewport(): HTMLElement | null {
@@ -653,7 +653,7 @@ async function closeWindow() {
 
 async function setQuickViewWindowTitle(path: string) {
   const quickWindow = getCurrentWindow();
-  await quickWindow.setTitle(`Sigma File Manager | Quick View - ${getFileName(path)}`);
+  await quickWindow.setTitle(`Cool Files | Quick View - ${getFileName(path)}`);
 }
 
 async function ensureResolvedSiblingPaths(): Promise<string[]> {
@@ -1479,7 +1479,7 @@ onUnmounted(() => {
   flex: 1 1 0;
 }
 
-.quick-view__text-scroll :deep(.sigma-ui-scroll-area__viewport) {
+.quick-view__text-scroll :deep(.cool-files-ui-scroll-area__viewport) {
   max-height: 100%;
   overflow-anchor: none;
 }
@@ -1565,7 +1565,7 @@ onUnmounted(() => {
   height: 92px;
 }
 
-.quick-view__strip-scroll :deep(.sigma-ui-scroll-area__viewport > div) {
+.quick-view__strip-scroll :deep(.cool-files-ui-scroll-area__viewport > div) {
   width: max-content;
   max-width: none;
 }

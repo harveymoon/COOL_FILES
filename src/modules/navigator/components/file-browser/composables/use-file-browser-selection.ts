@@ -991,17 +991,25 @@ export function useFileBrowserSelection(
         displayPath,
       });
 
-      if (result.deletedPaths.length > 0) {
-        workspacesStore.handlePathsDeleted(result.deletedPaths);
-        userStatsStore.handlePathsDeleted(result.deletedPaths);
+      const succeeded = result.success && !result.cancelled;
 
-        dirSizesStore.invalidate([currentPathRef.value, ...result.deletedPaths]);
+      // Refresh whenever the job actually removed something. Drive the refresh off
+      // success — not only off `deletedPaths` — so the current folder always
+      // reflects the deletion even if the backend reports an empty/partial list.
+      // Fall back to the requested paths for the affected-path bookkeeping.
+      if (succeeded || result.deletedPaths.length > 0) {
+        const affectedPaths = result.deletedPaths.length > 0 ? result.deletedPaths : paths;
+
+        workspacesStore.handlePathsDeleted(affectedPaths);
+        userStatsStore.handlePathsDeleted(affectedPaths);
+
+        dirSizesStore.invalidate([currentPathRef.value, ...affectedPaths]);
 
         clearSelection();
         onRefresh();
       }
 
-      return result.success && !result.cancelled;
+      return succeeded;
     }
     catch (error) {
       toast.custom(markRaw(ToastStatic), {

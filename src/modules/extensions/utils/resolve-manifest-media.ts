@@ -4,7 +4,7 @@
 
 import { convertFileSrc } from '@tauri-apps/api/core';
 import { join } from '@tauri-apps/api/path';
-import type { ExtensionManifest } from '@sigma-file-manager/api';
+import type { ExtensionManifest } from '@cool_files/api';
 import { getExtensionAssetUrl } from '@/data/extensions';
 import { invokeAsExtension } from '@/modules/extensions/runtime/extension-invoke';
 import { isQuickViewSupported } from '@/stores/runtime/quick-view';

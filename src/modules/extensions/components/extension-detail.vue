@@ -2065,7 +2065,7 @@ onMounted(() => {
     flex-direction: column;
   }
 
-  .extension-detail__action-buttons .sigma-ui-button {
+  .extension-detail__action-buttons .cool-files-ui-button {
     width: 100%;
     justify-content: center;
   }

@@ -241,9 +241,9 @@ describe('extension runtime loader', () => {
     invokeMock.mockImplementation(async (command: string, args?: { filePath?: string }) => {
       switch (command) {
         case 'get_extension_path':
-          return 'C:\\Users\\aleks\\AppData\\Roaming\\com.sigma-file-manager.app\\extensions\\test.video';
+          return 'C:\\Users\\aleks\\AppData\\Roaming\\com.cool-files.app\\extensions\\test.video';
         case 'get_extension_storage_path':
-          return 'C:\\Users\\aleks\\AppData\\Roaming\\com.sigma-file-manager.app\\extension-storage\\test.video';
+          return 'C:\\Users\\aleks\\AppData\\Roaming\\com.cool-files.app\\extension-storage\\test.video';
         case 'extension_path_exists':
           return true;
         case 'read_extension_file':

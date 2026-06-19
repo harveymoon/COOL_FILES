@@ -12,7 +12,7 @@ use tokio::sync::Mutex;
 pub(super) const MDNS_SERVICE_TYPE: &str = "_http._tcp.local.";
 pub(super) const MDNS_HOSTNAME: &str = "sfm.local.";
 pub(super) const MDNS_DOMAIN: &str = "sfm.local";
-pub(super) const MDNS_INSTANCE_NAME: &str = "Sigma File Manager";
+pub(super) const MDNS_INSTANCE_NAME: &str = "Cool Files";
 pub(super) const HTTP_DEFAULT_PORT: u16 = 80;
 pub(super) const HTTPS_DEFAULT_PORT: u16 = 443;
 pub(super) const PORT_RANGE_START: u16 = 55000;

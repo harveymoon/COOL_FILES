@@ -60,6 +60,14 @@ export const useUserSettingsStore = defineStore('userSettings', () => {
   const themeTransitionsEnabled = ref(false);
   const themeChangeEventUnlisten = ref<UnlistenFn | null>(null);
   const allowedUserSettingsStorageKeys = ref<Set<string>>(new Set());
+  // Resolves once settings have actually been loaded from disk. Consumers that
+  // run one-time migrations (e.g. the home-groups seed) must await this so they
+  // never read not-yet-loaded settings and persist wrong defaults.
+  const isStorageLoaded = ref(false);
+  let resolveStorageLoaded: (() => void) | null = null;
+  const storageLoadedPromise = new Promise<void>((resolve) => {
+    resolveStorageLoaded = resolve;
+  });
   const userSettings = ref<UserSettings>({
     language: {
       name: 'English',
@@ -108,19 +116,98 @@ export const useUserSettingsStore = defineStore('userSettings', () => {
       },
       infoPanel: {
         show: false,
+        width: 280,
       },
       showHiddenFiles: false,
       folderIconTheme: BUILTIN_NAVIGATOR_ICON_THEME_IDS.system,
       fileIconTheme: BUILTIN_NAVIGATOR_ICON_THEME_IDS.system,
       listColumnVisibility: {
+        type: false,
         items: true,
         size: true,
         modified: true,
         created: false,
         tags: false,
       },
+      listColumnWidths: {
+        name: 320,
+        type: 110,
+        items: 90,
+        size: 100,
+        modified: 160,
+        created: 160,
+        tags: 180,
+      },
       listSortColumn: null,
       listSortDirection: 'asc',
+      toolbar: {
+        items: [
+          {
+            kind: 'action',
+            id: 'layoutList',
+          },
+          {
+            kind: 'action',
+            id: 'layoutGrid',
+          },
+          {
+            kind: 'action',
+            id: 'layoutColumns',
+          },
+          { kind: 'separator' },
+          {
+            kind: 'action',
+            id: 'splitView',
+          },
+          {
+            kind: 'action',
+            id: 'infoPanel',
+          },
+          { kind: 'separator' },
+          {
+            kind: 'widget',
+            id: 'commandPalette',
+          },
+          {
+            kind: 'widget',
+            id: 'globalSearch',
+          },
+          {
+            kind: 'widget',
+            id: 'lanShare',
+          },
+          {
+            kind: 'widget',
+            id: 'statusCenter',
+          },
+        ],
+      },
+      sidebar: {
+        items: [
+          {
+            id: 'home',
+            visible: true,
+          },
+          {
+            id: 'navigator',
+            visible: true,
+          },
+          {
+            id: 'dashboard',
+            visible: true,
+          },
+          {
+            id: 'settings',
+            visible: true,
+          },
+          {
+            id: 'extensions',
+            visible: true,
+          },
+        ],
+        autoShowDrives: true,
+        pinnedPaths: [],
+      },
     },
     globalSearch: {
       scanDepth: 7,
@@ -148,6 +235,12 @@ export const useUserSettingsStore = defineStore('userSettings', () => {
       spaceIndicatorStyle: 'linearVertical',
     },
     userDirectories: {},
+    home: {
+      groups: [],
+      initialized: false,
+      userDirectoriesOrder: [],
+      drivesOrder: [],
+    },
     infusion: {
       enabled: true,
       sameSettingsForAllPages: true,
@@ -180,6 +273,11 @@ export const useUserSettingsStore = defineStore('userSettings', () => {
     changelog: {
       showOnUpdate: true,
       lastSeenVersion: '',
+    },
+    loadAnimations: {
+      enabled: true,
+      durationMs: 440,
+      staggerStepMs: 48,
     },
   });
 
@@ -249,7 +347,7 @@ export const useUserSettingsStore = defineStore('userSettings', () => {
     }
 
     const blur = clampDialogOverlayBlur(blurPixels);
-    document.documentElement.style.setProperty('--sigma-dialog-overlay-backdrop-blur', `${blur}px`);
+    document.documentElement.style.setProperty('--cool-files-dialog-overlay-backdrop-blur', `${blur}px`);
   }
 
   function applyBodyVisualFilters(visualFilters: Pick<VisualFiltersSettings, 'brightness' | 'contrast'>) {
@@ -260,8 +358,8 @@ export const useUserSettingsStore = defineStore('userSettings', () => {
     const brightness = clampVisualFilterValue(visualFilters.brightness);
     const contrast = clampVisualFilterValue(visualFilters.contrast);
 
-    document.documentElement.style.setProperty('--sigma-visual-filter-brightness', String(brightness));
-    document.documentElement.style.setProperty('--sigma-visual-filter-contrast', String(contrast));
+    document.documentElement.style.setProperty('--cool-files-visual-filter-brightness', String(brightness));
+    document.documentElement.style.setProperty('--cool-files-visual-filter-contrast', String(contrast));
   }
 
   const defaultFontFamily = computed(
@@ -501,12 +599,21 @@ export const useUserSettingsStore = defineStore('userSettings', () => {
     await ensureThemeChangeListener();
     initLanguage();
     await initZoom();
+
+    isStorageLoaded.value = true;
+    resolveStorageLoaded?.();
+  }
+
+  function whenStorageLoaded(): Promise<void> {
+    return isStorageLoaded.value ? Promise.resolve() : storageLoadedPromise;
   }
 
   return {
     userSettings,
     userSettingsDefault,
     defaultFontFamily,
+    isStorageLoaded,
+    whenStorageLoaded,
     init,
     set,
     setUserSettingsStorage,

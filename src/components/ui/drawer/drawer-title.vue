@@ -13,14 +13,14 @@ const props = defineProps<DrawerTitleProps>();
 <template>
   <DrawerTitle
     v-bind="props"
-    class="sigma-ui-drawer-title"
+    class="cool-files-ui-drawer-title"
   >
     <slot />
   </DrawerTitle>
 </template>
 
 <style>
-.sigma-ui-drawer-title {
+.cool-files-ui-drawer-title {
   font-size: 1.125rem;
   font-weight: 600;
   letter-spacing: -0.025em;

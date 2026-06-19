@@ -20,14 +20,14 @@ const forwarded = useForwardPropsEmits(props, emits);
 <template>
   <ComboboxRoot
     v-bind="forwarded"
-    class="sigma-ui-command"
+    class="cool-files-ui-command"
   >
     <slot />
   </ComboboxRoot>
 </template>
 
 <style>
-.sigma-ui-command {
+.cool-files-ui-command {
   display: flex;
   overflow: hidden;
   width: 100%;

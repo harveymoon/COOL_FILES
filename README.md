@@ -4,15 +4,15 @@
 - v2 became the main branch
 
 <h1>
-  <img valign="middle" src="https://github.com/aleksey-hoffman/sigma-file-manager/raw/main/.github/media/logo-1024x1024.png" width="64px">
-  &nbsp;&nbsp;Sigma File Manager
+  <img valign="middle" src="https://github.com/harveymoon/COOL_FILES/raw/main/.github/media/logo-1024x1024.png" width="64px">
+  &nbsp;&nbsp;Cool Files
 </h1>
 
-"Sigma File Manager" is a free, open-source, quickly evolving, modern file manager (explorer / finder) app for Windows and Linux.
+"Cool Files" is a free, open-source, quickly evolving, modern file manager (explorer / finder) app for Windows and Linux.
 
 Designed, developed, and maintained by [Aleksey Hoffman](https://github.com/aleksey-hoffman)
 
-<img src="./.github/media/sigma-file-manager-main.png">
+<img src="./.github/media/cool_files-main.png">
 
 ## Community links
 [Discord](https://discord.gg/sxZTztFVwX) | [Reddit](https://www.reddit.com/r/SigmaFileManager) | [YouTube](https://www.youtube.com/@sigma-dev) | [X (Twitter)](https://twitter.com/sigma__dev) | [Telegram](https://t.me/sigma_devs)
@@ -50,7 +50,7 @@ Designed, developed, and maintained by [Aleksey Hoffman](https://github.com/alek
     <tr>
       <td>
           <a href="https://hover.com/UywpvNe0" target="_blank">
-            <img width="128px" align="center" src="https://github.com/aleksey-hoffman/sigma-file-manager/raw/main/.github/media/hover-logo-svg-vector.svg">
+            <img width="128px" align="center" src="https://github.com/harveymoon/COOL_FILES/raw/main/.github/media/hover-logo-svg-vector.svg">
           </a>
       </td>
       <td>
@@ -69,12 +69,12 @@ Consider supporting the project on Patreon:
 
 <a target="_blank" href="https://patreon.com/sigma_file_manager">
   <img
-    src="https://raw.githubusercontent.com/aleksey-hoffman/sigma-file-manager/main/.github/media/patreon_button.png"
+    src="https://raw.githubusercontent.com/harveymoon/COOL_FILES/main/.github/media/patreon_button.png"
     width="164px"
   />
 </a>
 <br>
-<a target="_blank" href="https://github.com/aleksey-hoffman/sigma-file-manager/wiki/Support-and-rewards">
+<a target="_blank" href="https://github.com/harveymoon/COOL_FILES/wiki/Support-and-rewards">
   See other methods
 </a>
 
@@ -83,8 +83,8 @@ The funding will be used for funding the development of this and my other big pr
 ## Download & install
 
 <p>
- <a href=""><img src="https://img.shields.io/github/downloads/aleksey-hoffman/sigma-file-manager/total?style=for-the-badge&logo=data%3Aimage%2Fsvg%2Bxml%3Bbase64%2CPHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmZmZmYiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBjbGFzcz0ibHVjaWRlIGx1Y2lkZS1yb2NrZXQtaWNvbiBsdWNpZGUtcm9ja2V0Ij48cGF0aCBkPSJNMTIgMTV2NXMzLjAzLS41NSA0LTJjMS4wOC0xLjYyIDAtNSAwLTUiLz48cGF0aCBkPSJNNC41IDE2LjVjLTEuNSAxLjI2LTIgNS0yIDVzMy43NC0uNSA1LTJjLjcxLS44NC43LTIuMTMtLjA5LTIuOTFhMi4xOCAyLjE4IDAgMCAwLTIuOTEtLjA5Ii8%2BPHBhdGggZD0iTTkgMTJhMjIgMjIgMCAwIDEgMi0zLjk1QTEyLjg4IDEyLjg4IDAgMCAxIDIyIDJjMCAyLjcyLS43OCA3LjUtNiAxMWEyMi40IDIyLjQgMCAwIDEtNCAyeiIvPjxwYXRoIGQ9Ik05IDEySDRzLjU1LTMuMDMgMi00YzEuNjItMS4wOCA1IC4wNSA1IC4wNSIvPjwvc3ZnPg%3D%3D&color=%2370b59d"></a>
- <a href=""><img src="https://img.shields.io/github/v/release/aleksey-hoffman/sigma-file-manager?style=for-the-badge&logo=data%3Aimage%2Fsvg%2Bxml%3Bbase64%2CPHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmZmZmYiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBjbGFzcz0ibHVjaWRlIGx1Y2lkZS1yb2NrZXQtaWNvbiBsdWNpZGUtcm9ja2V0Ij48cGF0aCBkPSJNMTIgMTV2NXMzLjAzLS41NSA0LTJjMS4wOC0xLjYyIDAtNSAwLTUiLz48cGF0aCBkPSJNNC41IDE2LjVjLTEuNSAxLjI2LTIgNS0yIDVzMy43NC0uNSA1LTJjLjcxLS44NC43LTIuMTMtLjA5LTIuOTFhMi4xOCAyLjE4IDAgMCAwLTIuOTEtLjA5Ii8%2BPHBhdGggZD0iTTkgMTJhMjIgMjIgMCAwIDEgMi0zLjk1QTEyLjg4IDEyLjg4IDAgMCAxIDIyIDJjMCAyLjcyLS43OCA3LjUtNiAxMWEyMi40IDIyLjQgMCAwIDEtNCAyeiIvPjxwYXRoIGQ9Ik05IDEySDRzLjU1LTMuMDMgMi00YzEuNjItMS4wOCA1IC4wNSA1IC4wNSIvPjwvc3ZnPg%3D%3D&label=release&color=%23a6abe3"></a>
+ <a href=""><img src="https://img.shields.io/github/downloads/harveymoon/COOL_FILES/total?style=for-the-badge&logo=data%3Aimage%2Fsvg%2Bxml%3Bbase64%2CPHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmZmZmYiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBjbGFzcz0ibHVjaWRlIGx1Y2lkZS1yb2NrZXQtaWNvbiBsdWNpZGUtcm9ja2V0Ij48cGF0aCBkPSJNMTIgMTV2NXMzLjAzLS41NSA0LTJjMS4wOC0xLjYyIDAtNSAwLTUiLz48cGF0aCBkPSJNNC41IDE2LjVjLTEuNSAxLjI2LTIgNS0yIDVzMy43NC0uNSA1LTJjLjcxLS44NC43LTIuMTMtLjA5LTIuOTFhMi4xOCAyLjE4IDAgMCAwLTIuOTEtLjA5Ii8%2BPHBhdGggZD0iTTkgMTJhMjIgMjIgMCAwIDEgMi0zLjk1QTEyLjg4IDEyLjg4IDAgMCAxIDIyIDJjMCAyLjcyLS43OCA3LjUtNiAxMWEyMi40IDIyLjQgMCAwIDEtNCAyeiIvPjxwYXRoIGQ9Ik05IDEySDRzLjU1LTMuMDMgMi00YzEuNjItMS4wOCA1IC4wNSA1IC4wNSIvPjwvc3ZnPg%3D%3D&color=%2370b59d"></a>
+ <a href=""><img src="https://img.shields.io/github/v/release/harveymoon/COOL_FILES?style=for-the-badge&logo=data%3Aimage%2Fsvg%2Bxml%3Bbase64%2CPHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmZmZmYiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBjbGFzcz0ibHVjaWRlIGx1Y2lkZS1yb2NrZXQtaWNvbiBsdWNpZGUtcm9ja2V0Ij48cGF0aCBkPSJNMTIgMTV2NXMzLjAzLS41NSA0LTJjMS4wOC0xLjYyIDAtNSAwLTUiLz48cGF0aCBkPSJNNC41IDE2LjVjLTEuNSAxLjI2LTIgNS0yIDVzMy43NC0uNSA1LTJjLjcxLS44NC43LTIuMTMtLjA5LTIuOTFhMi4xOCAyLjE4IDAgMCAwLTIuOTEtLjA5Ii8%2BPHBhdGggZD0iTTkgMTJhMjIgMjIgMCAwIDEgMi0zLjk1QTEyLjg4IDEyLjg4IDAgMCAxIDIyIDJjMCAyLjcyLS43OCA3LjUtNiAxMWEyMi40IDIyLjQgMCAwIDEtNCAyeiIvPjxwYXRoIGQ9Ik05IDEySDRzLjU1LTMuMDMgMi00YzEuNjItMS4wOCA1IC4wNSA1IC4wNSIvPjwvc3ZnPg%3D%3D&label=release&color=%23a6abe3"></a>
  <a href=""><img src="https://img.shields.io/winget/v/AlekseyHoffman.SigmaFileManager?style=for-the-badge&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmZmZmYiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBjbGFzcz0ibHVjaWRlIGx1Y2lkZS1zcXVhcmUtdGVybWluYWwtaWNvbiBsdWNpZGUtc3F1YXJlLXRlcm1pbmFsIj48cGF0aCBkPSJtNyAxMSAyLTItMi0yIi8+PHBhdGggZD0iTTExIDEzaDQiLz48cmVjdCB3aWR0aD0iMTgiIGhlaWdodD0iMTgiIHg9IjMiIHk9IjMiIHJ4PSIyIiByeT0iMiIvPjwvc3ZnPg==&color=%23a6abe3&label=release%20on%20winget"></a>
 </p>
 
@@ -92,7 +92,7 @@ The funding will be used for funding the development of this and my other big pr
 
 **OS:** 64-bit: Windows, Linux, MacOS is supported but builds are not provided;
 
-[All releases & changelog](https://github.com/aleksey-hoffman/sigma-file-manager/releases)
+[All releases & changelog](https://github.com/harveymoon/COOL_FILES/releases)
 
 
 <table>
@@ -113,7 +113,7 @@ The funding will be used for funding the development of this and my other big pr
       <td>Windows | Microsoft store</td>
       <td>
         <!-- <a target="_blank" href="https://www.microsoft.com/store/productId/9N7W62ND0NF9">
-          <img src="https://github.com/aleksey-hoffman/sigma-file-manager/raw/main/.github/media/get-from-microsoft.png" width="140px">
+          <img src="https://github.com/harveymoon/COOL_FILES/raw/main/.github/media/get-from-microsoft.png" width="140px">
         </a> -->
         <a href="https://apps.microsoft.com/detail/9n7w62nd0nf9?referrer=appbadge&mode=full" target="_blank"  rel="noopener noreferrer">
         	<img src="https://get.microsoft.com/images/en-us%20dark.svg" width="200"/>
@@ -123,7 +123,7 @@ The funding will be used for funding the development of this and my other big pr
     <tr>
       <td>Windows | Unsigned installable (might see antivirus errors)</td>
       <td>
-        <a target="_blank" href="https://github.com/aleksey-hoffman/sigma-file-manager/releases/latest">
+        <a target="_blank" href="https://github.com/harveymoon/COOL_FILES/releases/latest">
           Installable (.exe)
         </a>
       </td>
@@ -131,7 +131,7 @@ The funding will be used for funding the development of this and my other big pr
     <tr>
       <td>Linux | Portable (experimental)</td>
       <td>
-        <a target="_blank" href="https://github.com/aleksey-hoffman/sigma-file-manager/releases/latest">
+        <a target="_blank" href="https://github.com/harveymoon/COOL_FILES/releases/latest">
           Portable (.AppImage)
         </a>
       </td>
@@ -139,17 +139,17 @@ The funding will be used for funding the development of this and my other big pr
     <tr>
       <td>Linux | Flatpak</td>
       <td>
-        <a target="_blank" href="https://github.com/aleksey-hoffman/sigma-file-manager/releases/latest">
+        <a target="_blank" href="https://github.com/harveymoon/COOL_FILES/releases/latest">
           Installable (.flatpak)
         </a>
         <br>
-        <code>flatpak install ./Sigma-File-Manager-*-linux.flatpak</code>
+        <code>flatpak install ./Cool-Files-*-linux.flatpak</code>
       </td>
     </tr>
     <tr>
       <td>Linux | Snapcraft </td>
       <td>
-        <!-- <a target="_blank" href="https://snapcraft.io/sigma-file-manager">
+        <!-- <a target="_blank" href="https://snapcraft.io/cool_files">
           Download from snapcraft.io
         </a> -->
         Soon
@@ -159,7 +159,7 @@ The funding will be used for funding the development of this and my other big pr
       <td>If there's no compiled binary for your MacOS, Linux distro, you can build the app from the source code yourself
       </td>
       <td>
-        <a target="_blank" href="https://github.com/aleksey-hoffman/sigma-file-manager/blob/main/CONTRIBUTING.md">
+        <a target="_blank" href="https://github.com/harveymoon/COOL_FILES/blob/main/CONTRIBUTING.md">
           See this guide
         </a>
       </td>

@@ -591,7 +591,7 @@ function openCollapsedPopover() {
   height: 200px;
 }
 
-.clipboard-toolbar__scroll-area :deep(.sigma-ui-scroll-area-scrollbar) {
+.clipboard-toolbar__scroll-area :deep(.cool-files-ui-scroll-area-scrollbar) {
   right: -6px;
 }
 
@@ -661,7 +661,7 @@ function openCollapsedPopover() {
   gap: 12px;
 }
 
-.clipboard-toolbar__item .clipboard-toolbar__item-remove.sigma-ui-button.sigma-ui-button--size-icon {
+.clipboard-toolbar__item .clipboard-toolbar__item-remove.cool-files-ui-button.cool-files-ui-button--size-icon {
   width: 36px;
   height: auto;
   min-height: 100%;

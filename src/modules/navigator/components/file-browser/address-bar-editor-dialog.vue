@@ -42,7 +42,8 @@ import {
 import AddressBarSuggestionRow from './address-bar-editor-suggestion-row.vue';
 import type { DirContents, DirEntry } from '@/types/dir-entry';
 import { useUserStatsStore } from '@/stores/storage/user-stats';
-import { useUserDirectories, type UserDirectory } from '@/modules/home/composables';
+import { useHomeCustomize } from '@/modules/home/composables';
+import type { HomeGroupItem } from '@/types/user-settings';
 import { useAddressBarStableDriveList } from './composables/use-address-bar-stable-drive-list';
 import { usePlatformStore } from '@/stores/runtime/platform';
 import { useDirSizesStore } from '@/stores/runtime/dir-sizes';
@@ -106,7 +107,9 @@ const { t } = useI18n();
 const shortcutsStore = useShortcutsStore();
 const platformStore = usePlatformStore();
 const userStatsStore = useUserStatsStore();
-const { userDirectories, refresh: refreshUserDirectories } = useUserDirectories();
+const { groups: homeGroups, ensureInitialized: ensureHomeInitialized } = useHomeCustomize();
+// All home-group tiles, flattened, used as path suggestions in the address bar.
+const userDirectoryItems = computed(() => homeGroups.value.flatMap(group => group.items));
 const {
   stableDriveListSnapshot,
   seedStableDriveListSnapshotFromLiveCache,
@@ -144,18 +147,18 @@ const dialogOpen = computed({
 
 const inputPlaceholder = computed(() => t('settings.addressBar.enterValidPath'));
 
-function getUserDirectorySuggestionDisplayName(directory: UserDirectory): string {
-  const customTitle = directory.customTitle?.trim();
+function getUserDirectorySuggestionDisplayName(item: HomeGroupItem): string {
+  const customTitle = item.title?.trim();
 
   if (customTitle) {
     return customTitle;
   }
 
-  if (directory.titleKey) {
-    return t(directory.titleKey);
+  if (item.titleKey) {
+    return t(item.titleKey);
   }
 
-  return getPathDisplayName(directory.path) || directory.path;
+  return getPathDisplayName(item.path) || item.path;
 }
 
 const entryModeGroups = computed(() => {
@@ -171,9 +174,9 @@ const entryModeGroups = computed(() => {
     groups.push(recentGroup);
   }
 
-  const userDirectoryRows = userDirectories.value.map(directory => ({
-    path: directory.path,
-    displayName: getUserDirectorySuggestionDisplayName(directory),
+  const userDirectoryRows = userDirectoryItems.value.map(item => ({
+    path: item.path,
+    displayName: getUserDirectorySuggestionDisplayName(item),
   }));
 
   if (userDirectoryRows.length > 0) {
@@ -608,14 +611,14 @@ watch(query, (value) => {
 
 watch(isOpen, (open) => {
   if (open) {
-    void refreshUserDirectories();
+    void ensureHomeInitialized();
     return;
   }
 
   clearStableDriveListSnapshotForAddressBar();
 });
 
-watch(userDirectories, () => {
+watch(userDirectoryItems, () => {
   if (!isOpen.value) {
     return;
   }
@@ -1083,9 +1086,9 @@ defineExpose({
     <ScrollAreaRoot
       v-bind="pathEditorYieldMarkerBindings"
       type="auto"
-      class="sigma-ui-scroll-area address-bar-editor__scroll-root"
+      class="cool-files-ui-scroll-area address-bar-editor__scroll-root"
     >
-      <ScrollAreaViewport class="sigma-ui-scroll-area__viewport address-bar-editor__viewport">
+      <ScrollAreaViewport class="cool-files-ui-scroll-area__viewport address-bar-editor__viewport">
         <div
           ref="suggestionRowsContainerReference"
           class="address-bar-editor__scroll-inner"
@@ -1212,25 +1215,25 @@ defineExpose({
 </template>
 
 <style>
-.sigma-ui-dialog-overlay:has(+ .sigma-ui-command-dialog .address-bar-editor__scroll-root) {
+.cool-files-ui-dialog-overlay:has(+ .cool-files-ui-command-dialog .address-bar-editor__scroll-root) {
   backdrop-filter: none;
   background-color: transparent;
   pointer-events: none;
 }
 
-.sigma-ui-command-dialog:has(.address-bar-editor__scroll-root) {
+.cool-files-ui-command-dialog:has(.address-bar-editor__scroll-root) {
   width: 90vw;
   max-width: 860px;
   height: 86vh;
 }
 
 @media (width >= 900px) {
-  .sigma-ui-command-dialog:has(.address-bar-editor__scroll-root) {
+  .cool-files-ui-command-dialog:has(.address-bar-editor__scroll-root) {
     width: 65vw;
   }
 }
 
-.sigma-ui-command-dialog:has(.address-bar-editor__scroll-root) .sigma-ui-command-dialog__command {
+.cool-files-ui-command-dialog:has(.address-bar-editor__scroll-root) .cool-files-ui-command-dialog__command {
   min-height: 0;
 }
 

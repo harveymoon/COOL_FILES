@@ -12,14 +12,14 @@ const props = defineProps<TabsListProps>();
 <template>
   <TabsList
     v-bind="props"
-    class="sigma-ui-tabs-list"
+    class="cool-files-ui-tabs-list"
   >
     <slot />
   </TabsList>
 </template>
 
 <style>
-.sigma-ui-tabs-list {
+.cool-files-ui-tabs-list {
   display: inline-flex;
   overflow: auto hidden;
   max-width: 100%;
@@ -34,20 +34,20 @@ const props = defineProps<TabsListProps>();
   scrollbar-width: thin;
 }
 
-.sigma-ui-tabs-list::-webkit-scrollbar {
+.cool-files-ui-tabs-list::-webkit-scrollbar {
   height: 6px;
 }
 
-.sigma-ui-tabs-list::-webkit-scrollbar-track {
+.cool-files-ui-tabs-list::-webkit-scrollbar-track {
   background: transparent;
 }
 
-.sigma-ui-tabs-list::-webkit-scrollbar-thumb {
+.cool-files-ui-tabs-list::-webkit-scrollbar-thumb {
   border-radius: 3px;
   background-color: hsl(var(--border));
 }
 
-.sigma-ui-tabs-list::-webkit-scrollbar-thumb:hover {
+.cool-files-ui-tabs-list::-webkit-scrollbar-thumb:hover {
   background-color: hsl(var(--border) / 80%);
 }
 </style>

@@ -18,21 +18,21 @@ const forwarded = useForwardProps(props);
 <template>
   <LabelRoot
     v-bind="forwarded"
-    class="sigma-ui-label"
+    class="cool-files-ui-label"
   >
     <slot />
   </LabelRoot>
 </template>
 
 <style>
-.sigma-ui-label {
+.cool-files-ui-label {
   color: hsl(var(--foreground));
   font-size: 0.875rem;
   font-weight: 500;
   line-height: 1;
 }
 
-.sigma-ui-label[data-disabled] {
+.cool-files-ui-label[data-disabled] {
   cursor: not-allowed;
   opacity: 0.7;
 }

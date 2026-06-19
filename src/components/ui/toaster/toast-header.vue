@@ -51,15 +51,15 @@ const formattedTitle = computed(() => {
 </script>
 
 <template>
-  <div class="sigma-ui-toast-header">
-    <div class="sigma-ui-toast-header__row">
+  <div class="cool-files-ui-toast-header">
+    <div class="cool-files-ui-toast-header__row">
       <slot name="leading" />
-      <span class="sigma-ui-toast-header__title-prefix">
+      <span class="cool-files-ui-toast-header__title-prefix">
         {{ formattedTitle.prefix }}
       </span>
       <span
         v-if="formattedTitle.hasBadge"
-        class="sigma-ui-toast-header__title-badge"
+        class="cool-files-ui-toast-header__title-badge"
       >
         <ExtensionIcon
           v-if="props.extensionId"
@@ -71,7 +71,7 @@ const formattedTitle = computed(() => {
       </span>
       <span
         v-if="props.itemCount"
-        class="sigma-ui-toast-header__count-tag"
+        class="cool-files-ui-toast-header__count-tag"
       >
         {{ t('item', props.itemCount) }}
       </span>
@@ -79,7 +79,7 @@ const formattedTitle = computed(() => {
     </div>
     <div
       v-if="props.subtitle"
-      class="sigma-ui-toast-header__subtitle"
+      class="cool-files-ui-toast-header__subtitle"
     >
       {{ props.subtitle }}
     </div>
@@ -87,7 +87,7 @@ const formattedTitle = computed(() => {
 </template>
 
 <style>
-.sigma-ui-toast-header {
+.cool-files-ui-toast-header {
   display: flex;
   width: 100%;
   min-width: 0;
@@ -95,7 +95,7 @@ const formattedTitle = computed(() => {
   gap: 0.25rem;
 }
 
-.sigma-ui-toast-header__row {
+.cool-files-ui-toast-header__row {
   display: flex;
   width: 100%;
   min-width: 0;
@@ -103,7 +103,7 @@ const formattedTitle = computed(() => {
   gap: 0.5rem;
 }
 
-.sigma-ui-toast-header__title-prefix {
+.cool-files-ui-toast-header__title-prefix {
   overflow: hidden;
   min-width: 0;
   flex-shrink: 1;
@@ -113,7 +113,7 @@ const formattedTitle = computed(() => {
   white-space: nowrap;
 }
 
-.sigma-ui-toast-header__title-badge {
+.cool-files-ui-toast-header__title-badge {
   display: inline-flex;
   overflow: hidden;
   min-width: 0;
@@ -132,12 +132,12 @@ const formattedTitle = computed(() => {
   white-space: nowrap;
 }
 
-.sigma-ui-toast-header__title-badge svg,
-.sigma-ui-toast-header__title-badge img {
+.cool-files-ui-toast-header__title-badge svg,
+.cool-files-ui-toast-header__title-badge img {
   flex-shrink: 0;
 }
 
-.sigma-ui-toast-header__count-tag {
+.cool-files-ui-toast-header__count-tag {
   flex-shrink: 0;
   padding: 2px 8px;
   border-radius: 4px;
@@ -146,7 +146,7 @@ const formattedTitle = computed(() => {
   font-weight: 500;
 }
 
-.sigma-ui-toast-header__subtitle {
+.cool-files-ui-toast-header__subtitle {
   width: 100%;
   min-width: 0;
   color: hsl(var(--foreground) / 75%);

@@ -14,14 +14,14 @@ const forwardedProps = useForwardProps(props);
 <template>
   <ContextMenuTrigger
     v-bind="forwardedProps"
-    class="sigma-ui-context-menu-trigger"
+    class="cool-files-ui-context-menu-trigger"
   >
     <slot />
   </ContextMenuTrigger>
 </template>
 
 <style>
-.sigma-ui-context-menu-trigger {
+.cool-files-ui-context-menu-trigger {
   display: contents;
 }
 </style>

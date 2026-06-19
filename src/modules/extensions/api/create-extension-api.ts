@@ -2,7 +2,7 @@
 // License: GNU GPLv3 or later. See the license file in the project root for more information.
 // Copyright © 2021 - present Aleksey Hoffman. All rights reserved.
 
-import type { SigmaExtensionAPI } from '@sigma-file-manager/api';
+import type { SigmaExtensionAPI } from '@cool_files/api';
 import type { ExtensionPermission } from '@/types/extension';
 import { freezeObject } from '@/modules/extensions/runtime/sandbox';
 import { createExtensionContext } from '@/modules/extensions/api/extension-context';

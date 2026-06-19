@@ -101,7 +101,7 @@ jobs:
               flags+=(--prerelease)
             fi
             gh release create "$TAG" \
-              --title "Sigma File Manager v$VERSION" \
+              --title "Cool Files v$VERSION" \
               --notes-file "$release_notes_file" \
               "${flags[@]}"
           else
@@ -235,17 +235,17 @@ jobs:
           for bundle in "${bundles[@]}"; do
             case "$bundle" in
               *.AppImage)
-                staged_asset="staged/Sigma-File-Manager-${VERSION}-linux.AppImage"
+                staged_asset="staged/Cool-Files-${VERSION}-linux.AppImage"
                 ;;
               *.deb)
-                staged_asset="staged/Sigma-File-Manager-${VERSION}-linux.deb"
+                staged_asset="staged/Cool-Files-${VERSION}-linux.deb"
                 ;;
               *.exe)
-                staged_asset="staged/Sigma-File-Manager-${VERSION}-windows-setup.exe"
+                staged_asset="staged/Cool-Files-${VERSION}-windows-setup.exe"
                 ;;
               *)
                 extension="${bundle##*.}"
-                staged_asset="staged/Sigma-File-Manager-${VERSION}-${PLATFORM}.${extension}"
+                staged_asset="staged/Cool-Files-${VERSION}-${PLATFORM}.${extension}"
                 ;;
             esac
 
@@ -261,14 +261,14 @@ jobs:
           VERSION: ${{ needs.prepare.outputs.version }}
         shell: bash
         run: |
-          binary="src-tauri/target/release/sigma-file-manager"
+          binary="src-tauri/target/release/cool_files"
           if [[ ! -f "$binary" ]]; then
             echo "::error::Linux binary not found at $binary"
             exit 1
           fi
           chmod +x "$binary"
           mkdir -p staged
-          staged_binary="staged/Sigma-File-Manager-${VERSION}-linux-binary"
+          staged_binary="staged/Cool-Files-${VERSION}-linux-binary"
           cp "$binary" "$staged_binary"
           gh release upload "$TAG" "$staged_binary" --clobber
 
@@ -291,7 +291,7 @@ jobs:
           VERSION: ${{ needs.prepare.outputs.version }}
         shell: bash
         run: |
-          flatpak_bundle="flatpak/output/Sigma-File-Manager-${VERSION}-linux.flatpak"
+          flatpak_bundle="flatpak/output/Cool-Files-${VERSION}-linux.flatpak"
           if [[ ! -f "$flatpak_bundle" ]]; then
             echo "::error::Flatpak bundle not found at $flatpak_bundle"
             exit 1

@@ -207,6 +207,8 @@ export function useFileBrowserNavigation(
       if (dirPaths.length > 0 && !isCopyOrMoveInProgress()) {
         dirSizesStore.requestSizesBatch(dirPaths);
       }
+
+      void backfillItemCounts(result.path);
     }
     catch {
       await navigateToNearestExistingAncestor();
@@ -270,6 +272,68 @@ export function useFileBrowserNavigation(
     };
   });
 
+  // The `read_dir` command returns folder entries with `item_count: null` so the
+  // listing renders immediately (no per-subfolder enumeration up front, which is
+  // slow on network shares). This fetches the counts off-thread and patches them
+  // back in, mirroring how folder sizes are loaded after the listing.
+  async function backfillItemCounts(path: string): Promise<void> {
+    const contents = dirContents.value;
+
+    if (!contents || contents.path !== path) {
+      return;
+    }
+
+    const dirPaths = contents.entries
+      .filter(entry => entry.is_dir && entry.item_count === null)
+      .map(entry => entry.path);
+
+    if (dirPaths.length === 0) {
+      return;
+    }
+
+    try {
+      const counts = await invoke<{
+        path: string;
+        item_count: number | null;
+      }[]>(
+        'get_dir_item_counts',
+        { paths: dirPaths },
+      );
+
+      // Discard the result if the user navigated elsewhere while it was computing.
+      const current = dirContents.value;
+
+      if (!current || current.path !== path) {
+        return;
+      }
+
+      const countByPath = new Map(counts.map(entry => [entry.path, entry.item_count]));
+
+      const patchedEntries = current.entries.map(entry =>
+        entry.is_dir && countByPath.has(entry.path)
+          ? {
+              ...entry,
+              item_count: countByPath.get(entry.path) ?? null,
+            }
+          : entry,
+      );
+
+      dirContents.value = {
+        ...current,
+        entries: patchedEntries,
+      };
+
+      const currentTab = tab();
+
+      if (currentTab) {
+        currentTab.dirEntries = patchedEntries;
+      }
+    }
+    catch (err) {
+      console.error('Failed to load directory item counts:', err);
+    }
+  }
+
   async function readDir(path: string, addToHistory = true, forceLoading = false) {
     const normalizedPath = normalizePath(path);
     const isNewDirectory = normalizedPath !== currentPath.value;
@@ -326,6 +390,8 @@ export function useFileBrowserNavigation(
       if (dirPaths.length > 0 && !isCopyOrMoveInProgress()) {
         dirSizesStore.requestSizesBatch(dirPaths);
       }
+
+      void backfillItemCounts(result.path);
 
       await startWatching(result.path);
     }

@@ -2,7 +2,7 @@
 // License: GNU GPLv3 or later. See the license file in the project root for more information.
 // Copyright © 2021 - present Aleksey Hoffman. All rights reserved.
 
-export type { SigmaExtensionAPI } from '@sigma-file-manager/api';
+export type { SigmaExtensionAPI } from '@cool_files/api';
 
 export {
   initPlatformInfo,

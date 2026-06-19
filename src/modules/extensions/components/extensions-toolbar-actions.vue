@@ -113,7 +113,7 @@ async function handleInstallLocal(): Promise<void> {
   gap: 4px;
 }
 
-.extensions-toolbar-actions :deep(.sigma-ui-button) {
+.extensions-toolbar-actions :deep(.cool-files-ui-button) {
   width: 28px;
   height: 28px;
 }

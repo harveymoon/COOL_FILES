@@ -3,8 +3,8 @@
 // Copyright © 2021 - present Aleksey Hoffman. All rights reserved.
 
 const githubMainBranch = 'main';
-const githubUser = 'aleksey-hoffman';
-const githubRepo = 'sigma-file-manager';
+const githubUser = 'harveymoon';
+const githubRepo = 'COOL_FILES';
 const githubFullRepoName = `${githubUser}/${githubRepo}`;
 const githubBaseUrl = 'https://github.com';
 const githubBaseApiUrl = 'https://api.github.com/repos';

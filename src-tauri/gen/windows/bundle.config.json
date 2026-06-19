@@ -2,7 +2,7 @@
   "identifier": "6609AlekseyHoffman.SigmaFileManager",
   "publisher": "CN=Microsoft Store Publisher",
   "publisherDisplayName": "Aleksey Hoffman",
-  "executable": "sigma-file-manager.exe",
+  "executable": "cool_files.exe",
   "capabilities": {
     "general": [
       "internetClient"

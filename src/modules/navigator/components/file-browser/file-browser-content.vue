@@ -4,65 +4,39 @@ Copyright © 2021 - present Aleksey Hoffman. All rights reserved.
 -->
 
 <script setup lang="ts">
-import { computed } from 'vue';
 import {
   ScrollAreaCorner,
   ScrollAreaRoot,
   ScrollAreaViewport,
 } from 'reka-ui';
 import { ScrollBar } from '@/components/ui/scroll-area';
-import { useUserSettingsStore } from '@/stores/storage/user-settings';
 import FileBrowserListHeader from './file-browser-list-header.vue';
 import FileBrowserContentBody from './file-browser-content-body.vue';
+import FileBrowserColumnsView from './file-browser-columns-view.vue';
 import { useFileBrowserContext } from './composables/use-file-browser-context';
+import { useFileBrowserListColumns } from './composables/use-file-browser-list-columns';
 
 const props = withDefaults(defineProps<{
-  layout?: 'list' | 'grid';
+  layout?: 'list' | 'grid' | 'columns';
   trackRelativeTime?: boolean;
 }>(), {
   layout: undefined,
   trackRelativeTime: true,
 });
 
-const userSettingsStore = useUserSettingsStore();
 const ctx = useFileBrowserContext();
-
-const columnVisibility = computed(() => userSettingsStore.userSettings.navigator.listColumnVisibility);
-const showItemsColumn = computed(() => columnVisibility.value.items);
-
-const listColumnsTemplate = computed(() => {
-  const columns = ['minmax(200px, 1fr)'];
-
-  if (showItemsColumn.value) {
-    columns.push('minmax(70px, 90px)');
-  }
-
-  if (columnVisibility.value.size) {
-    columns.push('minmax(50px, 100px)');
-  }
-
-  if (columnVisibility.value.modified) {
-    columns.push('minmax(120px, 160px)');
-  }
-
-  if (columnVisibility.value.created) {
-    columns.push('minmax(120px, 160px)');
-  }
-
-  if (columnVisibility.value.tags) {
-    columns.push('minmax(140px, 180px)');
-  }
-
-  return columns.join(' ');
-});
+const { columnsTemplate } = useFileBrowserListColumns();
 </script>
 
 <template>
   <div
     class="file-browser__content"
-    :style="{ '--file-browser-list-columns': listColumnsTemplate }"
+    :style="{ '--file-browser-list-columns': columnsTemplate }"
   >
+    <FileBrowserColumnsView v-if="props.layout === 'columns'" />
+
     <ScrollAreaRoot
+      v-else
       type="auto"
       class="file-browser__content-scroll"
     >
@@ -144,7 +118,7 @@ const listColumnsTemplate = computed(() => {
   padding-right: var(--file-browser-scrollbar-gutter);
 }
 
-:deep(.file-browser-list-view) :global(.sigma-ui-scroll-area-scrollbar) {
+:deep(.file-browser-list-view) :global(.cool-files-ui-scroll-area-scrollbar) {
   z-index: 5;
 }
 </style>

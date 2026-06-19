@@ -76,7 +76,7 @@ const {
       v-else
       :ref="setRenameInputRef"
       v-model="editDraft"
-      class="sigma-ui-input tag-selector__rename-input"
+      class="cool-files-ui-input tag-selector__rename-input"
       autofocus
       @keydown="stopSpaceKeyPropagation"
       @keydown.enter.prevent="commitEdit"

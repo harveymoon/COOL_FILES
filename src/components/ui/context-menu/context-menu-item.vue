@@ -14,15 +14,15 @@ const forwardedProps = useForwardProps(props);
 <template>
   <ContextMenuItem
     v-bind="forwardedProps"
-    class="sigma-ui-context-menu-item"
-    :class="[{ 'sigma-ui-context-menu-item--inset': inset }]"
+    class="cool-files-ui-context-menu-item"
+    :class="[{ 'cool-files-ui-context-menu-item--inset': inset }]"
   >
     <slot />
   </ContextMenuItem>
 </template>
 
 <style>
-.sigma-ui-context-menu-item {
+.cool-files-ui-context-menu-item {
   position: relative;
   display: flex;
   align-items: center;
@@ -37,16 +37,16 @@ const forwardedProps = useForwardProps(props);
   user-select: none;
 }
 
-.sigma-ui-context-menu-item--inset {
+.cool-files-ui-context-menu-item--inset {
   padding-left: 2rem;
 }
 
-.sigma-ui-context-menu-item:focus {
+.cool-files-ui-context-menu-item:focus {
   background-color: hsl(var(--secondary) / 50%);
   color: hsl(var(--popover-foreground) / 80%);
 }
 
-.sigma-ui-context-menu-item[data-disabled] {
+.cool-files-ui-context-menu-item[data-disabled] {
   opacity: 0.5;
   pointer-events: none;
 }

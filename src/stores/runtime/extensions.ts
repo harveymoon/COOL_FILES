@@ -331,7 +331,7 @@ export const useExtensionsStore = defineStore('extensions', () => {
 
     if (!isVersionCompatibleWithRange(appVersion, range)) {
       throw new Error(
-        `Extension "${manifest.id}" requires Sigma File Manager ${range}, current version is ${appVersion}`,
+        `Extension "${manifest.id}" requires Cool Files ${range}, current version is ${appVersion}`,
       );
     }
   }

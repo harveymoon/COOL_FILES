@@ -13,14 +13,14 @@ const props = defineProps<ComboboxEmptyProps>();
 <template>
   <ComboboxEmpty
     v-bind="{ ...props, ...$attrs }"
-    :class="['sigma-ui-combobox-empty', $attrs.class]"
+    :class="['cool-files-ui-combobox-empty', $attrs.class]"
   >
     <slot />
   </ComboboxEmpty>
 </template>
 
 <style>
-.sigma-ui-combobox-empty {
+.cool-files-ui-combobox-empty {
   padding-top: 1.5rem;
   padding-bottom: 1.5rem;
   font-size: 0.875rem;

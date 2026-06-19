@@ -91,7 +91,7 @@ function handleClose(): void {
   max-height: none;
 }
 
-:global(.ext-modal > .sigma-ui-dialog-close) {
+:global(.ext-modal > .cool-files-ui-dialog-close) {
   display: none;
 }
 </style>

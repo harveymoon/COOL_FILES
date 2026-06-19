@@ -331,7 +331,7 @@ describe('useInit startup restoration', () => {
   it('loads the saved tab group before deferred launch targets', async () => {
     const callOrder: string[] = [];
     const launchContext = createLaunchContext({
-      args: ['sigma-file-manager.exe', 'C:/Launch'],
+      args: ['cool_files.exe', 'C:/Launch'],
     });
 
     invokeMock.mockImplementation(async (command: string) => {
@@ -380,7 +380,7 @@ describe('useInit startup restoration', () => {
   it('opens absorbed shell launch targets before the first window show', async () => {
     const callOrder: string[] = [];
     const launchContext = createLaunchContext({
-      args: ['sigma-file-manager.exe', 'C:/Launch'],
+      args: ['cool_files.exe', 'C:/Launch'],
       hadAbsorbedShellPaths: true,
     });
 
@@ -525,7 +525,7 @@ describe('useInit startup restoration', () => {
 
   it('passes a directory-entry timeout when resolving launch targets', async () => {
     const launchContext = createLaunchContext({
-      args: ['sigma-file-manager.exe', 'C:/Launch'],
+      args: ['cool_files.exe', 'C:/Launch'],
     });
 
     invokeMock.mockImplementation(async (command: string) => {
@@ -563,7 +563,7 @@ describe('useInit startup restoration', () => {
 
   it('hides the main window when launched only with delegated shell paths', async () => {
     const launchContext = createLaunchContext({
-      args: ['sigma-file-manager.exe'],
+      args: ['cool_files.exe'],
       hadDelegatedShellPaths: true,
     });
 
@@ -628,7 +628,7 @@ function createLaunchContext(overrides: Partial<{
   hadDelegatedShellPaths: boolean;
 }>) {
   return {
-    args: ['sigma-file-manager.exe'],
+    args: ['cool_files.exe'],
     cwd: null,
     executableDir: null,
     hadAbsorbedShellPaths: false,

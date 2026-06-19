@@ -14,14 +14,14 @@ const forwardedProps = useForwardProps(props);
 <template>
   <DialogTitle
     v-bind="forwardedProps"
-    class="sigma-ui-dialog-title"
+    class="cool-files-ui-dialog-title"
   >
     <slot />
   </DialogTitle>
 </template>
 
 <style>
-.sigma-ui-dialog-title {
+.cool-files-ui-dialog-title {
   font-size: 1.125rem;
   font-weight: 600;
   letter-spacing: -0.025em;

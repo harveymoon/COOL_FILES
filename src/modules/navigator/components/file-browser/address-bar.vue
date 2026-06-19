@@ -459,11 +459,11 @@ onUnmounted(() => {
 </style>
 
 <style>
-.address-bar__menu.sigma-ui-dropdown-menu-content {
+.address-bar__menu.cool-files-ui-dropdown-menu-content {
   min-width: 200px;
 }
 
-.address-bar__menu .sigma-ui-dropdown-menu-item {
+.address-bar__menu .cool-files-ui-dropdown-menu-item {
   gap: 8px;
 }
 
@@ -472,7 +472,7 @@ onUnmounted(() => {
   align-items: center;
 }
 
-.address-bar__separator-menu.sigma-ui-dropdown-menu-content {
+.address-bar__separator-menu.cool-files-ui-dropdown-menu-content {
   min-width: 180px;
   max-width: 300px;
   padding: 0;
@@ -483,7 +483,7 @@ onUnmounted(() => {
   padding: 4px 0;
 }
 
-.address-bar__separator-menu .sigma-ui-dropdown-menu-item {
+.address-bar__separator-menu .cool-files-ui-dropdown-menu-item {
   padding: 6px 12px;
   font-size: 12px;
   gap: 8px;

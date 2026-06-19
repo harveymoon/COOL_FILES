@@ -1,6 +1,6 @@
 {
   "app": {
-    "name": "Sigma File Manager",
+    "name": "Cool Files",
     "description": "est une application gratuite, open source, avancée et moderne de gestion de fichiers, sous licence GNU GPLv3 ou ultérieure.",
     "copyright": "Copyright © 2021 - moment présent Aleksey Hoffman. Tous droits réservés."
   },
@@ -155,7 +155,17 @@
     "setPreviousBackground": "Définir le fond d'écran précédent",
     "dropZoneClickToBrowse": "Cliquez pour parcourir des images ou des vidéos",
     "dropZoneOrDropFiles": "Ou glissez-déposez des fichiers ici",
-    "addMediaUrlPlaceholder": "Collez l'URL d'une image ou vidéo"
+    "addMediaUrlPlaceholder": "Collez l'URL d'une image ou vidéo",
+    "editLayout": "Edit layout",
+    "doneEditing": "Done",
+    "editLayoutHint": "Drag tiles to rearrange. Drag directory tiles between sections, or remove them. Add groups to organize your folders.",
+    "addGroup": "Add group",
+    "newGroupTitle": "New group",
+    "deleteGroup": "Delete group",
+    "renameGroup": "Group name",
+    "addDirectory": "Add directory",
+    "emptyGroup": "Drag directories here or click \"Add directory\"",
+    "reorderGroup": "Drag to reorder"
   },
   "navigator": {
     "newDirectoryFile": "Nouveau répertoire/fichier",
@@ -338,7 +348,26 @@
       "navigatorOptions": "Options du navigateur",
       "systemIcons": "Thème d'icônes",
       "systemIconsDirectories": "Dossiers",
-      "systemIconsFiles": "Fichiers"
+      "systemIconsFiles": "Fichiers",
+      "toolbarCustomization": "Toolbar buttons",
+      "toolbarCustomizationDescription": "Reorder, show, hide, and group the buttons in the navigator toolbar. Drag to reorder.",
+      "sidebarCustomization": "Sidebar buttons",
+      "sidebarCustomizationDescription": "Reorder and show or hide the page buttons in the left sidebar. Drag to reorder.",
+      "toolbarSeparator": "Separator",
+      "toolbarEmpty": "No buttons. Add some below.",
+      "toolbarAddAction": "Add button",
+      "toolbarAddSeparator": "Add separator",
+      "toolbarReset": "Reset to default",
+      "toolbarPreview": "Toolbar",
+      "toolbarUnused": "Unused items",
+      "toolbarDragHint": "Drag icons to reorder. Drag into Unused to remove, or back onto the toolbar to add.",
+      "customizeTitle": "Toolbar & sidebar buttons",
+      "customizeDescription": "Customize which buttons appear in the navigator toolbar and the left sidebar, and their order. Editing happens in place on the navigator.",
+      "customizeButton": "Customize toolbar & sidebar",
+      "editSheetTitle": "Customizing toolbar & sidebar",
+      "editSheetHint": "Drag items onto the toolbar or sidebar to add them, or drag them off into here to remove. Drag a separator onto the toolbar to group buttons.",
+      "editDone": "Done",
+      "autoShowDrives": "Auto-show drives in sidebar"
     },
     "tabs": {
       "lastTabCloseBehavior": {
@@ -388,8 +417,18 @@
     },
     "experimental": {
       "defaultFileManager": {
-        "title": "Définir Sigma File Manager comme gestionnaire de fichiers par défaut",
+        "title": "Définir Cool Files comme gestionnaire de fichiers par défaut",
         "description": "Cette option modifie le registre système et peut avoir des effets secondaires inattendus sur votre appareil. Continuez à vos propres risques."
+      }
+    },
+    "appearance": {
+      "loadAnimations": {
+        "title": "Load-in animations",
+        "description": "Animate panels and items as they appear on the Home, Settings, Dashboard, and Extensions pages.",
+        "enable": "Enable load-in animations",
+        "speed": "Speed (duration)",
+        "cascade": "Cascade (stagger)",
+        "milliseconds": "{value} ms"
       }
     }
   },
@@ -407,7 +446,8 @@
     "dataStorage": "Stockage de données",
     "stats": "Statistiques",
     "experimental": "Expérimental",
-    "extensions": "Extensions"
+    "extensions": "Extensions",
+    "navigator": "Navigator"
   },
   "settingsTags": {
     "language": "Langue",
@@ -434,7 +474,8 @@
     "experimental": "avancé, expérimental, gestionnaire de fichiers par défaut, explorateur de fichiers, registre, terminal, shell",
     "whatsNew": "nouveautés, journal des modifications, notes de version, version, mise à jour, actualités",
     "autostart": "démarrage automatique, démarrage, connexion, système, boot",
-    "extensions": "extensions, plugins, addons, configuration, settings"
+    "extensions": "extensions, plugins, addons, configuration, settings",
+    "loadAnimations": "animation, animations, fade, slide, cascade, stagger, motion, transition, effects"
   },
   "drag": {
     "holdShiftToChangeMode": "Maintenez [Shift] pour changer de mode",
@@ -521,7 +562,10 @@
     "deleteSelectedItemsFromDrive": "Supprimer du lecteur",
     "moveCurrentDirectoryToTrash": "Déplacer le répertoire actuel vers la corbeille",
     "deleteCurrentDirectoryFromDrive": "Supprimer le répertoire actuel du lecteur",
-    "toggleCommandPalette": "Open / close command palette"
+    "toggleCommandPalette": "Open / close command palette",
+    "setLayoutList": "Switch to list layout",
+    "setLayoutGrid": "Switch to grid layout",
+    "setLayoutColumns": "Switch to columns layout"
   },
   "dialogs": {
     "userDirectoryEditorDialog": {
@@ -831,7 +875,8 @@
       "share": "Partager en réseau local",
       "openInNewTab": "Ouvrir dans un nouvel onglet",
       "addToFavorites": "Ajouter aux favoris",
-      "removeFromFavorites": "Retirer des favoris"
+      "removeFromFavorites": "Retirer des favoris",
+      "cut": "Cut"
     },
     "archive": {
       "extract": "Extraire",
@@ -850,7 +895,10 @@
       "errors": {
         "destinationInsideSelectedFolder": "L'archive de destination se trouve dans un dossier sélectionné"
       }
-    }
+    },
+    "type": "Type",
+    "folder": "Folder",
+    "resizeColumn": "Drag to resize column"
   },
   "openWith": {
     "loadingPrograms": "Chargement des programmes...",
@@ -949,7 +997,7 @@
     },
     "badges": {
       "official": "Officiel",
-      "officialTooltip": "Cette extension est créée et maintenue par l'équipe Sigma File Manager",
+      "officialTooltip": "Cette extension est créée et maintenue par l'équipe Cool Files",
       "community": "Communauté",
       "communityTooltip": "Ceci est une extension communautaire. Vérifiez le code source avant l'installation.",
       "local": "Local",
@@ -1063,5 +1111,15 @@
     "replaceShareDialogTitle": "Remplacer le partage en cours ?",
     "replaceShareDialogDescription": "Des fichiers sont déjà partagés sur le réseau. Le partage actuel sera arrêté et remplacé par le nouveau.",
     "replaceShareDialogConfirm": "Remplacer"
-  }
+  },
+  "columns": "Columns",
+  "columnsLayout": "Columns layout",
+  "nav": {
+    "pinDrive": "Pin drive to sidebar",
+    "unpinDrive": "Unpin drive from sidebar",
+    "pinShortcut": "Pin shortcut to sidebar",
+    "removeShortcut": "Remove shortcut",
+    "dropToPin": "Drop a folder to pin it"
+  },
+  "remove": "Remove"
 }

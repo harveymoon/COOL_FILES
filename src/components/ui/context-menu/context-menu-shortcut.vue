@@ -9,7 +9,7 @@ Copyright © 2021 - present Aleksey Hoffman. All rights reserved.
 
 <template>
   <span
-    class="sigma-ui-context-menu-shortcut"
+    class="cool-files-ui-context-menu-shortcut"
     :class="$attrs.class"
   >
     <slot />
@@ -17,7 +17,7 @@ Copyright © 2021 - present Aleksey Hoffman. All rights reserved.
 </template>
 
 <style>
-.sigma-ui-context-menu-shortcut {
+.cool-files-ui-context-menu-shortcut {
   margin-left: auto;
   color: hsl(var(--muted-foreground));
   font-size: 0.75rem;

@@ -19,16 +19,16 @@ const forwardedProps = useForwardProps(props);
 <template>
   <DropdownMenuSubTrigger
     v-bind="forwardedProps"
-    class="sigma-ui-dropdown-menu-sub-trigger"
-    :class="[{ 'sigma-ui-dropdown-menu-sub-trigger--inset': inset }]"
+    class="cool-files-ui-dropdown-menu-sub-trigger"
+    :class="[{ 'cool-files-ui-dropdown-menu-sub-trigger--inset': inset }]"
   >
     <slot />
-    <ChevronRightIcon class="sigma-ui-dropdown-menu-sub-trigger__icon" />
+    <ChevronRightIcon class="cool-files-ui-dropdown-menu-sub-trigger__icon" />
   </DropdownMenuSubTrigger>
 </template>
 
 <style>
-.sigma-ui-dropdown-menu-sub-trigger {
+.cool-files-ui-dropdown-menu-sub-trigger {
   display: flex;
   align-items: center;
   padding: 0.375rem 0.5rem;
@@ -41,21 +41,21 @@ const forwardedProps = useForwardProps(props);
   user-select: none;
 }
 
-.sigma-ui-dropdown-menu-sub-trigger:focus {
+.cool-files-ui-dropdown-menu-sub-trigger:focus {
   background-color: hsl(var(--secondary));
   color: hsl(var(--popover-foreground) / 80%);
 }
 
-.sigma-ui-dropdown-menu-sub-trigger[data-state="open"] {
+.cool-files-ui-dropdown-menu-sub-trigger[data-state="open"] {
   background-color: hsl(var(--secondary));
   color: hsl(var(--popover-foreground) / 80%);
 }
 
-.sigma-ui-dropdown-menu-sub-trigger--inset {
+.cool-files-ui-dropdown-menu-sub-trigger--inset {
   padding-left: 2rem;
 }
 
-.sigma-ui-dropdown-menu-sub-trigger__icon {
+.cool-files-ui-dropdown-menu-sub-trigger__icon {
   width: 1rem;
   height: 1rem;
   margin-left: auto;

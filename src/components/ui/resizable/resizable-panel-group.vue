@@ -16,20 +16,20 @@ const forwarded = useForwardPropsEmits(props, emits);
 <template>
   <SplitterGroup
     v-bind="forwarded"
-    class="sigma-ui-resizable-panel-group"
+    class="cool-files-ui-resizable-panel-group"
   >
     <slot />
   </SplitterGroup>
 </template>
 
 <style>
-.sigma-ui-resizable-panel-group {
+.cool-files-ui-resizable-panel-group {
   display: flex;
   width: 100%;
   height: 100%;
 }
 
-.sigma-ui-resizable-panel-group[data-panel-group-direction="vertical"] {
+.cool-files-ui-resizable-panel-group[data-panel-group-direction="vertical"] {
   flex-direction: column;
 }
 </style>

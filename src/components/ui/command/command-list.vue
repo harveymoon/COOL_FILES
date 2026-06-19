@@ -16,12 +16,12 @@ const forwarded = useForwardProps(props);
 <template>
   <ListboxContent
     v-bind="forwarded"
-    class="sigma-ui-command-list"
+    class="cool-files-ui-command-list"
   >
-    <ScrollArea class="sigma-ui-command-list__scroll-area">
+    <ScrollArea class="cool-files-ui-command-list__scroll-area">
       <div
         role="presentation"
-        class="sigma-ui-command-list__content"
+        class="cool-files-ui-command-list__content"
       >
         <slot />
       </div>
@@ -30,17 +30,17 @@ const forwarded = useForwardProps(props);
 </template>
 
 <style>
-.sigma-ui-command-list {
+.cool-files-ui-command-list {
   overflow: hidden;
   max-height: 300px;
 }
 
-.sigma-ui-command-list__scroll-area {
+.cool-files-ui-command-list__scroll-area {
   height: 100%;
   max-height: 300px;
 }
 
-.sigma-ui-command-list__content {
+.cool-files-ui-command-list__content {
   position: relative;
 }
 </style>

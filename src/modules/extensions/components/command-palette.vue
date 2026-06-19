@@ -389,7 +389,7 @@ defineExpose({
   padding: 12px;
 }
 
-.sigma-ui-command-dialog .command-palette__form-view .ext-form-view {
+.cool-files-ui-command-dialog .command-palette__form-view .ext-form-view {
   width: 100%;
   height: 100%;
   min-height: 0;

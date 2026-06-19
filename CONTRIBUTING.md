@@ -23,7 +23,7 @@
 3. Change working directory and go to the `main` branch
 
 ```
-cd sigma-file-manager && git checkout main
+cd cool_files && git checkout main
 ```
 
 4. Install dependencies:
@@ -114,5 +114,5 @@ When running on proprietary Nvidia (or unsupported) drivers, you may encounter d
 To run the AppImage build on a Linux system with unsupported drivers, run the app with the compositing flag, for example:
 
 ```
-env WEBKIT_DISABLE_COMPOSITING_MODE=1 ./sigma-file-manager-v2_2.0.0-alpha.1_amd64.AppImage
+env WEBKIT_DISABLE_COMPOSITING_MODE=1 ./cool_files-v2_2.0.0-alpha.1_amd64.AppImage
 ```

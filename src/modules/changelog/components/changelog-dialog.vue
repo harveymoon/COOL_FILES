@@ -66,7 +66,7 @@ function selectVersion(version: string) {
 async function scrollContentToTop() {
   await nextTick();
 
-  const viewportElement = contentElementRef.value?.querySelector<HTMLElement>('.sigma-ui-scroll-area__viewport');
+  const viewportElement = contentElementRef.value?.querySelector<HTMLElement>('.cool-files-ui-scroll-area__viewport');
 
   if (viewportElement) {
     viewportElement.scrollTop = 0;
@@ -404,7 +404,7 @@ function renderMarkdown(text: string): string {
 </template>
 
 <style>
-.changelog-dialog.sigma-ui-dialog-content {
+.changelog-dialog.cool-files-ui-dialog-content {
   display: flex;
   overflow: hidden;
   width: 80vw;
@@ -720,7 +720,7 @@ function renderMarkdown(text: string): string {
 }
 
 @media (width <= 768px) {
-  .changelog-dialog.sigma-ui-dialog-content {
+  .changelog-dialog.cool-files-ui-dialog-content {
     width: 95vw;
     height: 90vh;
     max-height: none;

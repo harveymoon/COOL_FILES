@@ -373,6 +373,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "8b52af3cb4058c895d37317bb27508dccc8e5f2d39454016b297bf4a400597b8"
 dependencies = [
  "axum-core",
+ "base64 0.22.1",
  "bytes",
  "form_urlencoded",
  "futures-util",
@@ -392,8 +393,10 @@ dependencies = [
  "serde_json",
  "serde_path_to_error",
  "serde_urlencoded",
+ "sha1",
  "sync_wrapper",
  "tokio",
+ "tokio-tungstenite",
  "tower",
  "tower-layer",
  "tower-service",
@@ -960,6 +963,70 @@ checksum = "4ddef33a339a91ea89fb53151bd0a4689cfce27055c291dfa69945475d22c747"
 dependencies = [
  "time",
  "version_check",
+]
+
+[[package]]
+name = "cool_files"
+version = "2.1.1"
+dependencies = [
+ "axum",
+ "axum-server",
+ "base64 0.22.1",
+ "dirs 5.0.1",
+ "file_icon_provider",
+ "flate2",
+ "futures-util",
+ "getrandom 0.2.17",
+ "globset",
+ "httpdate",
+ "image",
+ "libc",
+ "local-ip-address",
+ "log",
+ "lru 0.16.3",
+ "mdns-sd",
+ "mime_guess",
+ "notify",
+ "once_cell",
+ "png 0.18.1",
+ "rayon",
+ "rcgen",
+ "reqwest",
+ "rustls",
+ "serde",
+ "serde_json",
+ "sha2 0.11.0",
+ "sysinfo",
+ "tantivy",
+ "tar",
+ "tauri",
+ "tauri-build",
+ "tauri-plugin-autostart",
+ "tauri-plugin-clipboard-manager",
+ "tauri-plugin-dialog",
+ "tauri-plugin-drag",
+ "tauri-plugin-global-shortcut",
+ "tauri-plugin-log",
+ "tauri-plugin-opener",
+ "tauri-plugin-os",
+ "tauri-plugin-single-instance",
+ "tauri-plugin-store",
+ "tauri-plugin-system-fonts",
+ "tauri-plugin-window-state",
+ "tempfile",
+ "tokio",
+ "tokio-util",
+ "trash",
+ "urlencoding",
+ "walkdir",
+ "webview2-com",
+ "windows 0.58.0",
+ "windows-core 0.58.0",
+ "windows-core 0.61.2",
+ "windows-sys 0.59.0",
+ "winreg 0.55.0",
+ "xz2",
+ "zip",
 ]
 
 [[package]]
@@ -5641,69 +5708,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "0fda2ff0d084019ba4d7c6f371c95d8fd75ce3524c3cb8fb653a3023f6323e64"
 
 [[package]]
-name = "sigma-file-manager"
-version = "2.1.1"
-dependencies = [
- "axum",
- "axum-server",
- "base64 0.22.1",
- "dirs 5.0.1",
- "file_icon_provider",
- "flate2",
- "futures-util",
- "globset",
- "httpdate",
- "image",
- "libc",
- "local-ip-address",
- "log",
- "lru 0.16.3",
- "mdns-sd",
- "mime_guess",
- "notify",
- "once_cell",
- "png 0.18.1",
- "rayon",
- "rcgen",
- "reqwest",
- "rustls",
- "serde",
- "serde_json",
- "sha2 0.11.0",
- "sysinfo",
- "tantivy",
- "tar",
- "tauri",
- "tauri-build",
- "tauri-plugin-autostart",
- "tauri-plugin-clipboard-manager",
- "tauri-plugin-dialog",
- "tauri-plugin-drag",
- "tauri-plugin-global-shortcut",
- "tauri-plugin-log",
- "tauri-plugin-opener",
- "tauri-plugin-os",
- "tauri-plugin-single-instance",
- "tauri-plugin-store",
- "tauri-plugin-system-fonts",
- "tauri-plugin-window-state",
- "tempfile",
- "tokio",
- "tokio-util",
- "trash",
- "urlencoding",
- "walkdir",
- "webview2-com",
- "windows 0.58.0",
- "windows-core 0.58.0",
- "windows-core 0.61.2",
- "windows-sys 0.59.0",
- "winreg 0.55.0",
- "xz2",
- "zip",
-]
-
-[[package]]
 name = "signal-hook-registry"
 version = "1.4.8"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -6875,6 +6879,18 @@ dependencies = [
 ]
 
 [[package]]
+name = "tokio-tungstenite"
+version = "0.28.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "d25a406cddcc431a75d3d9afc6a7c0f7428d4891dd973e4d54c56b46127bf857"
+dependencies = [
+ "futures-util",
+ "log",
+ "tokio",
+ "tungstenite",
+]
+
+[[package]]
 name = "tokio-util"
 version = "0.7.18"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -7134,6 +7150,23 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "d2df906b07856748fa3f6e0ad0cbaa047052d4a7dd609e231c4f72cee8c36f31"
 dependencies = [
  "core_maths",
+]
+
+[[package]]
+name = "tungstenite"
+version = "0.28.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "8628dcc84e5a09eb3d8423d6cb682965dea9133204e8fb3efee74c2a0c259442"
+dependencies = [
+ "bytes",
+ "data-encoding",
+ "http",
+ "httparse",
+ "log",
+ "rand 0.9.2",
+ "sha1",
+ "thiserror 2.0.18",
+ "utf-8",
 ]
 
 [[package]]

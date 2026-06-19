@@ -361,7 +361,7 @@ function openTaggedItem(item: TaggedItem) {
   max-height: calc(var(--max-height) - var(--header-height));
 }
 
-.quick-access-panel__scroll :deep(.sigma-ui-scroll-area__viewport) {
+.quick-access-panel__scroll :deep(.cool-files-ui-scroll-area__viewport) {
   max-height: inherit;
 }
 

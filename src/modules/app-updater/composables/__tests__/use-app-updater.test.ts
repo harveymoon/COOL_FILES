@@ -140,7 +140,7 @@ describe('useAppUpdater external update management', () => {
       currentVersion: '2.0.0',
       releaseUrl: 'https://example.com/release',
       installerDownloadUrl: 'https://example.com/installer.exe',
-      installerFileName: 'sigma-file-manager-setup.exe',
+      installerFileName: 'cool_files-setup.exe',
     });
 
     expect(invokeMock).not.toHaveBeenCalled();

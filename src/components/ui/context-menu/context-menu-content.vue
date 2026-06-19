@@ -26,7 +26,7 @@ const forwarded = useForwardPropsEmits(props, emits);
   <ContextMenuPortal>
     <ContextMenuContent
       v-bind="{ ...forwarded, ...$attrs }"
-      class="sigma-ui-context-menu-content"
+      class="cool-files-ui-context-menu-content"
       :class="$attrs.class"
     >
       <slot />
@@ -35,7 +35,7 @@ const forwarded = useForwardPropsEmits(props, emits);
 </template>
 
 <style>
-.sigma-ui-context-menu-content {
+.cool-files-ui-context-menu-content {
   z-index: 50;
   overflow: hidden;
   min-width: 8rem;
@@ -49,15 +49,15 @@ const forwarded = useForwardPropsEmits(props, emits);
   transform-origin: var(--reka-context-menu-content-transform-origin);
 }
 
-.sigma-ui-context-menu-content[data-state="open"] {
-  animation: sigma-ui-context-menu-fade-in 150ms ease-out;
+.cool-files-ui-context-menu-content[data-state="open"] {
+  animation: cool-files-ui-context-menu-fade-in 150ms ease-out;
 }
 
-.sigma-ui-context-menu-content[data-state="closed"] {
-  animation: sigma-ui-context-menu-fade-out 100ms ease-in forwards;
+.cool-files-ui-context-menu-content[data-state="closed"] {
+  animation: cool-files-ui-context-menu-fade-out 100ms ease-in forwards;
 }
 
-@keyframes sigma-ui-context-menu-fade-in {
+@keyframes cool-files-ui-context-menu-fade-in {
   from {
     opacity: 0;
     transform: scale(0.95);
@@ -69,7 +69,7 @@ const forwarded = useForwardPropsEmits(props, emits);
   }
 }
 
-@keyframes sigma-ui-context-menu-fade-out {
+@keyframes cool-files-ui-context-menu-fade-out {
   from {
     opacity: 1;
     transform: scale(1);

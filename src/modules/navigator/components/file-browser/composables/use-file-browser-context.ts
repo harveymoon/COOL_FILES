@@ -21,6 +21,8 @@ export interface FileBrowserContext {
 
   selectedEntries: Ref<DirEntry[]>;
   isEntrySelected: (entry: DirEntry) => boolean;
+  replaceSelection: (entry: DirEntry) => void;
+  clearSelection: () => void;
   contextMenu: Ref<ContextMenuState>;
 
   getImageThumbnail: (entry: DirEntry, maxDimension?: number) => string | undefined;
@@ -50,6 +52,8 @@ export interface FileBrowserContext {
   openOpenWithDialog: (entries: DirEntry[]) => void;
   openNewItemDialog: (type: 'file' | 'directory', targetPaths?: string[]) => void;
   navigateToHome: () => void | Promise<void>;
+  navigateToPath: (path: string) => void | Promise<void>;
+  openFile: (path: string) => void | Promise<void>;
 
   refresh: () => void;
 

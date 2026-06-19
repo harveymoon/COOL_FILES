@@ -1160,7 +1160,7 @@ onUnmounted(() => {
   white-space: nowrap;
 }
 
-.global-search-settings__ignored-remove.sigma-ui-button {
+.global-search-settings__ignored-remove.cool-files-ui-button {
   width: 28px;
   height: 28px;
   flex-shrink: 0;

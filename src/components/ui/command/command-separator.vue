@@ -13,14 +13,14 @@ const props = defineProps<ComboboxSeparatorProps>();
 <template>
   <ComboboxSeparator
     v-bind="props"
-    class="sigma-ui-command-separator"
+    class="cool-files-ui-command-separator"
   >
     <slot />
   </ComboboxSeparator>
 </template>
 
 <style>
-.sigma-ui-command-separator {
+.cool-files-ui-command-separator {
   height: 1px;
   margin-right: -0.25rem;
   margin-left: -0.25rem;

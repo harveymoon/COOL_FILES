@@ -16,7 +16,7 @@ import FileBrowserError from './file-browser-error.vue';
 import { useFileBrowserContext } from './composables/use-file-browser-context';
 
 const props = withDefaults(defineProps<{
-  layout?: 'list' | 'grid';
+  layout?: 'list' | 'grid' | 'columns';
   trackRelativeTime?: boolean;
 }>(), {
   layout: undefined,

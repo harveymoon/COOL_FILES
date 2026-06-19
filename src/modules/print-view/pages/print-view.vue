@@ -255,7 +255,7 @@ async function loadPrintFile(path: string) {
 
   currentFilePath.value = path;
 
-  await currentWindow.setTitle(`Sigma File Manager | Print - ${getFileName(path)}`);
+  await currentWindow.setTitle(`Cool Files | Print - ${getFileName(path)}`);
 
   if (requestId !== loadPrintRequestId) {
     awaitingMediaForPrint = false;
