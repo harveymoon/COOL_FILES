@@ -556,7 +556,29 @@ function handleCutShortcut() {
   }
 }
 
+// Pasting a clipboard image writes it to disk as a file in `targetPath`; pasting
+// files/folders goes through the pane's normal paste (conflict dialog + refresh).
+async function pasteImageToTarget(targetPath: string | undefined): Promise<void> {
+  if (!targetPath) {
+    return;
+  }
+
+  const result = await clipboardStore.pasteSystemClipboardImage(targetPath);
+
+  if (!result.success && result.error) {
+    toast.error(result.error);
+    return;
+  }
+
+  workspacesStore.handleDirectoryContentsChanged([targetPath]);
+}
+
 async function handlePasteShortcut() {
+  if (clipboardStore.hasImageContent) {
+    await pasteImageToTarget(getPasteTargetPath());
+    return;
+  }
+
   const pane = getActivePaneRef();
 
   if (pane && clipboardStore.hasItems) {
@@ -570,6 +592,11 @@ async function handlePasteToPane(paneIndex: number) {
 
   const tab = tabGroup[paneIndex];
   if (!tab) return;
+
+  if (clipboardStore.hasImageContent) {
+    await pasteImageToTarget(tab.path);
+    return;
+  }
 
   const pane = paneRefsMap.value.get(tab.id);
 
