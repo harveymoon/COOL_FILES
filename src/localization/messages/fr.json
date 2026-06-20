@@ -900,7 +900,8 @@
     "folder": "Folder",
     "resizeColumn": "Drag to resize column",
     "sizeBar": "Size %",
-    "sizeBarTitle": "{percent} of this folder's total size"
+    "sizeBarTitle": "{percent} of this folder's total size",
+    "treeHint": "Drag to pan · scroll to zoom · click a folder to expand"
   },
   "openWith": {
     "loadingPrograms": "Chargement des programmes...",
@@ -1123,5 +1124,7 @@
     "removeShortcut": "Remove shortcut",
     "dropToPin": "Drop a folder to pin it"
   },
-  "remove": "Remove"
+  "remove": "Remove",
+  "tree": "Tree",
+  "treeLayout": "Tree layout"
 }

@@ -447,6 +447,26 @@ export const useWorkspacesStore = defineStore('workspaces', () => {
   }
 
   async function openNewTabGroup(path?: string, options?: { activate?: boolean }) {
+    // Never open a second tab for a directory that's already open: focus the
+    // existing tab group instead of creating a duplicate. A background open
+    // (activate: false) is left where it is rather than stealing focus.
+    if (path) {
+      const existingIndex = findTabGroupIndexByPath(path);
+
+      if (existingIndex >= 0) {
+        if (options?.activate !== false) {
+          setCurrentTabGroupIndex(existingIndex);
+          const existingTabGroup = currentWorkspace.value?.tabGroups[existingIndex];
+
+          if (existingTabGroup) {
+            await loadTabGroupDirEntries(existingTabGroup);
+          }
+        }
+
+        return;
+      }
+    }
+
     const newTabGroup = await addNewTabGroup(path);
 
     if (options?.activate !== false) {
