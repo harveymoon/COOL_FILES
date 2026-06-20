@@ -20,6 +20,7 @@ mod lan_share;
 mod open_with;
 mod process_runner;
 mod startup_storage_bootstrap;
+mod system_clipboard;
 mod system_icons;
 mod system_tray;
 mod terminal;
@@ -286,6 +287,13 @@ pub fn run() {
             file_operations::rename_item,
             file_operations::delete_items,
             file_operations::create_item,
+            system_clipboard::set_system_clipboard_files,
+            system_clipboard::read_system_clipboard_files,
+            system_clipboard::clear_system_clipboard_files,
+            system_clipboard::read_system_clipboard_image_info,
+            system_clipboard::save_system_clipboard_image_to_temp,
+            system_clipboard::paste_system_clipboard_image,
+            system_clipboard::paste_saved_clipboard_image,
             archive::start_archive_job,
             archive::cancel_archive_job,
             copy_move_job::start_copy_move_job,

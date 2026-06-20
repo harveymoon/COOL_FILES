@@ -969,10 +969,12 @@ dependencies = [
 name = "cool_files"
 version = "2.1.1"
 dependencies = [
+ "arboard",
  "axum",
  "axum-server",
  "base64 0.22.1",
  "dirs 5.0.1",
+ "dunce",
  "file_icon_provider",
  "flate2",
  "futures-util",

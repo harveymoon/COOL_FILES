@@ -41,6 +41,7 @@ import { toggleMainWindowFullscreen } from '@/utils/window-fullscreen';
 import { removeAppSplash } from '@/utils/app-splash';
 import { logInitTrace, traceInitStep } from '@/utils/init-trace';
 import { warmPathComparisonVolumeCache } from '@/utils/path-comparison-volume-cache';
+import { useClipboardFocusSync } from '@/composables/use-clipboard-focus-sync';
 
 const APP_LAUNCH_ARGS_EVENT = 'app-launch-args';
 const STARTUP_BACKGROUND_REFRESH_TIMEOUT_MS = 1500;
@@ -66,6 +67,7 @@ export function useInit() {
   const quickViewStore = useQuickViewStore();
   const { checkAndShowChangelog } = useChangelog();
   const { initAutoCheck } = useAppUpdater();
+  useClipboardFocusSync();
   let appLaunchArgsUnlisten: UnlistenFn | null = null;
   const backgroundTasks = new Set<Promise<void>>();
 
