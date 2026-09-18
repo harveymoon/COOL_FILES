@@ -575,6 +575,7 @@
     "setLayoutList": "Switch to list layout",
     "setLayoutGrid": "Switch to grid layout",
     "setLayoutColumns": "Switch to columns layout",
+    "setLayoutTree": "Switch to tree layout",
     "focusUnfocusFilterField": "Focus / unfocus filter field",
     "focusUnfocusSettingsSearch": "Focus / unfocus settings search",
     "showHideGlobalSearch": "Show / hide global search",

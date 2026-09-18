@@ -869,17 +869,19 @@ function registerShortcutHandlers() {
   shortcutsStore.registerHandler('setLayoutList', () => setNavigatorLayout('list'));
   shortcutsStore.registerHandler('setLayoutGrid', () => setNavigatorLayout('grid'));
   shortcutsStore.registerHandler('setLayoutColumns', () => setNavigatorLayout('columns'));
+  shortcutsStore.registerHandler('setLayoutTree', () => setNavigatorLayout('tree'));
   shortcutsStore.registerHandler('toggleSplitView', () => {
     if (globalSearchStore.isOpen) return false;
     handleToggleSplitView();
   });
 }
 
-function setNavigatorLayout(layoutName: 'list' | 'grid' | 'columns') {
+function setNavigatorLayout(layoutName: 'list' | 'grid' | 'columns' | 'tree') {
   const layoutTitleByName = {
     list: 'listLayout',
     grid: 'gridLayout',
     columns: 'columnsLayout',
+    tree: 'treeLayout',
   } as const;
   userSettingsStore.set('navigator.layout.type', {
     title: layoutTitleByName[layoutName],

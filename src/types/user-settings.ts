@@ -169,6 +169,7 @@ export type ShortcutId
     | 'setLayoutList'
     | 'setLayoutGrid'
     | 'setLayoutColumns'
+    | 'setLayoutTree'
     | 'reloadCurrentDirectory'
     | 'uiZoomIncrease'
     | 'uiZoomDecrease'

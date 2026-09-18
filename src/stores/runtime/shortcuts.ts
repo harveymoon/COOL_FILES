@@ -239,6 +239,62 @@ const DEFAULT_SHORTCUTS: ShortcutDefinition[] = [
     isReadOnly: false,
   },
   {
+    id: 'setLayoutGrid',
+    labelKey: 'shortcuts.setLayoutGrid',
+    defaultKeys: {
+      ctrl: true,
+      key: '1',
+    },
+    scope: 'navigator',
+    conditions: {
+      inputFieldIsActive: false,
+      dialogIsOpened: false,
+    },
+    isReadOnly: false,
+  },
+  {
+    id: 'setLayoutList',
+    labelKey: 'shortcuts.setLayoutList',
+    defaultKeys: {
+      ctrl: true,
+      key: '2',
+    },
+    scope: 'navigator',
+    conditions: {
+      inputFieldIsActive: false,
+      dialogIsOpened: false,
+    },
+    isReadOnly: false,
+  },
+  {
+    id: 'setLayoutColumns',
+    labelKey: 'shortcuts.setLayoutColumns',
+    defaultKeys: {
+      ctrl: true,
+      key: '3',
+    },
+    scope: 'navigator',
+    conditions: {
+      inputFieldIsActive: false,
+      dialogIsOpened: false,
+    },
+    isReadOnly: false,
+  },
+  {
+    id: 'setLayoutTree',
+    labelKey: 'shortcuts.setLayoutTree',
+    defaultKeys: {
+      ctrl: true,
+      key: '4',
+    },
+    scope: 'navigator',
+    conditions: {
+      inputFieldIsActive: false,
+      dialogIsOpened: false,
+    },
+    isReadOnly: false,
+  },
+  {
     id: 'createNewFile',
     labelKey: 'shortcuts.createNewFileInCurrentDirectory',
     defaultKeys: {
