@@ -594,7 +594,8 @@
     "deleteCurrentDirectoryFromDrive": "वर्तमान डायरेक्टरी को ड्राइव से हटाएँ",
     "setLayoutList": "Switch to list layout",
     "setLayoutGrid": "Switch to grid layout",
-    "setLayoutColumns": "Switch to columns layout"
+    "setLayoutColumns": "Switch to columns layout",
+    "setLayoutTree": "Switch to tree layout"
   },
   "dialogs": {
     "homeBannerPickerDialog": {

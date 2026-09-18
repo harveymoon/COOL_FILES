@@ -565,7 +565,8 @@
     "toggleCommandPalette": "コマンドパレットを開く/閉じる",
     "setLayoutList": "Switch to list layout",
     "setLayoutGrid": "Switch to grid layout",
-    "setLayoutColumns": "Switch to columns layout"
+    "setLayoutColumns": "Switch to columns layout",
+    "setLayoutTree": "Switch to tree layout"
   },
   "dialogs": {
     "userDirectoryEditorDialog": {

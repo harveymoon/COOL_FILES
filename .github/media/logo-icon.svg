@@ -1,44 +1,37 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
   <defs>
-    <linearGradient id="bg" x1="0" y1="0" x2="0.6" y2="1">
-      <stop offset="0" stop-color="#111a30"/>
-      <stop offset="0.55" stop-color="#0b1120"/>
-      <stop offset="1" stop-color="#080d1a"/>
+    <linearGradient id="back" x1="0" y1="0" x2="0.2" y2="1">
+      <stop offset="0" stop-color="#26456f"/>
+      <stop offset="1" stop-color="#10233f"/>
     </linearGradient>
-    <linearGradient id="back" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#243f6b"/>
-      <stop offset="1" stop-color="#16294a"/>
-    </linearGradient>
-    <linearGradient id="front" x1="0" y1="0" x2="0.35" y2="1">
-      <stop offset="0" stop-color="#3a68a8"/>
-      <stop offset="0.5" stop-color="#2b4f83"/>
-      <stop offset="1" stop-color="#1c3a63"/>
+    <linearGradient id="front" x1="0.1" y1="0" x2="0.5" y2="1">
+      <stop offset="0" stop-color="#3d6cac"/>
+      <stop offset="0.5" stop-color="#2b4f86"/>
+      <stop offset="1" stop-color="#1b3a64"/>
     </linearGradient>
     <linearGradient id="lip" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0" stop-color="#5b8ad0"/>
-      <stop offset="1" stop-color="#3d6bab"/>
+      <stop offset="0" stop-color="#6a97dc"/>
+      <stop offset="1" stop-color="#3f6db0"/>
     </linearGradient>
+    <filter id="shadow" x="-25%" y="-25%" width="150%" height="160%">
+      <feDropShadow dx="0" dy="22" stdDeviation="26" flood-color="#04070f" flood-opacity="0.5"/>
+    </filter>
   </defs>
 
-  <rect width="1024" height="1024" rx="232" fill="url(#bg)"/>
+  <g filter="url(#shadow)">
+    <!-- back panel + tab (peeks above and behind the front pocket) -->
+    <rect x="120" y="300" width="316" height="150" rx="42" fill="url(#back)"/>
+    <rect x="110" y="372" width="804" height="410" rx="52" fill="url(#back)"/>
 
-  <!-- back panel + tab (peeks above and behind the front) -->
-  <path d="M244 356 h150 a30 30 0 0 1 24 12 l40 48 h306 a46 46 0 0 1 46 46 v66 H210 V402 a46 46 0 0 1 34 -46 z"
-        fill="url(#back)"/>
-  <rect x="210" y="470" width="604" height="236" rx="44" fill="url(#back)"/>
+    <!-- front pocket, flared wider at the top (open-folder look) -->
+    <path d="M152 430 h720 a28 28 0 0 1 27 34 l-52 300 a36 36 0 0 1 -35 28 H212 a36 36 0 0 1 -35 -28 l-52 -300 a28 28 0 0 1 27 -34 z"
+          fill="url(#front)"/>
 
-  <!-- soft drop shadow under the front -->
-  <path d="M196 500 L828 500 L792 726 a26 26 0 0 1 -26 22 H256 a26 26 0 0 1 -26 -22 Z"
-        fill="#05070d" opacity="0.45" transform="translate(0 14)"/>
+    <!-- bright top lip highlight -->
+    <path d="M152 430 h720 a28 28 0 0 1 27 34 l-3 16 H128 l-3 -16 a28 28 0 0 1 27 -34 z"
+          fill="url(#lip)"/>
 
-  <!-- front pocket (flares wider at top = open folder) -->
-  <path d="M222 500 h580 a22 22 0 0 1 21 27 l-40 200 a30 30 0 0 1 -29 23 H270 a30 30 0 0 1 -29 -23 l-40 -200 a22 22 0 0 1 21 -27 z"
-        fill="url(#front)"/>
-
-  <!-- bright top lip highlight -->
-  <path d="M222 500 h580 a22 22 0 0 1 21 27 l-2 10 H203 l-2 -10 a22 22 0 0 1 21 -27 z"
-        fill="url(#lip)"/>
-
-  <!-- subtle sheen sweeping across the front -->
-  <path d="M210 512 h604 l-150 150 h-360 z" fill="#ffffff" opacity="0.05"/>
+    <!-- faint sheen across the front -->
+    <path d="M150 452 h724 l-150 150 h-440 z" fill="#ffffff" opacity="0.055"/>
+  </g>
 </svg>
