@@ -12,31 +12,37 @@ import { invoke } from '@tauri-apps/api/core';
 import { Loader2Icon } from '@lucide/vue';
 import { hierarchy, partition, type HierarchyRectangularNode } from 'd3-hierarchy';
 import { arc } from 'd3-shape';
+import type { DirEntry, DirContents } from '@/types/dir-entry';
 import { useFileBrowserContext } from './composables/use-file-browser-context';
 import { formatBytes } from './utils';
 
-// Nested, size-weighted tree returned by the `get_dir_size_tree` Rust command.
-interface SizeNode {
+// A node in the progressively-loaded size tree. Directories start empty and
+// unloaded; the breadth-first scan fills in children and their sizes over time,
+// and the sunburst re-renders as it grows (rather than blocking on a full walk).
+interface MapNode {
   name: string;
   path: string;
-  size: number;
   isDir: boolean;
-  childCount: number;
-  children: SizeNode[];
+  size: number;
+  loaded: boolean;
+  children: MapNode[];
 }
 
-// Rings of children drawn outward from the focused directory at the centre.
 const RING_COUNT = 6;
-const MAX_DEPTH = 8;
-const CENTER_HOLE_FACTOR = 1; // center circle spans one ring band
+const MAX_SCAN_DEPTH = 6;
+const MAX_DIRS = 20000; // safety budget so a giant tree can't spawn endless reads
+const SCAN_CONCURRENCY = 8;
+const RENDER_THROTTLE_MS = 120;
 
 const ctx = useFileBrowserContext();
 const { t } = useI18n();
 
-const rootData = shallowRef<SizeNode | null>(null);
-// Root..focus chain; the last entry is the directory drawn at the centre.
-const breadcrumb = ref<SizeNode[]>([]);
-const loading = ref(false);
+const treeRoot = shallowRef<MapNode | null>(null);
+// Root..focus chain; the last entry is drawn at the centre.
+const breadcrumb = ref<MapNode[]>([]);
+// Bumped (throttled) as the scan mutates the tree, to drive re-render.
+const version = ref(0);
+const scanning = ref(false);
 const errorMessage = ref<string | null>(null);
 
 const containerRef = ref<HTMLElement | null>(null);
@@ -55,43 +61,141 @@ const hovered = ref<{
 } | null>(null);
 
 let resizeObserver: ResizeObserver | null = null;
-let loadToken = 0;
+let scanToken = 0;
+let renderTimer: ReturnType<typeof setTimeout> | null = null;
 
-const focus = computed<SizeNode | null>(
-  () => breadcrumb.value[breadcrumb.value.length - 1] ?? rootData.value,
+const focus = computed<MapNode | null>(
+  () => breadcrumb.value[breadcrumb.value.length - 1] ?? treeRoot.value,
 );
 
-async function loadTree(path: string): Promise<void> {
-  const token = ++loadToken;
-  loading.value = true;
+function basename(path: string): string {
+  const trimmed = path.replace(/[\\/]+$/, '');
+  const parts = trimmed.split(/[\\/]/);
+  return parts[parts.length - 1] || path;
+}
+
+function makeNode(entry: DirEntry): MapNode {
+  return {
+    name: entry.name,
+    path: entry.path,
+    isDir: entry.is_dir,
+    size: entry.is_dir ? 0 : Math.max(entry.size ?? 0, 0),
+    loaded: !entry.is_dir,
+    children: [],
+  };
+}
+
+// Throttle re-renders so a fast scan doesn't recompute the layout every read.
+function scheduleRender(): void {
+  if (renderTimer) {
+    return;
+  }
+
+  renderTimer = setTimeout(() => {
+    renderTimer = null;
+    version.value++;
+  }, RENDER_THROTTLE_MS);
+}
+
+function sleep(ms: number): Promise<void> {
+  return new Promise<void>((resolve) => {
+    setTimeout(resolve, ms);
+  });
+}
+
+async function scan(path: string): Promise<void> {
+  const token = ++scanToken;
   errorMessage.value = null;
+  scanning.value = true;
 
-  try {
-    const data = await invoke<SizeNode>('get_dir_size_tree', {
-      path,
-      maxDepth: MAX_DEPTH,
-    });
+  const root: MapNode = {
+    name: basename(path),
+    path,
+    isDir: true,
+    size: 0,
+    loaded: false,
+    children: [],
+  };
+  treeRoot.value = root;
+  breadcrumb.value = [root];
+  version.value++;
 
-    if (token !== loadToken) {
-      return;
+  const queue: {
+    node: MapNode;
+    depth: number;
+  }[] = [{
+    node: root,
+    depth: 0,
+  }];
+  let active = 0;
+  let dirCount = 0;
+
+  async function expand(node: MapNode): Promise<void> {
+    try {
+      const result = await invoke<DirContents>('read_dir', { path: node.path });
+      node.children = result.entries.map(makeNode);
     }
-
-    rootData.value = data;
-    breadcrumb.value = [data];
+    catch {
+      // Unreadable directory (permissions, etc.) — leave it as an empty leaf.
+    }
+    finally {
+      node.loaded = true;
+    }
   }
-  catch (error) {
-    if (token !== loadToken) {
-      return;
-    }
 
-    errorMessage.value = error instanceof Error ? error.message : String(error);
-    rootData.value = null;
-    breadcrumb.value = [];
-  }
-  finally {
-    if (token === loadToken) {
-      loading.value = false;
+  async function worker(): Promise<void> {
+    let running = true;
+
+    while (running) {
+      if (token !== scanToken) {
+        return;
+      }
+
+      const item = queue.shift();
+
+      if (!item) {
+        if (active === 0) {
+          running = false;
+          continue;
+        }
+
+        await sleep(8);
+        continue;
+      }
+
+      active++;
+      await expand(item.node);
+      active--;
+
+      if (token !== scanToken) {
+        return;
+      }
+
+      if (item.depth < MAX_SCAN_DEPTH && dirCount < MAX_DIRS) {
+        for (const child of item.node.children) {
+          if (child.isDir) {
+            dirCount++;
+            queue.push({
+              node: child,
+              depth: item.depth + 1,
+            });
+
+            if (dirCount >= MAX_DIRS) {
+              break;
+            }
+          }
+        }
+      }
+
+      scheduleRender();
     }
+  }
+
+  await Promise.all(Array.from({ length: SCAN_CONCURRENCY }, () => worker()));
+
+  if (token === scanToken) {
+    scanning.value = false;
+    version.value++;
   }
 }
 
@@ -103,7 +207,7 @@ interface ArcDatum {
 }
 
 interface MapArc {
-  node: SizeNode;
+  node: MapNode;
   path: string;
   color: string;
   d: string;
@@ -118,6 +222,17 @@ function colorFor(depthRel: number, hue: number): string {
 }
 
 const view = computed(() => {
+  // Touch the reactive version so this recomputes as the scan fills the tree
+  // (the tree nodes themselves are mutated non-reactively for performance).
+  if (version.value < 0) {
+    return {
+      arcs: [] as MapArc[],
+      radius: 0,
+      centerRadius: 0,
+      total: 0,
+    };
+  }
+
   const f = focus.value;
   const { w, h } = boxSize.value;
 
@@ -132,19 +247,18 @@ const view = computed(() => {
 
   const radius = Math.max(40, Math.min(w, h) / 2 - 12);
 
-  const root = hierarchy<SizeNode>(f, node => node.children)
-    .sum(node => (node.children && node.children.length ? 0 : Math.max(node.size, 0)))
+  const root = hierarchy<MapNode>(f, node => node.children)
+    .sum(node => (node.children.length === 0 ? Math.max(node.size, 0) : 0))
     .sort((a, b) => (b.value ?? 0) - (a.value ?? 0));
 
-  partition<SizeNode>().size([2 * Math.PI, RING_COUNT])(root);
+  partition<MapNode>().size([2 * Math.PI, RING_COUNT])(root);
 
-  const laidOut = root as HierarchyRectangularNode<SizeNode>;
+  const laidOut = root as HierarchyRectangularNode<MapNode>;
   const ringWidth = radius / RING_COUNT;
   const total = laidOut.value ?? 0;
 
-  // Hue per first-ring region; descendants inherit their region's hue.
   const topChildren = laidOut.children ?? [];
-  const hueOf = new Map<HierarchyRectangularNode<SizeNode>, number>();
+  const hueOf = new Map<HierarchyRectangularNode<MapNode>, number>();
   topChildren.forEach((child, index) => {
     hueOf.set(child, (index * 360) / Math.max(topChildren.length, 1));
   });
@@ -160,7 +274,7 @@ const view = computed(() => {
 
   const arcs: MapArc[] = [];
 
-  for (const node of laidOut.descendants() as HierarchyRectangularNode<SizeNode>[]) {
+  for (const node of laidOut.descendants() as HierarchyRectangularNode<MapNode>[]) {
     if (node.depth === 0 || node.depth > RING_COUNT) {
       continue;
     }
@@ -169,13 +283,11 @@ const view = computed(() => {
       continue;
     }
 
-    const region = node.ancestors().reverse()[1] as HierarchyRectangularNode<SizeNode> | undefined;
+    const region = node.ancestors().reverse()[1] as HierarchyRectangularNode<MapNode> | undefined;
     const hue = region ? hueOf.get(region) ?? 210 : 210;
-    const color = node.data.path === ''
-      ? 'hsl(220, 8%, 46%)'
-      : colorFor(node.depth, hue);
+    const color = colorFor(node.depth, hue);
 
-    const path = arcGen({
+    const d = arcGen({
       x0: node.x0,
       x1: node.x1,
       inner: node.y0 * ringWidth,
@@ -186,7 +298,6 @@ const view = computed(() => {
     let label: string | null = null;
     let labelTransform = '';
 
-    // Only label roomy arcs so text stays legible.
     if (angle > 0.16 && node.depth <= 3) {
       const midAngle = (node.x0 + node.x1) / 2;
       const midRadius = ((node.y0 + node.y1) / 2) * ringWidth;
@@ -200,7 +311,7 @@ const view = computed(() => {
       node: node.data,
       path: node.data.path,
       color,
-      d: path,
+      d,
       label,
       labelTransform,
       percent: total > 0 ? ((node.value ?? 0) / total) * 100 : 0,
@@ -210,10 +321,12 @@ const view = computed(() => {
   return {
     arcs,
     radius,
-    centerRadius: ringWidth * CENTER_HOLE_FACTOR,
+    centerRadius: ringWidth,
     total,
   };
 });
+
+const hasContent = computed(() => (treeRoot.value?.children.length ?? 0) > 0);
 
 function truncate(text: string, max: number): string {
   return text.length > max ? `${text.slice(0, max - 1)}…` : text;
@@ -232,7 +345,6 @@ function onArcLeave(): void {
 }
 
 function onArcClick(item: MapArc): void {
-  // Zoom the map into a directory region (no disk re-scan; we already have it).
   if (item.node.isDir && item.node.children.length > 0) {
     breadcrumb.value = [...breadcrumb.value, item.node];
   }
@@ -269,8 +381,8 @@ function onPointerMove(event: PointerEvent): void {
 }
 
 watch(() => ctx.currentPath.value, (newPath) => {
-  if (newPath && newPath !== rootData.value?.path) {
-    loadTree(newPath);
+  if (newPath && newPath !== treeRoot.value?.path) {
+    scan(newPath);
   }
 });
 
@@ -290,11 +402,18 @@ onMounted(() => {
   }
 
   if (ctx.currentPath.value) {
-    loadTree(ctx.currentPath.value);
+    scan(ctx.currentPath.value);
   }
 });
 
 onBeforeUnmount(() => {
+  scanToken++;
+
+  if (renderTimer) {
+    clearTimeout(renderTimer);
+    renderTimer = null;
+  }
+
   resizeObserver?.disconnect();
   resizeObserver = null;
 });
@@ -307,7 +426,6 @@ onBeforeUnmount(() => {
     @pointermove="onPointerMove"
     @contextmenu.self="ctx.handleBackgroundContextMenu"
   >
-    <!-- breadcrumb of the zoom chain -->
     <div
       v-if="breadcrumb.length > 0"
       class="file-browser-map-view__breadcrumb"
@@ -359,7 +477,6 @@ onBeforeUnmount(() => {
           dominant-baseline="middle"
         >{{ truncate(item.label || '', 16) }}</text>
 
-        <!-- centre = focused directory; click to zoom out -->
         <circle
           :r="view.centerRadius"
           class="file-browser-map-view__center"
@@ -378,9 +495,9 @@ onBeforeUnmount(() => {
       </g>
     </svg>
 
-    <!-- states -->
+    <!-- first-paint spinner only until the root's children arrive -->
     <div
-      v-if="loading"
+      v-if="!hasContent && scanning && !errorMessage"
       class="file-browser-map-view__overlay"
     >
       <Loader2Icon
@@ -396,7 +513,18 @@ onBeforeUnmount(() => {
       {{ errorMessage }}
     </div>
 
-    <!-- hover tooltip -->
+    <!-- non-blocking indicator while deeper rings keep filling in -->
+    <div
+      v-if="hasContent && scanning"
+      class="file-browser-map-view__scanning-pill"
+    >
+      <Loader2Icon
+        :size="12"
+        class="file-browser-map-view__spinner"
+      />
+      {{ t('fileBrowser.mapScanning') }}
+    </div>
+
     <div
       v-if="hovered"
       class="file-browser-map-view__tooltip"
@@ -530,6 +658,20 @@ onBeforeUnmount(() => {
   max-width: 70%;
   color: hsl(var(--destructive));
   overflow-wrap: break-word;
+}
+
+.file-browser-map-view__scanning-pill {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
+  background-color: hsl(var(--background-3) / 85%);
+  color: hsl(var(--muted-foreground));
+  font-size: 11px;
 }
 
 .file-browser-map-view__spinner {

@@ -902,7 +902,9 @@
     "resizeColumn": "Drag to resize column",
     "sizeBar": "Size %",
     "sizeBarTitle": "{percent} of this folder's total size",
-    "treeHint": "Drag to pan · scroll to zoom · click a folder to expand"
+    "treeHint": "Drag to pan · scroll to zoom · click a folder to expand",
+    "mapScanning": "Scanning folder sizes…",
+    "mapHint": "Click a slice to zoom in · centre to zoom out · double-click to open"
   },
   "openWith": {
     "loadingPrograms": "正在加载程序...",
