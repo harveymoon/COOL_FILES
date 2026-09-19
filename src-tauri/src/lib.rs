@@ -11,6 +11,7 @@ mod delete_job;
 mod desk_deck;
 mod dir_reader;
 mod dir_size;
+mod dir_size_tree;
 mod dir_watcher;
 mod extensions;
 mod file_operations;
@@ -274,6 +275,7 @@ pub fn run() {
             dir_reader::unmount_drive,
             dir_reader::mount_network_share,
             dir_size::get_dir_size,
+            dir_size_tree::get_dir_size_tree,
             dir_size::get_dir_sizes_batch,
             dir_size::get_dir_size_progress,
             dir_size::get_active_calculations,

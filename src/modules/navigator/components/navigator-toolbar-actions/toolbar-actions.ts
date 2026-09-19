@@ -7,7 +7,7 @@ import {
   ListIcon,
   LayoutGridIcon,
   Columns3Icon,
-  NetworkIcon,
+  PieChartIcon,
   FlipHorizontalIcon,
   PanelRightIcon,
   FolderPlusIcon,
@@ -62,8 +62,8 @@ export const TOOLBAR_ACTION_DEFINITIONS: ToolbarActionDefinition[] = [
   },
   {
     id: 'layoutTree',
-    labelKey: 'tree',
-    icon: NetworkIcon,
+    labelKey: 'map',
+    icon: PieChartIcon,
     group: 'layout',
   },
   {
