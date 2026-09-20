@@ -4,7 +4,8 @@ Copyright © 2021 - present Aleksey Hoffman. All rights reserved.
 -->
 
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, ref, watch } from 'vue';
+import { invoke } from '@tauri-apps/api/core';
 import { LoaderCircleIcon, XIcon, RefreshCwIcon } from '@lucide/vue';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Button } from '@/components/ui/button';
@@ -13,6 +14,7 @@ import { useI18n } from 'vue-i18n';
 import {
   formatBytes,
   formatRelativeTime,
+  isImageFile,
 } from '@/modules/navigator/components/file-browser/utils';
 import { useRelativeDateDisplayClock } from '@/composables/use-relative-date-display';
 import { useDirSizesStore } from '@/stores/runtime/dir-sizes';
@@ -29,6 +31,64 @@ const props = defineProps<{
 const { t, locale } = useI18n();
 const dirSizesStore = useDirSizesStore();
 const userSettingsStore = useUserSettingsStore();
+
+// Pixel dimensions of the selected image (read from the file header, async).
+const imageDimensions = ref<{
+  width: number;
+  height: number;
+} | null>(null);
+
+watch(
+  () => props.selectedEntry?.path,
+  async (path) => {
+    imageDimensions.value = null;
+    const entry = props.selectedEntry;
+
+    if (!path || !entry || !isImageFile(entry)) {
+      return;
+    }
+
+    try {
+      const result = await invoke<{
+        width: number;
+        height: number;
+      } | null>(
+        'get_image_dimensions',
+        { path },
+      );
+
+      // Ignore if the selection changed while we were reading.
+      if (props.selectedEntry?.path === path) {
+        imageDimensions.value = result;
+      }
+    }
+    catch {
+      // Unsupported/unreadable image — just omit the extra rows.
+    }
+  },
+  { immediate: true },
+);
+
+function greatestCommonDivisor(a: number, b: number): number {
+  return b === 0 ? a : greatestCommonDivisor(b, a % b);
+}
+
+function formatAspectRatio(width: number, height: number): string {
+  if (width <= 0 || height <= 0) {
+    return '';
+  }
+
+  const divisor = greatestCommonDivisor(width, height) || 1;
+  const ratioWidth = width / divisor;
+  const ratioHeight = height / divisor;
+
+  // Prefer a clean integer ratio (16 : 9); fall back to a decimal for odd sizes.
+  if (ratioWidth <= 40 && ratioHeight <= 40) {
+    return `${ratioWidth} : ${ratioHeight}`;
+  }
+
+  return `${(width / height).toFixed(2)} : 1`;
+}
 
 const { clockRef: relativeDateClock } = useRelativeDateDisplayClock(() => {
   const entry = props.selectedEntry;
@@ -143,6 +203,30 @@ const properties = computed<PropertyItem[]>(() => {
       title: t('size'),
       value: formatBytes(entry.size),
     });
+  }
+
+  const dimensions = imageDimensions.value;
+
+  if (dimensions && entry.is_file) {
+    items.push({
+      title: t('dimensions'),
+      value: `${dimensions.width} × ${dimensions.height}`,
+    });
+
+    const megapixels = (dimensions.width * dimensions.height) / 1_000_000;
+    items.push({
+      title: t('resolution'),
+      value: t('megapixels', { value: megapixels.toFixed(megapixels < 10 ? 1 : 0) }),
+    });
+
+    const ratio = formatAspectRatio(dimensions.width, dimensions.height);
+
+    if (ratio) {
+      items.push({
+        title: t('aspectRatio'),
+        value: ratio,
+      });
+    }
   }
 
   if (entry.is_dir && entry.item_count !== null) {

@@ -562,6 +562,26 @@ pub async fn generate_image_thumbnail(
     .map_err(|error| format!("Failed to generate image thumbnail: {error}"))?
 }
 
+#[derive(serde::Serialize)]
+pub struct ImageDimensions {
+    pub width: u32,
+    pub height: u32,
+}
+
+/// Read an image's pixel dimensions from its header (no full decode). Returns
+/// None for unsupported or unreadable files so the UI can simply omit the row.
+#[tauri::command]
+pub async fn get_image_dimensions(path: String) -> Option<ImageDimensions> {
+    tauri::async_runtime::spawn_blocking(move || {
+        image_dimensions(Path::new(&path))
+            .ok()
+            .map(|(width, height)| ImageDimensions { width, height })
+    })
+    .await
+    .ok()
+    .flatten()
+}
+
 #[tauri::command]
 pub async fn get_cached_video_thumbnail(
     app: tauri::AppHandle,

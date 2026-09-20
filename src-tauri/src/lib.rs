@@ -311,6 +311,7 @@ pub fn run() {
             global_search::global_search_query_paths,
             image_thumbnails::cache_video_thumbnail,
             image_thumbnails::generate_image_thumbnail,
+            image_thumbnails::get_image_dimensions,
             image_thumbnails::get_cached_video_thumbnail,
             open_with::get_associated_programs,
             open_with::open_with_program,

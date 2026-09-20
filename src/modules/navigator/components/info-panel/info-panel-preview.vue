@@ -260,7 +260,7 @@ onBeforeUnmount(() => {
         v-if="imagePreviewSrc"
         :src="imagePreviewSrc"
         :alt="selectedEntry.name"
-        class="info-panel-preview__image animate-fade-in-x2"
+        class="info-panel-preview__image"
       >
       <FileImageIcon
         v-else
@@ -341,7 +341,8 @@ onBeforeUnmount(() => {
 .info-panel-preview {
   display: flex;
   overflow: hidden;
-  height: 180px;
+  /* Grow the preview as the info panel is widened, so images enlarge with it. */
+  height: clamp(170px, calc(var(--info-panel-width, 360px) * 0.72), 480px);
   align-items: center;
   justify-content: center;
   border-radius: var(--radius-sm);
@@ -373,6 +374,11 @@ onBeforeUnmount(() => {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+/* Show the whole image (not cropped) so widening the panel reveals more of it. */
+.info-panel-preview__image {
+  object-fit: contain;
 }
 
 .info-panel-preview__video {
